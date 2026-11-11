@@ -41,7 +41,7 @@ def test_future_observations_cannot_change_past_signals_or_equity(pattern):
     data = observations()
     full_targets = targets(data.candles, pattern)
     full = simulate(data, pattern)
-    for length in (40, 65, 80):
+    for length in sorted({pattern.minimum_bars + 1, 85, 95}):
         prefix = replace(data, candles=data.candles[:length])
         assert targets(prefix.candles, pattern) == full_targets[:length]
         result = simulate(prefix, pattern)
@@ -55,7 +55,9 @@ def test_future_observations_cannot_change_past_signals_or_equity(pattern):
 def test_close_signal_waits_until_next_open_and_costs_are_charged(monkeypatch):
     data = observations(4)
     monkeypatch.setattr("stonks_sniper.engine.targets", lambda *_: (None, True, False, True))
-    result = simulate(data, PATTERNS[-1], Assumptions(1000, 100, 100))
+    result = simulate(
+        data, next(p for p in PATTERNS if p.key == "engulfing"), Assumptions(1000, 100, 100)
+    )
     buy, sell = result.trades
     assert buy.signal_session == data.candles[1].session
     assert buy.fill_session == data.candles[2].session
@@ -74,7 +76,9 @@ def test_close_signal_waits_until_next_open_and_costs_are_charged(monkeypatch):
 def test_final_position_is_marked_not_silently_liquidated(monkeypatch):
     data = observations(4)
     monkeypatch.setattr("stonks_sniper.engine.targets", lambda *_: (None, True, True, False))
-    result = simulate(data, PATTERNS[-1], Assumptions(1000, 0, 0))
+    result = simulate(
+        data, next(p for p in PATTERNS if p.key == "engulfing"), Assumptions(1000, 0, 0)
+    )
     assert len(result.trades) == 1
     assert result.open_units > 0
     assert result.equity[-1] == pytest.approx(result.open_units * data.candles[-1].close)

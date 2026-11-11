@@ -70,6 +70,7 @@ from stonks_sniper.lessons import LESSONS
 from stonks_sniper.models import Candle, DataError, MarketData
 from stonks_sniper.patterns import PATTERNS, ema, wilder_rsi
 from stonks_sniper.providers import INDIA, MarketDataProvider, YahooDailyProvider
+from stonks_sniper.studies import study
 from stonks_sniper.theme import (
     ACCENT,
     BASE,
@@ -170,7 +171,7 @@ def lesson_html(index: int, *, complete: bool) -> str:
     )
     if complete:
         content += (
-            "<h3>Imagine a toy shop (a teaching example, not market data)</h3>"
+            "<h3>Imagine an everyday example (not market data)</h3>"
             f"<p>{explain(TERMS[pattern.key].example)}</p>"
             f"<h3>The numbers, step by step</h3><p>{explain(lesson.example)}</p>"
             f"<h3>Words, explained</h3><p>{explain(lesson.words)}</p>"
@@ -516,6 +517,8 @@ class MainWindow(QMainWindow):
         self.lesson_list = QListWidget()
         self.lesson_list.addItems([LESSONS[pattern.key].title for pattern in PATTERNS])
         self.lesson_list.setFixedWidth(270)
+        self.lesson_list.setWordWrap(True)
+        self.lesson_list.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         for index, pattern in enumerate(PATTERNS):
             self.lesson_list.item(index).setToolTip(tooltip(pattern.key))
         self.lesson_list.currentRowChanged.connect(self.lesson_selected)
@@ -534,7 +537,8 @@ class MainWindow(QMainWindow):
             f"<p>Imagine this: {explain(TERMS['portfolio'].example)}</p>"
             f"<h2>AI-proposed ideas</h2><p>{explain(TERMS['ai'].meaning)}</p>"
             f"<p>Imagine this: {explain(TERMS['ai'].example)}</p>"
-            "<h2>More patterns and data sources</h2><p>Seven ideas work today. More need "
+            "<h2>More patterns and data sources</h2>"
+            f"<p>{len(PATTERNS)} ideas work today. More need "
             "sources, plain-English lessons and checks before joining the tool. "
             "No broker account or real-money trading is connected.</p>"
         )
@@ -1145,7 +1149,7 @@ class MainWindow(QMainWindow):
                 ("20-day average (sell)", middle, WARM),
                 ("Lower band (buy below)", lower, ACCENT),
             ]
-        else:
+        elif key == "engulfing":
             candles = QCandlestickSeries()
             candles.setName("Compare neighbouring bodies, not the thin lines")
             candles.setIncreasingColor(QColor(ACCENT))
@@ -1163,23 +1167,28 @@ class MainWindow(QMainWindow):
                 max(bar.high for bar in bars[first:]),
             )
             return
+        else:
+            colors = (ACCENT, WARM, ROSE, TEXT, MUTED)
+            guides = [
+                (name, values, colors[index % len(colors)])
+                for index, (name, values) in enumerate(study(bars, key).guides)
+            ]
         chart = self.rule_chart.chart()
         all_values: list[float] = []
         for name, values, color in guides:
-            points = [
-                (bar.session, value)
-                for bar, value in zip(bars[first:], values[first:], strict=True)
-                if value is not None
-            ]
-            if points:
-                self.add_line(
-                    chart,
-                    name,
-                    [point[0] for point in points],
-                    [point[1] for point in points],
-                    color,
-                )
-                all_values.extend(point[1] for point in points)
+            dates: list[date] = []
+            segment: list[float] = []
+            for bar, value in zip(bars[first:], values[first:], strict=True):
+                if value is None:
+                    if segment:
+                        self.add_line(chart, name, dates, segment, color)
+                        dates, segment = [], []
+                else:
+                    dates.append(bar.session)
+                    segment.append(value)
+                    all_values.append(value)
+            if segment:
+                self.add_line(chart, name, dates, segment, color)
         if all_values:
             self.axes(
                 chart,

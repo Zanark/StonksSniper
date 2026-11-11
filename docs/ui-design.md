@@ -7,7 +7,7 @@ analogy. Exact numbers and sources remain available separately.
 
 ## Explanation contract
 
-`lessons.py` owns the seven authored lessons. `glossary.py` owns a shared dictionary:
+`lessons.py` owns the 27 authored lessons. `glossary.py` owns a shared dictionary:
 plain-English meaning followed by an **Imagine this** example about toys,
 vegetables or household items. Controls, hover links and the dictionary reuse
 those entries. No model generates explanations at runtime.
@@ -25,11 +25,12 @@ vocabulary. Human comprehension testing is separate from code checks.
 
 ## Technical evidence and remaining qualification
 
-The current catalogue has seven explained rules and 74 authored dictionary
-entries. Native hover and Tab/Return navigation, all seven rule-chart prefixes,
+The current catalogue has 27 explained rules and 97 authored dictionary
+entries. Native hover and Tab/Return navigation, all 27 rule-chart prefixes,
 drawing-window invariance and motion-off behavior are covered by regression
-checks. The final suite has 47 passing tests; lint, formatting and strict typing
-also pass. Detailed failures and fixes are retained in `development.md`.
+checks. The original redesign's 47-test evidence and subsequent expansion checks
+are distinguished in `development.md`. New rule decisions and chart guides
+share the calculations in `studies.py`; charts do not bridge inactive exit-line gaps.
 
 The original six screenshots remain in `images` with their receipt at
 `images/captures.json`. README now uses five native GIF demos of retrieved

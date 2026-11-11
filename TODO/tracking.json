@@ -81,11 +81,11 @@
       "issue_number": 6,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4KeI",
       "baseline": {
-        "body_sha256": "7aa86088d59b85fd25e6da8f121374f72a199c38746c958dd686ccd5a94a5456",
+        "body_sha256": "edaf532232f3a2ade754721aa84ce8cd2df4067f2778fb947beb59a23fe3a2da",
         "title": "SS-06 - Expand the source-cited pattern catalogue",
         "issue_state": "open",
         "state_reason": null,
-        "project_status": "Todo"
+        "project_status": "In Progress"
       }
     },
     "SS-07": {

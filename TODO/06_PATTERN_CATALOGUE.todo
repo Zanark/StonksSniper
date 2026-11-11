@@ -1,7 +1,7 @@
 # SS-06 - Expand the source-cited pattern catalogue
 Workstream ID: SS-06
 GitHub issue: https://github.com/Zanark/StonksSniper/issues/6
-Status: NOT_STARTED
+Status: IN_PROGRESS
 Milestone: M2
 Dependencies: SS-04, SS-07
 
@@ -9,6 +9,12 @@ Dependencies: SS-04, SS-07
 Grow beyond seven teaching variants without pretending any finite list is exhaustive.
 
 ## Tasks
+- [x] Deliver the user-requested 20 additional daily long/cash variants with
+  explicit buy/sell boundaries, warmups, educational references and limitations.
+- [x] Add 20 ELI15 lessons and everyday strategy examples, supporting vocabulary,
+  accurate replay guides and exact metadata export.
+- [x] Check arithmetic references, buy/sell/retain behavior, zero-range/volume
+  conventions, causal prefixes and native learning/chart/export integration.
 - [ ] Inventory trend/momentum (ADX, SAR, stochastic, ROC, Ichimoku) with primary sources.
 - [ ] Inventory volatility/volume (ATR, Keltner, OBV, VWAP) and required data intervals.
 - [ ] Research candle families and confirmed price structures (triangles, flags, H&S, doubles).
@@ -22,7 +28,23 @@ Grow beyond seven teaching variants without pretending any finite list is exhaus
 - No imported performance claim substitutes for a reproducible local experiment.
 
 ## Completion evidence
-- Not started. Initial seven variants are SS-04, not completion of this catalogue.
+- The original seven remain SS-04. Twenty additional usable strategies now bring
+  the catalogue to 27; docs/strategies.md records exact variants and source scope.
+- Added Stochastic, Williams %R, CCI, ROC, TSI, ADX, Aroon, Ichimoku, Keltner,
+  Bollinger breakout, Chandelier ratchet, OBV, CMF, MFI, Chaikin Oscillator,
+  Ease of Movement, Ultimate Oscillator midpoint, Vortex, TRIX and Force Index.
+- 27 ELI15 lessons and 97 dictionary entries. Every new rule is covered through
+  the actual selector, lesson, Dictionary, chart and JSON export.
+- Full suite: 201 passed; Ruff lint/format, strict source mypy and diff checks
+  passed. Independent arithmetic fixtures and prefix comparisons are not
+  profitability evidence or fresh market-data qualification.
+- The references are educational ChartSchool pages, not original-author primary
+  publications. Explicit app variants include a ratcheted Chandelier system and
+  Ultimate Oscillator midpoint system; overlapping indicators are not called independent.
+- Broader primary-source inventory, formal schemas, SAR/VWAP, confirmed price
+  structures, statistical pairs and multi-timeframe work remain unfinished.
 
 ## Completion log
 - 2026-11-11: Registered staged catalogue research.
+- 2026-11-12: Delivered the bounded 20-strategy expansion without closing the wider
+  research roadmap or claiming investment performance.

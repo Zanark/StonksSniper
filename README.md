@@ -47,6 +47,6 @@
 
 <p align="center"><sub>The meme brings the hype. The app explains the ideas.</sub></p>
 
-<p align="center"><a href="docs/guide.md">Rules, sources &amp; limits</a> · <a href="docs/images/gif-captures.json">GIF provenance</a> · <a href="docs/development.md">Build &amp; development</a> · <a href="TODO/00_INDEX.todo">Roadmap</a></p>
+<p align="center"><a href="docs/strategies.md">20 new strategies, explained</a> · <a href="docs/guide.md">Rules, sources &amp; limits</a> · <a href="docs/images/gif-captures.json">GIF provenance</a> · <a href="docs/development.md">Build &amp; development</a> · <a href="TODO/00_INDEX.todo">Roadmap</a></p>
 
-<p align="center"><sub>Completed daily history, not live prices. Seven rules today; baskets and AI are planned. For education and simulation, not investment advice.</sub></p>
+<p align="center"><sub>Completed daily history, not live prices. 27 explained rules; baskets and AI are planned. For education and simulation, not investment advice.</sub></p>

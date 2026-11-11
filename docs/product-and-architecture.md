@@ -67,8 +67,9 @@ exchange/provider qualification beyond this slice.
 
 1. Qualify authoritative daily data, action handling, holidays, suspensions,
    delistings and versioned snapshots; integrate an entitled read-only broker feed.
-2. Expand the sourced catalogue: trend, momentum, volatility, volume, candlesticks,
-   price structures, mean reversion, multi-timeframe and statistical families.
+2. Continue the sourced catalogue: [20 additional daily strategies](strategies.md)
+   now extend the original seven. Confirmed candlestick/price structures,
+   multi-timeframe and statistical families remain planned.
 3. Portfolio baskets with shared cash, allocations, correlated assets, rebalancing,
    costs and instrument/date alignment. Use "basket", not a claimed smallcase
    service integration.

@@ -20,6 +20,28 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-12: User requested 20 more internet-sourced buy/sell ideas with ELI15
+  explanations. Read ChartSchool formulas/interpretations, including ATR seed,
+  ADX settling and the drawing shift in Ichimoku. References are educational,
+  not original-author publications or endorsements of our exact teaching rules.
+- 2026-11-12: Implemented 20 additional causal daily long/cash variants, shared
+  signal/chart calculations, 20 plain-language lessons and 23 dictionary entries.
+  Preserved the original seven and next-opening execution. Disclosed related
+  Stochastic/Williams information, opposing Bollinger hypotheses, app-specific
+  Chandelier ratchet and Ultimate midpoint variant.
+- 2026-11-12: Hand calculations and directional/flat/zero-volume/seed tests passed.
+  Every added rule buys and sells in labelled fixtures, preserves prefixes,
+  exposes actual guide series and exports exact rule/source metadata. Repaired
+  test assumptions about catalogue position and short fixed prefixes; a new UI
+  assertion first failed on a nonexistent widget name and was corrected.
+- 2026-11-12: Full suite 201 passed; Ruff lint/format, strict source mypy and diff
+  checks passed. Inspected owned offscreen 1366x768 expansion views; wrapped long
+  lesson labels after observing clipped text. No user app restarted, feed claim
+  fabricated or frozen release bytes changed. SS-06 stays IN_PROGRESS because
+  wider catalogue research remains; this is not profitability or human acceptance.
+- 2026-11-12: Verified credential-runner login Zanark, previewed/applied and read
+  back existing issue #6 and its Project 14 item as open/In Progress. Preserved
+  the mapped identities and comments. The frozen v0.1.0 wheel checksum is unchanged.
 - 2026-11-11: Confirmed NSE/BSE first, free labelled daily data and native Python/PySide6.
   Chose a replaceable provider boundary; adjusted research units explicitly differ from
   executable historical share prices. Current-day bars excluded conservatively.

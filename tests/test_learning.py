@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from dataclasses import replace
 
@@ -11,12 +12,14 @@ from PySide6.QtCharts import QAreaSeries, QCandlestickSeries, QChart  # noqa: E4
 from PySide6.QtCore import QEvent, QPointF, Qt  # noqa: E402
 from PySide6.QtGui import QMouseEvent  # noqa: E402
 from PySide6.QtTest import QTest  # noqa: E402
-from PySide6.QtWidgets import QApplication, QToolTip  # noqa: E402
+from PySide6.QtWidgets import QApplication, QFileDialog, QToolTip  # noqa: E402
 from test_research import observations  # noqa: E402
 
 from stonks_sniper.app import MainWindow  # noqa: E402
 from stonks_sniper.glossary import explain, search_terms, tooltip  # noqa: E402
+from stonks_sniper.lessons import LESSONS  # noqa: E402
 from stonks_sniper.patterns import PATTERNS  # noqa: E402
+from stonks_sniper.studies import study  # noqa: E402
 
 
 @pytest.fixture
@@ -40,7 +43,7 @@ def test_pattern_button_and_term_help_preserve_the_experiment(learning_window):
     window.pattern_help.click()
     assert window.tabs.currentIndex() == 1
     assert window.lesson_list.currentRow() == 2
-    assert "Imagine a toy shop" in window.lesson_text.toPlainText()
+    assert "Imagine an everyday example" in window.lesson_text.toPlainText()
     assert "score of 28" in window.lesson_text.toPlainText()
     assert window.result is result
 
@@ -113,10 +116,50 @@ def test_rule_guides_do_not_read_beyond_replay_day(learning_window, index):
     data = observations()
     window.pattern.setCurrentIndex(index)
     window.data_ready(data)
-    window.replay.setValue(50)
+    day = max(50, PATTERNS[index].minimum_bars + 1)
+    window.replay.setValue(day)
     full_history_guides = rule_points(window)
-    window.data_ready(replace(data, candles=data.candles[:50]))
+    window.data_ready(replace(data, candles=data.candles[:day]))
     assert rule_points(window) == full_history_guides
+
+
+@pytest.mark.parametrize("index", range(7, len(PATTERNS)), ids=[p.key for p in PATTERNS[7:]])
+def test_added_rules_have_actual_lessons_dictionary_and_indicator_guides(
+    learning_window, index, monkeypatch, tmp_path
+):
+    window = learning_window
+    pattern = PATTERNS[index]
+    window.pattern.setCurrentIndex(index)
+    window.data_ready(observations())
+    window.pattern_help.click()
+    text = window.lesson_text.toPlainText()
+    assert LESSONS[pattern.key].idea in text
+    assert LESSONS[pattern.key].buy in text
+    assert LESSONS[pattern.key].sell in text
+    assert LESSONS[pattern.key].catch in text
+    assert pattern.source in window.technical_text.toHtml()
+    window.open_glossary(pattern.key)
+    assert "Imagine this" in window.glossary_text.toPlainText()
+    window.replay.setValue(100)
+    expected_names = {
+        name
+        for name, values in study(window.data.candles, pattern.key).guides
+        if any(value is not None for value in values)
+    }
+    assert {series.name() for series in window.rule_chart.chart().series()} == expected_names
+    assert all(
+        not isinstance(series, QCandlestickSeries) for series in window.rule_chart.chart().series()
+    )
+    destination = tmp_path / "added-rule.json"
+    monkeypatch.setattr(
+        QFileDialog, "getSaveFileName", lambda *_: (str(destination), "JSON (*.json)")
+    )
+    window.export_run()
+    exported = json.loads(destination.read_text(encoding="utf-8"))
+    assert exported["experiment"]["pattern"]["key"] == pattern.key
+    assert exported["experiment"]["pattern"]["rules"] == pattern.rules
+    assert exported["experiment"]["pattern"]["source"] == pattern.source
+    assert len(exported["experiment"]["equity"]) == 100
 
 
 def test_drawing_window_preserves_results_and_motion_off_stops_replay(learning_window):

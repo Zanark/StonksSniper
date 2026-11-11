@@ -604,6 +604,195 @@ TERMS = {
         "Ignoring the shops that closed can make the street look safer than it was.",
         ("survivorship bias", "delisted", "delistings"),
     ),
+    "stochastic": Term(
+        "Stochastic / position inside a price range",
+        "A 0-to-100 score for how close the closing price is to its recent high. "
+        "Our rule smooths three scores and tests buying weakness, selling strength.",
+        "Toy prices ranged from 90 to 110 tokens. Today's 92 is near the bottom. "
+        "The bounce rule buys after low scores, but tomorrow's toy price can still fall.",
+        ("stochastic oscillator", "%K", "%D"),
+    ),
+    "williams": Term(
+        "Williams %R / distance below the recent high",
+        "The raw stochastic range score minus 100. Our version follows prices "
+        "in the upper half; it is not an independent confirmation of stochastic.",
+        "A toy shelf's recent prices span 90 to 110. A price of 106 is in "
+        "the upper half; this rule follows that strength instead of waiting for a bargain.",
+        ("Williams %R", "%R"),
+    ),
+    "cci": Term(
+        "CCI / unusually far from the usual price",
+        "A typical price's distance from its 20-day mean, divided by its usual "
+        "absolute gap size and scaled by 0.015. Not a percentage.",
+        "A vegetable stall usually prices tomatoes close to 100. A price of "
+        "103 is more unusual if normal gaps are 1 than if normal gaps are 10.",
+        ("commodity channel index", "mean absolute deviation"),
+    ),
+    "roc": Term(
+        "ROC / percentage price change",
+        "Percentage change from the close 12 trading days earlier. "
+        "Our version owns the stock while that change is positive.",
+        "A toy costing 100 twelve shop visits ago and 106 today rose 6%. "
+        "That tells you what happened, not what the next toy-shop visit will cost.",
+        ("rate of change",),
+    ),
+    "tsi": Term(
+        "TSI / twice-smoothed directional strength",
+        "Twice-smoothed signed price changes divided by twice-smoothed "
+        "absolute changes, multiplied by 100.",
+        "Smooth your daily toy-budget gains and losses twice. If the balance "
+        "still leans upward, this rule follows it, but smoothing can notice trouble late.",
+        ("true strength index",),
+    ),
+    "adx": Term(
+        "ADX / how strong a direction looks",
+        "A smoothed measure of separation between up and down directional scores. "
+        "Our rule also requires the up score to win.",
+        "A tug of war can be strongly won by either team. Loud cheering "
+        "does not tell you which team won; check direction as well as strength.",
+        ("average directional index", "+DI", "-DI"),
+    ),
+    "aroon": Term(
+        "Aroon / how recently highs and lows happened",
+        "Scores recent extremes more highly than old extremes. Our version "
+        "requires a recent high to beat the recent-low score.",
+        "A toy shop set its highest price two visits ago and lowest price "
+        "20 visits ago. The high is more recent, even if it beat the old record by just one token.",
+        ("Aroon Up", "Aroon Down"),
+    ),
+    "ichimoku": Term(
+        "Ichimoku / range-midpoint cloud",
+        "Several range midpoints, including cloud values drawn 26 observations "
+        "after they were calculated. Drawing ahead is not knowing the future.",
+        "Keep older toy-price ranges on a calendar. Compare today's price with "
+        "a cloud made from old notes, never tomorrow's unwritten notebook page.",
+        ("Ichimoku cloud", "conversion line", "base line"),
+    ),
+    "keltner": Term(
+        "Keltner / channel based on typical movement",
+        "A price EMA plus or minus a multiple of average true range. "
+        "Our version buys a close above its upper channel.",
+        "A vegetable seller draws a usual-price line and allows two normal "
+        "daily swings above it. A price beyond that line looks unusually strong, "
+        "not guaranteed safe.",
+        ("Keltner channel", "Keltner channels"),
+    ),
+    "bollinger-breakout": Term(
+        "Bollinger breakout / follow the upper band",
+        "An upper-band strength strategy, unlike the original lower-band "
+        "bounce strategy. Same measuring tool, different hypothesis.",
+        "One toy collector buys after a price falls unusually low; another "
+        "follows an unusually high price hoping demand continues. The same notebook can test both.",
+        ("Bollinger strength", "upper-band breakout"),
+    ),
+    "chandelier": Term(
+        "Chandelier / volatility-based trailing exit",
+        "An exit candidate below a recent high by several average true ranges. "
+        "This app adds an upward-only ratchet during each holding.",
+        "Your toy collection reaches 120 tokens and you set a warning floor at "
+        "108. You may lift the floor to 112, never lower it while owning. "
+        "Finding a buyer tomorrow still might fetch less than that warning floor.",
+        ("Chandelier exit", "trailing exit", "ratchet"),
+    ),
+    "obv": Term(
+        "OBV / running up-day minus down-day volume",
+        "Add volume on rising-close days, subtract on falling-close days. "
+        "Compare that running balance with its smoothed average.",
+        "Put 1,000 marbles in a jar on an up-price shop day, remove 400 on "
+        "a down-price day. The jar tracks a balance, not money entering the shop.",
+        ("on-balance volume", "on balance volume"),
+    ),
+    "cmf": Term(
+        "CMF / volume-weighted close location",
+        "Measures whether busy days finish near their daily highs or lows, "
+        "over 20 observations. It can miss overnight price direction.",
+        "A stall's daily card says low 90, high 110, last price 105: near "
+        "the high. That can still be a bad day if yesterday's last price was 120.",
+        ("Chaikin Money Flow",),
+    ),
+    "mfi": Term(
+        "MFI / price-and-volume balance score",
+        "Compares typical-price-times-volume on rising versus falling "
+        "typical-price days. Our bounce variant uses 20 and 80 thresholds.",
+        "Keep two toy-shop jars: one for weighted busy up-price days, another "
+        "for down-price days. A much fuller down jar suggests weakness, not a promised bargain.",
+        ("Money Flow Index",),
+    ),
+    "chaikin": Term(
+        "Chaikin Oscillator / change in volume pressure",
+        "The fast EMA minus slow EMA of a running close-location-and-volume "
+        "balance. Related to CMF, but not the same calculation.",
+        "Track a toy shop's pressure balance and compare its recent pace "
+        "with its slower pace. The pace can improve while the actual toy price still falls.",
+        ("Chaikin Oscillator", "ADL", "accumulation distribution line"),
+    ),
+    "emv": Term(
+        "EMV / ease of price movement",
+        "Range-midpoint movement times range size divided by scaled volume. "
+        "Our rule smooths 14 changes; zero-volume days explicitly contribute zero.",
+        "A toy's usual price rises a lot while few toys trade. That looks "
+        "easy to move, but a quiet shop may also be difficult to sell into.",
+        ("ease of movement", "Ease of Movement"),
+    ),
+    "ultimate": Term(
+        "Ultimate Oscillator / three-window price pressure",
+        "Combines buying-pressure-to-true-range ratios over 7, 14 and 28 "
+        "changes with weights 4, 2 and 1. Our version follows scores above 50.",
+        "Check a vegetable stall's price pressure over short, medium and long "
+        "notebook sections. Weight the short section more, remembering the pages overlap.",
+        ("Ultimate Oscillator", "buying pressure"),
+    ),
+    "vortex": Term(
+        "Vortex / competing cross-day distances",
+        "Compares the reach from yesterday's low to today's high with the "
+        "reach from yesterday's high to today's low, normalized by true range.",
+        "On two toy-price cards, draw arrows between yesterday's low and "
+        "today's high, and yesterday's high and today's low. Compare many such arrow lengths.",
+        ("Vortex Indicator", "+VI", "-VI"),
+    ),
+    "trix": Term(
+        "TRIX / change in a triple-smoothed price",
+        "Smooth prices with EMA15 three times, then measure one day's "
+        "percentage change in the final line.",
+        "Smooth a bumpy toy-price drawing three times. The cleaner line "
+        "is easier to follow but may turn long after actual toy prices already fell.",
+        ("triple exponential average",),
+    ),
+    "force": Term(
+        "Force Index / price-change times volume",
+        "Daily signed price change multiplied by reported volume, "
+        "then smoothed with EMA13. A score above zero is our long condition.",
+        "A toy price rising by 2 while 1,000 toys trade gets +2,000 force. "
+        "Rising by only 1 with the same volume gets half the score.",
+        ("Force Index",),
+    ),
+    "atr": Term(
+        "ATR / average true range",
+        "Typical gap-aware price movement, not direction. True range is the "
+        "largest of high-low, abs(high-prior close), abs(low-prior close).",
+        "A tomato price finishes at 100, then trades between 110 and 114 "
+        "tomorrow. Its narrow daily range is 4 but the full jump-aware range is 14.",
+        ("average true range", "true range", "ATR10", "ATR22"),
+    ),
+    "typical-price": Term(
+        "Typical price / mean of high, low and close",
+        "An indicator input formed by adding high, low and close and dividing "
+        "by three. It is not necessarily any actual transaction price.",
+        "A stall's high is 110, low 90 and closing price 106. "
+        "Its typical price is 102; that does not prove a tomato sold for exactly 102.",
+        ("typical price",),
+    ),
+    "wilder-smoothing": Term(
+        "Wilder smoothing / a slow updating average",
+        "Start with a complete ordinary average. Then add one divided by "
+        "the period count times the gap from the next observation.",
+        "Your last 14 toy-price changes average 2. A new change of 16 "
+        "raises the average by (16 - 2) / 14 = 1, making it 3.",
+        (
+            "Wilder smoothing",
+            "Wilder-average",
+        ),
+    ),
 }
 
 

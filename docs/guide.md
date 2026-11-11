@@ -5,7 +5,7 @@
 **Learn a stock-market idea. Understand every word. Try it with practice money.**
 
 StonksSniper is a local Windows learning app with actual Indian stock history,
-seven explained buy/sell rules and a compact DeepSeaFoam interface. No previous
+27 explained buy/sell rules and a compact DeepSeaFoam interface. No previous
 market knowledge is assumed.
 
 ## Start without the jargon
@@ -49,8 +49,9 @@ can revise older values. The **Data** panel preserves source and timing.
 
 Decisions use a finished day; practice trades happen at the next available
 opening price with chosen costs. No broker or real-money trading is connected.
-Seven rules work today. Additional patterns, baskets of stocks and AI-proposed
-ideas remain planned, not implemented.
+27 rules work today: the original seven plus [20 new sourced strategies](strategies.md).
+The new guide explains each buy/sell condition, formula, warmup and limitation.
+Broader pattern families, baskets of stocks and AI-proposed ideas remain planned.
 
 ## About the moving pictures
 
@@ -78,6 +79,7 @@ interface and always-static header.
 ## Go deeper
 
 - [Exact product, simulator and architecture](product-and-architecture.md)
+- [Twenty additional buy/sell strategies with ELI15 examples and sources](strategies.md)
 - [Data providers and qualification gaps](data-providers.md)
 - [Design and explanation contract](ui-design.md)
 - [Development, media reproduction and verification](development.md)

@@ -51,7 +51,10 @@ M1 (SS-01 through SS-05): technically complete with representative real-data
 checks and offscreen native inspection. Human acceptance is not recorded.
 M1.1 (SS-19): technically complete. Seven explained rules and 74 authored dictionary entries,
 not every possible strategy or an unlimited vocabulary.
-SS-06 through SS-18 remain planned; no broad catalogue, basket, AI or qualified-feed
+SS-06 is IN_PROGRESS: 20 additional sourced daily strategies, ELI15 lessons and
+guides extend the current source to 27 rules and 97 dictionary entries.
+See docs/strategies.md for exact variants; wider catalogue research is unfinished.
+SS-07 through SS-18 remain planned; no basket, AI or qualified-feed
 completion is implied. The user authorized first-prototype commit, push and
 release on 2026-11-11; publication does not complete the remaining roadmap.
 

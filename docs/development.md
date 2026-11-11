@@ -24,10 +24,43 @@ Opt-in live provider checks:
 ```
 
 Add `--render` followed by an absolute PNG path for an owned offscreen native
-window. This makes real network requests, runs all seven patterns per dataset
+window. This makes real network requests, runs all registered patterns per dataset
 and records a screenshot locally; it does not publish market observations.
 The Windows offscreen plugin needs an explicitly loaded installed Segoe UI font.
 The normal Windows application uses the same style and font.
+
+## Twenty-strategy expansion - 2026-11-12
+
+The current source has 27 usable rules, 27 authored lessons and 97 dictionary
+entries. [The strategy catalogue](strategies.md) records all 20 added variants'
+formulas, thresholds, warmups, references, everyday examples and failure modes.
+The original seven keep their ordering and behavior.
+
+`studies.py` computes added-rule decisions and chart guides together. Nested
+EMAs preserve leading unavailable values, each stage waits for a complete seed,
+and shared EMA logic also serves the original EMA/MACD rules. Ichimoku draws
+only cloud values calculated 26 observations earlier. Chandelier's documented
+app-specific ratchet resets after an exit; unavailable exit-line segments are
+not joined across cash periods. No intraday stop fill is fabricated.
+
+Hand-calculated references exercise all 20 indicators, with additional checks
+of shifted cloud values, gap-aware ranges, Wilder/nested seeds, directional
+gates, ties, entry/retain/exit conditions and degenerate-volume conventions.
+Every added rule can enter and exit on labelled arithmetic fixtures. Every
+prefix preserves targets and guides; engine equity/benchmark/trades also
+preserve prefixes. Native tests select all 20 new rules, open their lessons and
+dictionary entries, verify actual indicator series and export their exact
+rule/source metadata. Longer warmups no longer run against insufficient
+fixed-length test prefixes.
+
+An initial new UI assertion used the wrong widget name; it failed explicitly
+and was corrected to the actual exact-rules browser. Final full suite:
+**201 passed**, Ruff lint/format and strict source mypy passed. Owned offscreen
+1366x768 views were inspected with synthetic arithmetic data, not presented as
+real market screenshots. Long library labels wrap in the existing narrow pane.
+No existing user window was driven or restarted. Fresh live-data reconciliation,
+human comprehension, normal Windows/DPI and installer qualification remain
+separate; the old release and historical GIFs were not regenerated.
 
 ## Initial verification evidence - 2026-11-11
 
