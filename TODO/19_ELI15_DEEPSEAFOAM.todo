@@ -26,6 +26,7 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   Share the animation between the app header and four-times-larger README logo.
 - [x] Make README gold/green and GIF-led, with image navigation buttons and
   linked setup/explanation guides.
+- [x] Match the square chart's outer side to the final circle's outer diameter.
 
 ## Acceptance criteria
 - No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
@@ -46,6 +47,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   visible bullet and cuts to a circle with transparent surroundings. The matching
   still reticle is centered, including when header motion is disabled.
   The 352px README logo is 4x its original 88px width.
+- The search chart is square, with exactly the final circle's visible width and
+  height, including borders; the cut changes shape without changing size.
 - README uses gold/green linked image buttons and native GIF demos with honest
   data provenance; longer explanations remain accessible in linked guides.
 - Screenshots show the real native application with actual observations, not a fictional dashboard.
@@ -96,6 +99,11 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   Final 51 tests, Ruff lint/format and strict source mypy passed. Motion-off
   shows the centered still; resume restores animation. A separately installed
   candidate verified exact packaged assets, clipping and motion/close behavior.
+- Equal-size follow-up: every frame retains 328x328px visible bounds. The square's
+  outer side equals the circle's outer diameter, including their borders.
+  Inspected first/final frames together; eight desktop tests and targeted Ruff
+  lint/format passed. The regression failed against the old 332x244px stage.
+  No market retrieval, gallery recapture or published-package replacement.
 
 ## Completion log
 - 2026-11-11: User requested DeepSeaFoam material-inspired visuals, less scrolling,
@@ -127,3 +135,6 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   rectangular chart, settle in the middle, shoot a visible bullet and then cut
   to a transparent circular logo. Implemented the 70-frame sequence and centered
   static icon; regenerated the native GIF gallery with the centered header still.
+- 2026-11-12: User requested the chart square's side equal the final circle's
+  diameter. Matched their visible outer bounds, expanded the grid/search area
+  and regenerated the shared app/README animation; centered still unchanged.

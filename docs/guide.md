@@ -54,10 +54,11 @@ ideas remain planned, not implemented.
 
 ## About the moving pictures
 
-The logo is original decorative artwork: the reticle darts across a rectangular
+The logo is original decorative artwork: the reticle darts across a square
 chart, settles on the center candle and fires a visible bullet. After the impact,
 the picture cuts to a circle with a transparent outside. The still logo keeps the
 reticle centered; turning off **Animations** shows that still in the app header.
+The square's side matches the circle's diameter, so the logo does not change size.
 Its candles are **not market observations or a recommendation**.
 
 The five GUI GIFs are actual native-window captures using downloaded RELIANCE.NS

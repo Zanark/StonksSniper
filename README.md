@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="docs/guide.md"><img src="src/stonks_sniper/assets/logo.gif" width="352" alt="A gold reticle darts across a rectangular candlestick chart, centers, fires a bullet and cuts to a transparent circular logo."></a>
+  <a href="docs/guide.md"><img src="src/stonks_sniper/assets/logo.gif" width="352" alt="A gold reticle darts across a square candlestick chart, centers, fires a bullet and cuts to an equally wide transparent circular logo."></a>
 </p>
 
 <p align="center"><b>Real history. Practice money. Every word explained.</b></p>

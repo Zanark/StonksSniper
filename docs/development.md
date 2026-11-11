@@ -227,6 +227,20 @@ and loading GIF; motion and transparency worked there. It reuses existing runtim
 dependencies, not a clean-machine qualification. The published v0.1.0 wheel and
 checksum remain unchanged. No existing user instance was driven or restarted.
 
+### Equal-size square-to-circle cut
+
+The search chart is now square. Its outer side equals the final circle's outer
+diameter, including both gold borders and native painter clipping. The grid and
+seeded search cover the taller square; shot timing and the centered still remain
+unchanged. Regenerated the shared app/README GIF without fetching market data.
+The existing GUI demos need no recapture because their centered still is unchanged.
+
+The geometry regression failed against the old 332x244px search stage. The updated
+70-frame GIF keeps the same 328x328px visible bounds throughout, including the final
+circle. Inspected full-size first/final frames side by side. Eight desktop tests
+and targeted Ruff lint/format checks passed. Published v0.1.0 remains unchanged;
+no existing user app was driven or restarted.
+
 ## Explicit GitHub tracking adoption
 
 `TODO\tracking.json` identifies the public repository, dedicated Project 14,

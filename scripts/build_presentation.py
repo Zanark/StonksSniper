@@ -76,13 +76,13 @@ def scope_svg(
     shape = (
         '<circle cx="64" cy="64" r="58"/>'
         if circular
-        else '<rect x="4" y="20" width="120" height="88"/>'
+        else '<rect x="5" y="5" width="118" height="118"/>'
     )
     surface = (
         f'<circle cx="64" cy="64" r="59" fill="url(#glass)" stroke="{GOLD}" stroke-width="1.5"/>'
         if circular
-        else f'<rect x="4" y="20" width="120" height="88" fill="url(#glass)" '
-        f'stroke="{GOLD}" stroke-width=".6"/>'
+        else f'<rect x="5" y="5" width="118" height="118" fill="url(#glass)" '
+        f'stroke="{GOLD}" stroke-width="1.5"/>'
     )
     bezel = (
         f'<circle cx="64" cy="64" r="59" fill="none" stroke="{GOLD}" stroke-width="1.5"/>'
@@ -91,19 +91,24 @@ def scope_svg(
         if circular
         else ""
     )
+    grid = (
+        "M4 32h120M4 48h120M4 64h120M4 80h120M4 96h120"
+        "M16 20v88M32 20v88M48 20v88M64 20v88M80 20v88M96 20v88M112 20v88"
+        if circular
+        else "".join(f"M5 {position}h118M{position} 5v118" for position in range(16, 113, 16))
+    )
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" width="352" height="352" '
         'viewBox="0 0 128 128">'
         "<title>StonksSniper circular candlestick scope</title>"
         "<desc>A gold reticle targets the center of an illustrated candlestick chart. "
-        "The animation searches a rectangle, fires a bullet and cuts to a circle. "
+        "The animation searches a square, fires a bullet and cuts to an equally wide circle. "
         "Decorative branding, not market data.</desc>"
         f'<defs><clipPath id="scope">{shape}</clipPath>'
         '<radialGradient id="glass"><stop stop-color="#103e2b"/>'
         f'<stop offset="1" stop-color="{INK}"/></radialGradient></defs>'
         f'{surface}<g clip-path="url(#scope)">'
-        '<path d="M4 32h120M4 48h120M4 64h120M4 80h120M4 96h120'
-        'M16 20v88M32 20v88M48 20v88M64 20v88M80 20v88M96 20v88M112 20v88" '
+        f'<path d="{grid}" '
         f'fill="none" stroke="{GREEN}" stroke-opacity=".10" stroke-width=".5"/>'
         f'{candles}<g transform="translate({x - 64:.3f} {y - 64:.3f})" '
         f'fill="none" stroke="{GOLD}" stroke-width="1.2">'
@@ -135,7 +140,7 @@ def render_svg(svg: str, size: int, *, circular: bool = True) -> Image.Image:
     if circular:
         clip.addEllipse(QRectF(4.25 * scale, 4.25 * scale, 119.5 * scale, 119.5 * scale))
     else:
-        clip.addRect(QRectF(3.7 * scale, 19.7 * scale, 120.6 * scale, 88.6 * scale))
+        clip.addRect(QRectF(4.25 * scale, 4.25 * scale, 119.5 * scale, 119.5 * scale))
     painter.setClipPath(clip)
     renderer.render(painter, QRectF(0, 0, size, size))
     painter.end()
@@ -184,7 +189,7 @@ def build_brand() -> None:
             rng.shuffle(quadrants)
         for right, bottom in quadrants:
             tx = rng.uniform(81, 116) if right else rng.uniform(12, 47)
-            ty = rng.uniform(81, 100) if bottom else rng.uniform(28, 47)
+            ty = rng.uniform(81, 116) if bottom else rng.uniform(12, 47)
             for step in range(1, 5):
                 progress = step / 4
                 frames.append(
@@ -254,7 +259,7 @@ def build_brand() -> None:
             f'font-size="12" fill="#b9d8bd">{escape(subtitle)}</text></svg>'
         )
         (IMAGES / f"button-{name}.svg").write_text(button, encoding="utf-8")
-    print("Built erratic rectangular search, bullet shot, circular finish and centered still logo.")
+    print("Built matching square/circle logo, erratic search, bullet shot and centered still.")
 
 
 def build_gallery(app: QApplication, end: date | None) -> None:

@@ -63,7 +63,8 @@ The original StonksSniper logo contains no third-party artwork or icons.
 ### Square surfaces, circular brand
 
 Rectangular GUI elements use square corners consistently, including chart
-backgrounds and controls. The animated logo begins as a rectangular chart: the
+backgrounds and controls. The animated logo begins as a square chart whose side
+equals the final circle's outer diameter, including its border. The
 reticle makes erratic, seeded jumps across all quadrants, settles in the center
 and fires a visible bullet with a tracer and impact flash. It then cuts to a
 circle with transparent surroundings, not a circle painted onto a square tile.

@@ -11,7 +11,7 @@ import pytest
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import QCoreApplication, QThread  # noqa: E402
-from PySide6.QtGui import QMovie  # noqa: E402
+from PySide6.QtGui import QBitmap, QMovie, QRegion  # noqa: E402
 from PySide6.QtWidgets import QApplication, QFileDialog  # noqa: E402
 from test_research import observations  # noqa: E402
 
@@ -55,7 +55,7 @@ def test_circular_logo_animates_and_respects_motion_and_close():
         app.processEvents()
 
 
-def test_logo_cuts_from_rectangle_to_transparent_circle():
+def test_logo_cuts_from_matching_square_to_transparent_circle():
     app = QApplication.instance() or QApplication([])
     window = MainWindow()
     try:
@@ -63,9 +63,16 @@ def test_logo_cuts_from_rectangle_to_transparent_circle():
         movie = QMovie(window.brand_movie.fileName())
         movie.setCacheMode(QMovie.CacheMode.CacheAll)
         assert movie.jumpToFrame(0)
-        assert movie.currentImage().pixelColor(16, 80).alpha() == 255
+        first = movie.currentImage()
+        search_bounds = QRegion(QBitmap.fromImage(first.createAlphaMask())).boundingRect()
+        assert search_bounds.width() == search_bounds.height()
+        assert first.pixelColor(16, 80).alpha() == 255
         for frame in range(movie.frameCount()):
             assert movie.jumpToFrame(frame)
+            bounds = QRegion(
+                QBitmap.fromImage(movie.currentImage().createAlphaMask())
+            ).boundingRect()
+            assert bounds == search_bounds, frame
         final = movie.currentImage()
         assert final.pixelColor(16, 80).alpha() == 0
         assert final.pixelColor(327, 96).alpha() == 0

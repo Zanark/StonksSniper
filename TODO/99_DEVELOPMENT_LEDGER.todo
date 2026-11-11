@@ -141,3 +141,9 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   verified exact assets, circular boundaries and motion/close lifecycle.
   Regenerated five actual-data GUI GIFs through the explicit 2026-11-09 cutoff.
   Existing v0.1.0 wheel checksum remains unchanged; no user app was controlled.
+- 2026-11-12: Matched the square search chart's side to the final circle's
+  diameter, including borders and native clipping. All 70 frames retain identical
+  328x328px visible bounds. Inspected first/final frames side by side; eight desktop
+  tests and targeted Ruff lint/format passed. The regression rejected the previous
+  332x244px stage. Shared README/app GIF regenerated; centered still, native GUI
+  gallery and frozen release unchanged. No market data or user app accessed.
