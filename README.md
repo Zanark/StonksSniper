@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/stonks_sniper/assets/logo.svg" width="88" alt="StonksSniper logo: a seafoam price path inside a focus frame">
+  <img src="src/stonks_sniper/assets/logo.svg" width="88" alt="StonksSniper logo: a sniper scope aimed at a candlestick chart">
 </p>
 
 # StonksSniper

@@ -107,3 +107,7 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   A separately installed candidate verified GIF bytes/looping and an inspected
   1366x768 owned offscreen loading view with no market observations. The published
   v0.1.0 artifact is unchanged; no existing user instance was controlled.
+- 2026-11-11: Replaced the shared logo with the requested sniper scope aimed at
+  a candlestick chart: seafoam ring, pale crosshairs and green/red candle bodies
+  and wicks. Inspected native Qt icons at 42, 88 and 256px. README shares the SVG;
+  no app restart, new release or market-data change was performed.

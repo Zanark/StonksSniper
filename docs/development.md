@@ -151,6 +151,14 @@ v0.1.0 wheel and checksum remain unchanged; this follow-up is available in sourc
 not retroactively in that release. These checks do not qualify a clean Windows
 machine, DPI scaling or human acceptance.
 
+## Scope logo follow-up - 2026-11-11
+
+The subsequent logo follow-up replaces the original rising line with five
+green/red candles seen through a circular scope and pale crosshairs. The shared
+SVG is used by the app icon/header and README. Actual Qt icon renders were
+inspected at 42, 88 and 256px; no existing user instance was restarted. Earlier
+gallery screenshots and the published v0.1.0 package retain their original logo.
+
 ## Explicit GitHub tracking adoption
 
 `TODO\tracking.json` identifies the public repository, dedicated Project 14,
