@@ -10,7 +10,7 @@ from threading import Event
 from xml.etree import ElementTree
 
 import pytest
-from PIL import Image, ImageSequence
+from PIL import Image, ImageChops, ImageSequence
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
@@ -97,6 +97,41 @@ def test_animated_glass_keeps_the_chart_clear_without_opaque_palette_patches():
             opaque = sum(count for count, color in colors if color[3] == 255)
             clear = sum(count for count, color in colors if color == (10, 14, 15, 255))
             assert clear / opaque > 0.65, index
+
+
+def test_gif_reveals_glass_only_on_the_circle_then_sweeps_a_finishing_shimmer():
+    with Image.open(str(files("stonks_sniper") / "assets" / "logo.gif")) as logo:
+        logo.seek(logo.n_frames - 1)
+        still = logo.convert("RGBA")
+        circle = still.getchannel("A").tobytes()
+        reflection = (78, 65, 112, 95)
+        reflection_colors = still.crop(reflection).getcolors()
+        assert reflection_colors is not None
+        assert any(
+            color[:3] in {(182, 202, 214), (255, 255, 255)} for _, color in reflection_colors
+        )
+        logo.seek(0)
+        elapsed = 0
+        shimmer_centres = []
+        for frame in ImageSequence.Iterator(logo):
+            image = frame.convert("RGBA")
+            if 3940 <= elapsed < 7280 and image.getchannel("A").tobytes() != circle:
+                reflection_colors = image.crop(reflection).getcolors()
+                assert reflection_colors is not None
+                assert not any(
+                    color[:3] in {(182, 202, 214), (255, 255, 255)}
+                    for _, color in reflection_colors
+                ), elapsed
+            if elapsed >= 7280:
+                assert image.getchannel("A").tobytes() == circle
+                difference = ImageChops.difference(image.convert("RGB"), still.convert("RGB"))
+                changed = difference.getbbox()
+                if changed is not None:
+                    shimmer_centres.append((changed[0] + changed[2]) / 2)
+            elapsed += frame.info["duration"]
+        assert len(shimmer_centres) >= 12
+        assert min(shimmer_centres) < 100
+        assert max(shimmer_centres) > 250
 
 
 def test_exported_windows_browser_icon_matches_native_glass_at_each_resolution():

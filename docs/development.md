@@ -423,6 +423,22 @@ texture, dependency installation or existing-user-window control was performed.
 The frozen v0.1.0 wheel remains byte-identical. This is not human approval or
 fresh normal-Windows/DPI/installer qualification.
 
+### GIF-only final-circle glass and finishing shimmer
+
+The square and morph now have no glass reflections or optical rim. Glass appears
+only on the completed circle, followed by one eased 1.2-second blue/white sweep
+and a 0.6-second still finish. The 2.56-second morph and 9.08-second loop remain.
+Static SVG, ICO, native icons and README cover are byte-identical to the previous
+milestone.
+
+The new timing regression first failed against the previous GIF. An initial
+sweep touched antialiased edge pixels; the silhouette checks caught it. Bounding
+the reflection inside the lens fixed that without relaxing those checks.
+All 63 desktop/learning tests, Ruff lint/format and diff checks passed.
+Inspected seven decoded square/morph/glass/shimmer/finish states. This is not
+human visual approval. No gallery recapture, market retrieval, user-window
+control, dependency change or replacement of the frozen release was needed.
+
 ## Explicit GitHub tracking adoption
 
 `TODO\tracking.json` identifies the public repository, dedicated Project 14,

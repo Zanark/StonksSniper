@@ -40,6 +40,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - [x] Replace opaque GIF glass patches with clear palette-safe reflections;
   improve the static glass and share it across native icons, Windows/browser ICO
   and README cover.
+- [x] For the GIF only, reveal glass after the circle forms and finish with one
+  shimmer; keep all static logos, icons and the cover unchanged.
 
 ## Acceptance criteria
 - No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
@@ -61,6 +63,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   curved highlights and a dark optical rim add depth without new authored colors. The matching
   still reticle is centered. The app header always uses the still, even with motion enabled.
   The 352px README logo is 4x its original 88px width.
+- GIF square/morph phases have no glass; the completed circle gains reflections
+  and an optical rim, then one shimmer and a still finish. Static branding stays unchanged.
 - The search chart is square, with exactly the final circle's visible width and
   height, including borders; gradual corner rounding changes shape without changing size.
 - README uses the exact six-color dark graph-paper palette, linked image buttons and native GIF demos with honest
@@ -71,6 +75,12 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - Technical checks, human comprehension testing and normal Windows/DPI qualification are recorded separately.
 
 ## Completion evidence
+- GIF-only follow-up: square/morph stay glass-free; the completed circle gains
+  glass and one 1.2-second shimmer, followed by a 0.6-second still finish.
+  Exact palette, 2.56-second morph, 9.08-second loop and constant transparent
+  silhouette pass. New regression rejected the preceding GIF; all 63
+  desktop/learning tests and Ruff lint/format pass. Inspected seven decoded
+  phase states. Static SVG/ICO/native icons/README cover remain byte-identical.
 - Clear-glass follow-up supersedes the earlier quantized lens fill: every GIF
   frame keeps a readable chart, using thin reflection contours instead of a large
   opaque patch. A new grid-visibility regression failed on the old GIF.
@@ -170,6 +180,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   Published v0.1.0, supplied meme and historical still gallery remain unchanged.
 
 ## Completion log
+- 2026-11-12: User clarified this change is GIF-only. Delayed glass until the
+  completed circle and added one finishing shimmer; preserved static branding.
 - 2026-11-12: Corrected the rejected square-phase glass, enhanced the static glass,
   generated shared multi-size native/ICO icons and a branded README cover.
   Retained exact palette, static header, 2.56-second morph and existing release.

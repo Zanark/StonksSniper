@@ -74,8 +74,12 @@ the outer size never changes. It is not a circle painted onto a square tile.
 The static SVG uses restrained blue tint, a soft edge, a curved specular
 reflection and a layered optical rim. Its grid and candles remain visible.
 Broad gradients quantized into a jagged opaque patch in the GIF; that rejected
-version is superseded. The GIF now uses thin palette-safe reflection contours,
-not full-surface shading or grainy dithering. All 96 morph samples retain quintic easing, timed in
+version is superseded. The GIF keeps the square and morph free of glass effects;
+only the completed circle gains thin palette-safe reflection contours and the
+optical rim. One eased, blue/white shimmer crosses the lens over 1.2 seconds,
+then holds still for 0.6 seconds. No full-surface shading or grainy dithering is
+used. The loop stays 9.08 seconds; static assets do not gain animation.
+All 96 morph samples retain quintic easing, timed in
 30/30/20ms groups: exactly 1.5x faster than the previous 3.84 seconds.
 Its green/coral candles are decorative illustrations, not observations.
 The app header and window/taskbar icon always use the centered static SVG,

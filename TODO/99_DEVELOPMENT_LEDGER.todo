@@ -20,6 +20,13 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-12: GIF-only request: reveal glass after the circle forms, then shimmer.
+  Kept square/morph clear and replaced the old final hold with a 1.2-second
+  sweep plus 0.6-second still. A new regression rejected the previous GIF;
+  silhouette checks caught edge changes in the first sweep implementation.
+  Bounded reflection geometry inside the lens; 63 desktop/learning checks and
+  Ruff lint/format passed. Inspected seven decoded states. Static SVG/ICO/cover
+  remain byte-identical; morph stays 2.56 seconds and the full loop 9.08 seconds.
 - 2026-11-12: User requested 20 more internet-sourced buy/sell ideas with ELI15
   explanations. Read ChartSchool formulas/interpretations, including ATR seed,
   ADX settling and the drawing shift in Ichimoku. References are educational,

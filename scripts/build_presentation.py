@@ -40,6 +40,7 @@ def scope_svg(
     roundness: float = 1,
     bullet: float | None = None,
     palette_safe: bool = False,
+    shimmer: float | None = None,
 ) -> str:
     """Illustrated branding, never market observations or a trading signal."""
     candles = ""
@@ -80,8 +81,9 @@ def scope_svg(
         )
     outline = f'<rect x="5" y="5" width="118" height="118" rx="{59 * roundness:.5f}"'
     shape = f"{outline}/>"
+    glass_enabled = roundness == 1
     surface = f'{outline} fill="{BACKGROUND}"/>'
-    if not palette_safe:
+    if glass_enabled and not palette_safe:
         surface += f'{outline} fill="url(#glass-depth)"/>'
     bezel = (
         '<rect x="10" y="10" width="108" height="108" '
@@ -112,6 +114,29 @@ def scope_svg(
         f'stroke-width="{0.6 if palette_safe else 0.8}" stroke-linecap="round" '
         f'opacity="{1 if palette_safe else 0.45}"/>'
     )
+    if not glass_enabled:
+        glass = ""
+        bezel = f'{outline} fill="none" stroke="{GREEN}" stroke-width="1.5"/>'
+    shimmer_glint = ""
+    if glass_enabled and shimmer is not None:
+        # Bound the reflection inside the lens, never its antialiased silhouette.
+        sweep = 128 * shimmer
+        slope = 0.4
+        norm = 1 + slope**2
+        offset = sweep - 64
+        discriminant = norm * 54**2 - offset**2
+        if discriminant > 0:
+            reach = math.sqrt(discriminant)
+            start = (-slope * offset - reach) / norm
+            end = (-slope * offset + reach) / norm
+            path = (
+                f"M{sweep + slope * start:.3f} {64 + start:.3f}"
+                f"L{sweep + slope * end:.3f} {64 + end:.3f}"
+            )
+            shimmer_glint = (
+                f'<path d="{path}" fill="none" stroke="{BLUE}" stroke-width="2.4"/>'
+                f'<path d="{path}" fill="none" stroke="{TEXT_PRIMARY}" stroke-width=".7"/>'
+            )
     grid = "".join(f"M5 {position}h118M{position} 5v118" for position in range(16, 113, 16))
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" width="352" height="352" '
@@ -151,7 +176,7 @@ def scope_svg(
         "M59 42v4M69 42v4M59 82v4M69 82v4"
         'M42 59h4M42 69h4M82 59h4M82 69h4"/>'
         '<circle cx="64" cy="64" r="3"/>'
-        f"</g>{target}</g>{bezel}</svg>"
+        f"</g>{target}{shimmer_glint}</g>{bezel}</svg>"
     )
 
 
@@ -297,8 +322,13 @@ def build_brand() -> None:
             render_svg(scope_svg(roundness=roundness, palette_safe=True), 352, roundness=roundness)
         )
         durations.append(duration)
+    for step in range(30):
+        progress = step / 29
+        shimmer = progress**3 * (progress * (6 * progress - 15) + 10)
+        frames.append(render_svg(scope_svg(palette_safe=True, shimmer=shimmer), 352))
+        durations.append(40)
     frames.append(render_svg(scope_svg(palette_safe=True), 352))
-    durations.append(1800)
+    durations.append(600)
     save_gif(
         frames,
         ASSETS / "logo.gif",
@@ -357,7 +387,7 @@ def build_brand() -> None:
             f'fill="{TEXT_SECONDARY}">{escape(subtitle.upper())}</text></g></svg>'
         )
         (IMAGES / f"button-{name}.svg").write_text(button, encoding="utf-8")
-    print("Built clear-glass GIF, static SVG/ICO, branded cover and 2.56s eased rounding.")
+    print("Built final-circle glass/shimmer GIF, static SVG/ICO and branded cover.")
 
 
 def build_gallery(app: QApplication, end: date | None) -> None:
