@@ -117,7 +117,7 @@ def chart_view() -> QChartView:
     chart.setBackgroundBrush(QColor(PANEL))
     chart.setPlotAreaBackgroundBrush(QColor(PANEL))
     chart.setDropShadowEnabled(False)
-    chart.setBackgroundRoundness(12)
+    chart.setBackgroundRoundness(0)
     chart.setMargins(QMargins(8, 8, 8, 4))
     chart.setTitleBrush(QColor(WARM))
     chart.setTitleFont(QFont("Segoe UI", 10))

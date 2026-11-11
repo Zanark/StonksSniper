@@ -111,3 +111,9 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   a candlestick chart: seafoam ring, pale crosshairs and green/red candle bodies
   and wicks. Inspected native Qt icons at 42, 88 and 256px. README shares the SVG;
   no app restart, new release or market-data change was performed.
+- 2026-11-11: Applied the user's square-corner GUI direction consistently to
+  cards, inputs, buttons, tabs, lists, sliders, checkboxes, scrollbars, charts
+  and logo rectangles. Kept the scope circular and the DeepSeaFoam palette.
+  Sixteen desktop/learning tests, Ruff lint/format and strict source mypy passed.
+  Inspected all tabs and the loading surface in an owned 1366x768 native window,
+  without fetching prices or controlling an existing app. Release/gallery unchanged.

@@ -159,6 +159,20 @@ SVG is used by the app icon/header and README. Actual Qt icon renders were
 inspected at 42, 88 and 256px; no existing user instance was restarted. Earlier
 gallery screenshots and the published v0.1.0 package retain their original logo.
 
+## Square-corner styling follow-up - 2026-11-11
+
+Rectangular GUI surfaces use square corners throughout the shared stylesheet:
+cards, inputs, buttons, tabs, inspector panes, list selections, sliders,
+checkboxes and scrollbars. Native chart backgrounds also have zero roundness;
+the shared logo's tile and candle rectangles are square, while its scope remains
+circular. Keep this consistent when adding controls.
+
+Sixteen desktop/learning tests, Ruff lint/format and strict source mypy passed.
+All four tabs and the loading surface were inspected in an owned 1366x768
+offscreen window; all four chart backgrounds were checked. No market data was
+retrieved or generated and no existing user instance was driven. Prior gallery
+screenshots and the published v0.1.0 package remain unchanged.
+
 ## Explicit GitHub tracking adoption
 
 `TODO\tracking.json` identifies the public repository, dedicated Project 14,

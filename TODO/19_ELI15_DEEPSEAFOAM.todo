@@ -20,6 +20,7 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - [x] Synchronize the issue/Project, record evidence and update owned continuity.
 - [x] Show the supplied Stonks GIF during stock downloads, with optional motion and completion cleanup.
 - [x] Replace the shared logo with a sniper reticle aimed at a candlestick chart.
+- [x] Apply square corners consistently to rectangular GUI surfaces and controls.
 
 ## Acceptance criteria
 - No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
@@ -34,6 +35,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   success and failure both restore the workspace. Disabled motion keeps the GIF still.
 - The main desktop workspace has no page scrollbar at representative desktop sizes.
 - The shared app/README logo clearly shows a circular scope and crosshairs over price candles.
+- Rectangular cards, controls, list selections, chart backgrounds and logo tile
+  have square corners; the scope remains circular.
 - Screenshots show the real native application with actual observations, not a fictional dashboard.
 - Technical checks, human comprehension testing and normal Windows/DPI qualification are recorded separately.
 
@@ -62,6 +65,10 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   The published v0.1.0 wheel remains unchanged.
 - Logo follow-up: the shared SVG has a seafoam scope, pale reticle and five
   green/red candles. Native Qt icon rendering was inspected at 42, 88 and 256px.
+- Square-corner follow-up: 16 desktop/learning tests, Ruff lint/format and strict
+  source mypy passed. Inspected all four tabs and the loading surface in an owned
+  1366x768 native window; all four chart backgrounds have zero roundness.
+  No network retrieval, market observations or existing-user-window control.
 
 ## Completion log
 - 2026-11-11: User requested DeepSeaFoam material-inspired visuals, less scrolling,
@@ -81,3 +88,6 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - 2026-11-11: User requested a sniper's view of a candlestick graph. Replaced the
   shared vector logo and README description; retained DeepSeaFoam colors and
   inspected small/large native renders without restarting an existing app.
+- 2026-11-11: User requested no rounded rectangular GUI corners. Removed rounding
+  from shared widget styling, chart backgrounds and the logo's rectangular tile/
+  candle bodies; retained the circular reticle. Existing gallery/release unchanged.

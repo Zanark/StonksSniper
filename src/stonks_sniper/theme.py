@@ -39,19 +39,20 @@ def configure_application(app: QApplication) -> None:
     app.setStyle("Fusion")
     app.setStyleSheet(
         f"""
-        QWidget {{ background: {BASE}; color: {TEXT}; font-size: 13px; }}
+        QWidget {{ background: {BASE}; color: {TEXT}; font-size: 13px;
+            border-radius: 0; }}
         QLabel {{ background: transparent; }}
         QLabel#brand {{ color: {WARM}; font-size: 21px; font-weight: 650; }}
         QLabel#quiet {{ color: {MUTED}; font-size: 12px; }}
         QLabel#eyebrow {{ color: {ACCENT}; font-size: 11px; font-weight: 600; }}
         QLabel#metric {{ color: {WARM}; font-size: 25px; font-weight: 600; }}
         QLabel#section {{ color: {WARM}; font-size: 16px; font-weight: 600; }}
-        QFrame#card {{ background: {PANEL}; border-radius: 12px; }}
+        QFrame#card {{ background: {PANEL}; border-radius: 0; }}
         QFrame#card QLineEdit, QFrame#card QComboBox, QFrame#card QDateEdit,
         QFrame#card QDoubleSpinBox {{ background: {BASE}; }}
         QLineEdit, QComboBox, QDateEdit, QDoubleSpinBox {{
             background: {PANEL}; color: {WARM}; padding: 7px 9px;
-            border: 1px solid rgba(88,110,117,90); border-radius: 7px;
+            border: 1px solid rgba(88,110,117,90); border-radius: 0;
             selection-background-color: {ACCENT}; selection-color: {BASE};
         }}
         QLineEdit:focus, QComboBox:focus, QDateEdit:focus, QDoubleSpinBox:focus {{
@@ -62,7 +63,7 @@ def configure_application(app: QApplication) -> None:
             selection-background-color: {ACCENT}; selection-color: {BASE}; }}
         QPushButton {{
             background: {PANEL}; color: {WARM}; border: 1px solid rgba(88,110,117,100);
-            padding: 8px 14px; border-radius: 8px; font-weight: 600;
+            padding: 8px 14px; border-radius: 0; font-weight: 600;
         }}
         QPushButton:hover {{ border-color: {ACCENT}; background: #002b36; }}
         QPushButton:focus {{ border: 1px solid {ACCENT}; }}
@@ -73,15 +74,15 @@ def configure_application(app: QApplication) -> None:
             border-color: rgba(88,110,117,45); }}
         QTabWidget::pane {{ border: none; }}
         QTabBar::tab {{ color: {MUTED}; background: transparent; padding: 10px 18px;
-            border-bottom: 2px solid transparent; margin-right: 8px; }}
+            border-bottom: 2px solid transparent; margin-right: 8px; border-radius: 0; }}
         QTabBar::tab:selected {{ color: {WARM}; border-bottom: 2px solid {ACCENT}; }}
         QTabBar::tab:hover {{ color: {WARM}; }}
-        QTabWidget#inspector::pane {{ background: {PANEL}; border-radius: 12px; }}
+        QTabWidget#inspector::pane {{ background: {PANEL}; border-radius: 0; }}
         QTextBrowser {{ background: {PANEL}; border: none; padding: 12px;
             selection-background-color: {ACCENT}; selection-color: {BASE}; }}
-        QListWidget {{ background: {PANEL}; border: none; border-radius: 12px;
+        QListWidget {{ background: {PANEL}; border: none; border-radius: 0;
             outline: none; padding: 8px; }}
-        QListWidget::item {{ padding: 15px 10px; border-radius: 8px; }}
+        QListWidget::item {{ padding: 15px 10px; border-radius: 0; }}
         QListWidget::item:selected {{ background: #002b36; color: {WARM};
             border-left: 3px solid {ACCENT}; }}
         QTableWidget {{ background: {PANEL}; border: none; gridline-color: {PANEL};
@@ -90,16 +91,16 @@ def configure_application(app: QApplication) -> None:
             padding: 8px 5px; font-size: 11px; }}
         QTableWidget::item {{ padding: 5px; }}
         QSlider::groove:horizontal {{ height: 4px; background: {BORDER};
-            border-radius: 2px; }}
-        QSlider::sub-page:horizontal {{ background: {ACCENT}; border-radius: 2px; }}
+            border-radius: 0; }}
+        QSlider::sub-page:horizontal {{ background: {ACCENT}; border-radius: 0; }}
         QSlider::handle:horizontal {{ background: {WARM}; border: 3px solid {ACCENT};
-            width: 10px; height: 10px; margin: -6px 0; border-radius: 8px; }}
+            width: 10px; height: 10px; margin: -6px 0; border-radius: 0; }}
         QCheckBox {{ spacing: 7px; color: {MUTED}; background: transparent; }}
-        QCheckBox::indicator {{ width: 13px; height: 13px; border-radius: 4px;
+        QCheckBox::indicator {{ width: 13px; height: 13px; border-radius: 0;
             border: 1px solid {BORDER}; background: {PANEL}; }}
         QCheckBox::indicator:checked {{ background: {ACCENT}; border-color: {ACCENT}; }}
         QScrollBar:vertical {{ width: 7px; background: {PANEL}; }}
-        QScrollBar::handle:vertical {{ background: {BORDER}; border-radius: 3px;
+        QScrollBar::handle:vertical {{ background: {BORDER}; border-radius: 0;
             min-height: 25px; }}
         QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{ height: 0; }}
         QSplitter::handle {{ background: {BASE}; width: 12px; }}
