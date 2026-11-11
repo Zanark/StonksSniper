@@ -56,8 +56,10 @@ ideas remain planned, not implemented.
 
 The logo is original decorative artwork: the reticle darts across a square
 chart, settles on the center candle and fires a visible bullet. After the impact,
-the picture cuts to a circle with a transparent outside. The still logo keeps the
-reticle centered; turning off **Animations** shows that still in the app header.
+the corners slowly round away over about four seconds, leaving a circle with a
+transparent outside. It starts and finishes gently, without shrinking. The still logo keeps the
+reticle centered. The app header always shows that still, even with **Animations**
+enabled; the search-and-shot animation is for the README.
 The square's side matches the circle's diameter, so the logo does not change size.
 Its candles are **not market observations or a recommendation**.
 
@@ -68,8 +70,10 @@ authored content. Frames are sampled and encoded into loops, not real-time
 screen recordings. [Capture dates, source and actions](images/gif-captures.json).
 The app's own motion switch does not control GitHub's GIF playback.
 
-The app keeps its square-cornered DeepSeaFoam theme. Gold-and-green artwork is
-for README navigation and the shared circular brand, not a silent app recolor.
+The README artwork and shared logo use the requested dark graph-paper palette:
+soft green/blue outlines, white titles and grey supporting text, with no gold.
+Red/green candle colors are allowed. The app keeps its square-cornered DeepSeaFoam
+interface and always-static header.
 
 ## Go deeper
 

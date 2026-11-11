@@ -1,10 +1,10 @@
 {
-  "captured_at": "2026-11-12T00:15:32.482814+05:30",
+  "captured_at": "2026-11-12T00:51:20.051980+05:30",
   "source": "Yahoo Finance via yfinance (unofficial)",
   "symbol": "RELIANCE.NS",
   "exchange": "NSE",
   "currency": "INR",
-  "fetched_at": "2026-11-12T00:15:25.569878+05:30",
+  "fetched_at": "2026-11-12T00:51:13.747409+05:30",
   "first_observation": "2024-11-12",
   "last_observation": "2026-11-09",
   "observations": 493,

@@ -23,9 +23,12 @@ from PySide6.QtWidgets import QApplication  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "src" / "stonks_sniper" / "assets"
 IMAGES = ROOT / "docs" / "images"
-GOLD = "#e7c66b"
-GREEN = "#3ce4a0"
-INK = "#061b14"
+BACKGROUND = "#0A0E0F"
+GRID = "#192220"
+GREEN = "#8AC8B1"
+BLUE = "#B6CAD6"
+TEXT_PRIMARY = "#FFFFFF"
+TEXT_SECONDARY = "#BDBEBE"
 
 
 def scope_svg(
@@ -33,7 +36,7 @@ def scope_svg(
     y: float = 64,
     flash: float = 0,
     *,
-    circular: bool = True,
+    roundness: float = 1,
     bullet: float | None = None,
 ) -> str:
     """Illustrated branding, never market observations or a trading signal."""
@@ -49,7 +52,7 @@ def scope_svg(
         (106, 44, 52, 29, 64),
         (119, 53, 35, 25, 65),
     ):
-        color = GREEN if closing < opening else "#e88472"
+        color = GREEN if closing < opening else "#E88472"
         candles += (
             f'<path d="M{cx} {high}V{low}" stroke="{color}" stroke-width="1.5"/>'
             f'<rect x="{cx - 3.5}" y="{min(opening, closing)}" width="7" '
@@ -61,57 +64,43 @@ def scope_svg(
         angle = math.degrees(math.atan2(-38, -52))
         target += (
             f'<g transform="translate({bx:.3f} {by:.3f}) rotate({angle:.3f})">'
-            f'<path d="M-22 0H-6" stroke="{GOLD}" stroke-width="1.3" opacity=".7"/>'
-            f'<path d="M-5 -1.6H2L5 0L2 1.6H-5Z" fill="#fff1ba" stroke="{GOLD}" '
+            f'<path d="M-22 0H-6" stroke="{BLUE}" stroke-width="1.3" opacity=".7"/>'
+            f'<path d="M-5 -1.6H2L5 0L2 1.6H-5Z" fill="{TEXT_PRIMARY}" stroke="{BLUE}" '
             'stroke-width=".5"/></g>'
         )
     if flash:
         target += (
             f'<circle cx="{x}" cy="{y}" r="{8 + 15 * flash}" fill="none" '
-            f'stroke="{GOLD}" stroke-width="1.5" opacity="{flash}"/>'
+            f'stroke="{BLUE}" stroke-width="1.5" opacity="{flash}"/>'
             f'<path d="M64 53v22M53 64h22M56 56l16 16M56 72l16-16" '
-            f'stroke="#fff1ba" stroke-width="2" opacity="{flash}"/>'
-            f'<circle cx="{x}" cy="{y}" r="4" fill="#fff1ba" opacity="{flash}"/>'
+            f'stroke="{TEXT_PRIMARY}" stroke-width="2" opacity="{flash}"/>'
+            f'<circle cx="{x}" cy="{y}" r="4" fill="{TEXT_PRIMARY}" opacity="{flash}"/>'
         )
-    shape = (
-        '<circle cx="64" cy="64" r="58"/>'
-        if circular
-        else '<rect x="5" y="5" width="118" height="118"/>'
-    )
-    surface = (
-        f'<circle cx="64" cy="64" r="59" fill="url(#glass)" stroke="{GOLD}" stroke-width="1.5"/>'
-        if circular
-        else f'<rect x="5" y="5" width="118" height="118" fill="url(#glass)" '
-        f'stroke="{GOLD}" stroke-width="1.5"/>'
-    )
+    outline = f'<rect x="5" y="5" width="118" height="118" rx="{59 * roundness:.5f}"'
+    shape = f"{outline}/>"
+    surface = f'{outline} fill="{BACKGROUND}" stroke="{GREEN}" stroke-width="1.5"/>'
     bezel = (
-        f'<circle cx="64" cy="64" r="59" fill="none" stroke="{GOLD}" stroke-width="1.5"/>'
-        f'<circle cx="64" cy="64" r="55.5" fill="none" stroke="{GREEN}" '
-        'stroke-width=".5" stroke-opacity=".5"/>'
-        if circular
-        else ""
+        f'{outline} fill="none" stroke="{GREEN}" stroke-width="1.5"/>'
+        '<rect x="8.5" y="8.5" width="111" height="111" '
+        f'rx="{55.5 * roundness:.5f}" fill="none" stroke="{BLUE}" '
+        f'stroke-width=".5" stroke-opacity="{0.5 * roundness:.5f}"/>'
     )
-    grid = (
-        "M4 32h120M4 48h120M4 64h120M4 80h120M4 96h120"
-        "M16 20v88M32 20v88M48 20v88M64 20v88M80 20v88M96 20v88M112 20v88"
-        if circular
-        else "".join(f"M5 {position}h118M{position} 5v118" for position in range(16, 113, 16))
-    )
+    grid = "".join(f"M5 {position}h118M{position} 5v118" for position in range(16, 113, 16))
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" width="352" height="352" '
         'viewBox="0 0 128 128">'
-        "<title>StonksSniper circular candlestick scope</title>"
-        "<desc>A gold reticle targets the center of an illustrated candlestick chart. "
-        "The animation searches a square, fires a bullet and cuts to an equally wide circle. "
+        "<title>Stonks Sniper circular candlestick scope</title>"
+        "<desc>A pale blue reticle targets the center of an illustrated candlestick chart. "
+        "The animation searches a square, fires a bullet "
+        "and slowly rounds into an equally wide circle. "
         "Decorative branding, not market data.</desc>"
-        f'<defs><clipPath id="scope">{shape}</clipPath>'
-        '<radialGradient id="glass"><stop stop-color="#103e2b"/>'
-        f'<stop offset="1" stop-color="{INK}"/></radialGradient></defs>'
+        f'<defs><clipPath id="scope">{shape}</clipPath></defs>'
         f'{surface}<g clip-path="url(#scope)">'
         f'<path d="{grid}" '
-        f'fill="none" stroke="{GREEN}" stroke-opacity=".10" stroke-width=".5"/>'
-        f'{candles}<g transform="translate({x - 64:.3f} {y - 64:.3f})" '
-        f'fill="none" stroke="{GOLD}" stroke-width="1.2">'
+        f'fill="none" stroke="{GRID}" stroke-width=".5"/>'
+        f'<g id="candles">{candles}</g>'
+        f'<g transform="translate({x - 64:.3f} {y - 64:.3f})" '
+        f'fill="none" stroke="{BLUE}" stroke-width="1.2">'
         '<circle cx="64" cy="64" r="22"/>'
         '<path d="M64 23v31M64 74v31M23 64h31M74 64h31'
         "M59 42v4M69 42v4M59 82v4M69 82v4"
@@ -126,7 +115,7 @@ def image_from_qt(image: QImage) -> Image.Image:
     return Image.frombytes("RGBA", (image.width(), image.height()), bytes(image.constBits()))
 
 
-def render_svg(svg: str, size: int, *, circular: bool = True) -> Image.Image:
+def render_svg(svg: str, size: int, *, roundness: float = 1) -> Image.Image:
     renderer = QSvgRenderer(svg.encode("utf-8"))
     if not renderer.isValid():
         raise RuntimeError("Could not render the authored SVG.")
@@ -137,10 +126,11 @@ def render_svg(svg: str, size: int, *, circular: bool = True) -> Image.Image:
     # Qt's SVG renderer does not enforce the artwork's SVG clip path.
     clip = QPainterPath()
     scale = size / 128
-    if circular:
-        clip.addEllipse(QRectF(4.25 * scale, 4.25 * scale, 119.5 * scale, 119.5 * scale))
-    else:
-        clip.addRect(QRectF(4.25 * scale, 4.25 * scale, 119.5 * scale, 119.5 * scale))
+    clip.addRoundedRect(
+        QRectF(4.25 * scale, 4.25 * scale, 119.5 * scale, 119.5 * scale),
+        59.75 * roundness * scale,
+        59.75 * roundness * scale,
+    )
     painter.setClipPath(clip)
     renderer.render(painter, QRectF(0, 0, size, size))
     painter.end()
@@ -148,13 +138,23 @@ def render_svg(svg: str, size: int, *, circular: bool = True) -> Image.Image:
 
 
 def save_gif(
-    frames: list[Image.Image], path: Path, durations: list[int], *, transparent: bool = False
+    frames: list[Image.Image],
+    path: Path,
+    durations: list[int],
+    *,
+    transparent: bool = False,
+    palette_colors: tuple[str, ...] | None = None,
 ) -> None:
-    # One palette prevents static UI colors from flickering between frames.
-    swatches = Image.new("RGB", (128, 128 * len(frames)))
-    for i, frame in enumerate(frames):
-        swatches.paste(frame.convert("RGB").resize((128, 128)), (0, i * 128))
-    palette = swatches.quantize(colors=255 if transparent else 256)
+    if palette_colors is not None:
+        palette = Image.new("P", (1, 1))
+        colors = [value for color in palette_colors for value in bytes.fromhex(color[1:])]
+        palette.putpalette(colors + colors[:3] * (256 - len(palette_colors)))
+    else:
+        # One palette prevents static UI colors from flickering between frames.
+        swatches = Image.new("RGB", (128, 128 * len(frames)))
+        for i, frame in enumerate(frames):
+            swatches.paste(frame.convert("RGB").resize((128, 128)), (0, i * 128))
+        palette = swatches.quantize(colors=255 if transparent else 256)
     converted = []
     for frame in frames:
         indexed = frame.convert("RGB").quantize(palette=palette, dither=Image.Dither.NONE)
@@ -194,9 +194,9 @@ def build_brand() -> None:
                 progress = step / 4
                 frames.append(
                     render_svg(
-                        scope_svg(x + (tx - x) * progress, y + (ty - y) * progress, circular=False),
+                        scope_svg(x + (tx - x) * progress, y + (ty - y) * progress, roundness=0),
                         352,
-                        circular=False,
+                        roundness=0,
                     )
                 )
                 durations.append((50, 70, 40, 90)[step - 1])
@@ -205,38 +205,48 @@ def build_brand() -> None:
         progress = 1 - (1 - step / 8) ** 3
         frames.append(
             render_svg(
-                scope_svg(x + (64 - x) * progress, y + (64 - y) * progress, circular=False),
+                scope_svg(x + (64 - x) * progress, y + (64 - y) * progress, roundness=0),
                 352,
-                circular=False,
+                roundness=0,
             )
         )
         durations.append(70 if step < 8 else 450)
     for step in range(7):
-        frames.append(render_svg(scope_svg(circular=False, bullet=step / 6), 352, circular=False))
+        frames.append(render_svg(scope_svg(roundness=0, bullet=step / 6), 352, roundness=0))
         durations.append(60)
     for step in range(6):
-        frames.append(
-            render_svg(scope_svg(flash=1 - step / 6, circular=False), 352, circular=False)
-        )
+        frames.append(render_svg(scope_svg(flash=1 - step / 6, roundness=0), 352, roundness=0))
         durations.append(60)
+    for step in range(1, 97):
+        progress = step / 96
+        # Quintic easing starts and ends with zero speed and acceleration.
+        roundness = progress**3 * (progress * (6 * progress - 15) + 10)
+        frames.append(render_svg(scope_svg(roundness=roundness), 352, roundness=roundness))
+        durations.append(40)
     frames.append(render_svg(scope_svg(), 352))
     durations.append(1800)
-    save_gif(frames, ASSETS / "logo.gif", durations, transparent=True)
+    save_gif(
+        frames,
+        ASSETS / "logo.gif",
+        durations,
+        transparent=True,
+        palette_colors=(BACKGROUND, GRID, GREEN, BLUE, TEXT_PRIMARY, TEXT_SECONDARY, "#E88472"),
+    )
     IMAGES.mkdir(parents=True, exist_ok=True)
+    paper = "".join(f"M{position} 0v144" for position in range(0, 961, 14))
+    paper += "".join(f"M0 {position}h960" for position in range(0, 145, 14))
     banner = (
         '<svg xmlns="http://www.w3.org/2000/svg" width="960" height="144" '
-        'viewBox="0 0 960 144"><defs>'
-        '<linearGradient id="money"><stop stop-color="#08291b"/>'
-        '<stop offset=".5" stop-color="#145133"/><stop offset="1" stop-color="#08291b"/>'
-        '</linearGradient></defs><rect x="1" y="1" width="958" height="142" '
-        f'fill="url(#money)" stroke="{GOLD}"/>'
-        f'<path d="M24 28h80M856 28h80M24 116h80M856 116h80" stroke="{GOLD}" '
+        'viewBox="0 0 960 144"><rect x="1" y="1" width="958" height="142" '
+        f'fill="{BACKGROUND}" stroke="{BLUE}"/>'
+        f'<path d="{paper}" fill="none" stroke="{GRID}" stroke-width=".5"/>'
+        f'<path d="M24 28h80M856 28h80M24 116h80M856 116h80" stroke="{GREEN}" '
         'stroke-opacity=".6"/>'
         '<text x="480" y="78" text-anchor="middle" '
-        'font-family="Times New Roman, Times, serif" '
-        f'font-size="58" font-weight="700" letter-spacing="3" fill="{GOLD}">'
-        'STONKSSNIPER</text><text x="480" y="113" text-anchor="middle" '
-        f'font-family="Times New Roman, Times, serif" font-size="16" fill="{GREEN}" '
+        'font-family="Times New Roman" '
+        f'font-size="58" font-weight="400" letter-spacing="3" fill="{TEXT_PRIMARY}">'
+        'Stonks Sniper</text><text x="480" y="113" text-anchor="middle" '
+        f'font-family="Times New Roman" font-size="16" fill="{TEXT_SECONDARY}" '
         'letter-spacing="2">LEARN THE IDEA. TEST IT ON REAL HISTORY.</text></svg>'
     )
     (IMAGES / "readme-banner.svg").write_text(banner, encoding="utf-8")
@@ -249,27 +259,23 @@ def build_brand() -> None:
     ):
         button = (
             '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="86" '
-            'viewBox="0 0 300 86"><defs>'
-            '<linearGradient id="face" x2="0" y2="1">'
-            '<stop stop-color="#0a1a14"/><stop offset="1" stop-color="#06100c"/>'
-            "</linearGradient></defs>"
-            '<rect width="300" height="86" fill="url(#face)"/>'
-            f'<path d="{paper}" fill="none" stroke="{GREEN}" '
-            'stroke-opacity=".14" stroke-width=".5"/>'
-            f'<g fill="none" stroke="{GOLD}">'
+            'viewBox="0 0 300 86">'
+            f'<rect width="300" height="86" fill="{BACKGROUND}"/>'
+            f'<path d="{paper}" fill="none" stroke="{GRID}" stroke-width=".5"/>'
+            f'<g fill="none" stroke="{GREEN}">'
             '<rect x="2" y="2" width="296" height="82" stroke-width="4" stroke-opacity=".12"/>'
             '<rect x="2" y="2" width="296" height="82" stroke-width="1"/>'
-            '</g><g fill="none" stroke="#a2d8be">'
+            f'</g><g fill="none" stroke="{BLUE}">'
             '<rect x="7" y="7" width="286" height="72" stroke-width="4" stroke-opacity=".10"/>'
             '<rect x="7" y="7" width="286" height="72" stroke-width="1"/>'
-            '</g><g text-anchor="middle" font-family="Times New Roman, Times, serif">'
-            f'<text x="150" y="38" font-size="20" letter-spacing=".6" fill="#f2e7c6">'
+            '</g><g text-anchor="middle" font-family="Times New Roman" font-weight="400">'
+            f'<text x="150" y="38" font-size="20" letter-spacing=".6" fill="{TEXT_PRIMARY}">'
             f"{escape(title.upper())}</text>"
             '<text x="150" y="61" font-size="11.5" letter-spacing=".65" '
-            f'fill="#b9d8bd">{escape(subtitle.upper())}</text></g></svg>'
+            f'fill="{TEXT_SECONDARY}">{escape(subtitle.upper())}</text></g></svg>'
         )
         (IMAGES / f"button-{name}.svg").write_text(button, encoding="utf-8")
-    print("Built matching square/circle logo, erratic search, bullet shot and centered still.")
+    print("Built equal-size square/circle logo with slow eased rounding and centered still.")
 
 
 def build_gallery(app: QApplication, end: date | None) -> None:

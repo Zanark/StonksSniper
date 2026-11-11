@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="docs/images/readme-banner.svg" width="960" alt="StonksSniper. Learn the idea. Test it on real history.">
+  <img src="docs/images/readme-banner.svg" width="960" alt="Stonks Sniper. Learn the idea. Test it on real history.">
 </p>
 
 <p align="center">
-  <a href="docs/guide.md"><img src="src/stonks_sniper/assets/logo.gif" width="352" alt="A gold reticle darts across a square candlestick chart, centers, fires a bullet and cuts to an equally wide transparent circular logo."></a>
+  <a href="docs/guide.md"><img src="src/stonks_sniper/assets/logo.gif" width="352" alt="A pale blue reticle darts across a dark graph-paper candlestick chart, centers, fires a bullet and slowly rounds the square into an equally wide transparent circular logo."></a>
 </p>
 
 <p align="center"><b>Real history. Practice money. Every word explained.</b></p>

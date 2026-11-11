@@ -255,6 +255,58 @@ fit within both frames. Ruff lint/format passed. Navigation targets, app theme,
 logo geometry and existing GUI demos are unchanged. This is native SVG inspection,
 not a claim of full browser or all-platform font qualification.
 
+### Exact palette and always-static app header
+
+The latest user direction supersedes the earlier gold/green palette and animated
+app header. The app header/window icon now always render the centered static SVG;
+Animations still controls chart/replay/loading motion, never the header. The
+README retains the search/shot animation and matching size; the later refinement
+below replaces the original 70-frame abrupt cut.
+
+All authored banner/button/logo colors follow the exact six-color contract in
+`ui-design.md`; red/green candlesticks are the only drawing exception. Removed
+off-palette gradients. A raster inspection caught adaptive GIF encoding shifting
+the requested background color. The logo now uses a fixed indexed palette,
+including the permitted candle red, while actual GUI demos keep their existing
+shared adaptive palette. The new regression checks every visible logo-GIF color
+in every frame and SVG paint colors with the candle exception restricted to its
+group. Chart interiors remain opaque; the final outside remains transparent.
+
+Native preview also revealed the earlier comma-separated SVG font-family list
+rendered as sans-serif despite Times New Roman being installed. Explicitly naming
+the single Times New Roman family fixes the actual rendered artwork. The user's
+later refinement sets the title and button labels to regular weight, not bold. Inspected
+serif title/button renders at authored and README widths. This corrects the
+earlier insufficient font-availability check; it is not all-platform qualification.
+Hosts without the font may substitute; no font files are copied or embedded.
+The banner and visible application title/header use the exact **Stonks Sniper**
+case and space; repository/package identifiers remain unchanged.
+
+Fifty-two tests, Ruff lint/format and strict source mypy passed. The static-header
+regression rejected the former animated header; the palette regression rejected
+the previous artwork. Recaptured all five native 1366x768 GIF demos using 493
+actual RELIANCE.NS observations through the explicit 2026-11-09 cutoff, with fresh
+provenance. Their first/last header regions match. Exact study prices can change
+between provider requests; these are not immutable inputs or latest-price checks.
+Inspected the final palette, search/bullet/circular finish, native static header
+and serif artwork. The supplied meme and historical still gallery are unchanged.
+No existing user instance was driven/restarted; published v0.1.0 is unchanged.
+
+### Slow, smooth square-to-circle transition
+
+The user rejected the hard cut. The shape and explicit native painter clip now
+share a continuous corner radius, with 96 authored steps over 3.84 seconds.
+Quintic easing starts and ends with zero speed and acceleration; the reticle,
+candles and full grid remain stationary. The inner border gradually appears.
+Square side and final circle diameter still match in every decoded frame.
+
+The new regression failed against the old abrupt-cut asset (zero intermediate
+silhouettes). The new GIF decodes as 155 frames, with 84 distinct intermediate
+silhouettes spanning 3.80 seconds, within the full 3.84-second transition.
+It checks duration, monotonic corner removal, bounded changes between frames,
+constant bounds and transparent final corners. The full loop is 10.36 seconds;
+identical frames are merged by GIF encoding without losing their timing.
+
 ## Explicit GitHub tracking adoption
 
 `TODO\tracking.json` identifies the public repository, dedicated Project 14,

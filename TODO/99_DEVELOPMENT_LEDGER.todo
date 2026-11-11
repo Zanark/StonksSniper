@@ -153,3 +153,23 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   actual SVG renders at authored/README widths using the installed Windows font;
   all labels fit. Ruff lint/format passed. Original vector artwork, no embedded
   fonts; Times/serif fallbacks remain explicit. App theme and logo unchanged.
+- 2026-11-12: Superseded gold/green branding with the user's exact six-color
+  palette (#0A0E0F, #192220, #8AC8B1, #B6CAD6, #FFFFFF, #BDBEBE), allowing
+  red/green candles. Header now always displays the centered static SVG,
+  independently of Animations; README retains the animated search/shot/cut.
+  Raster inspection caught adaptive GIF palette drift; fixed-palette logo
+  encoding now retains only permitted visible colors. Regression checks all
+  GIF frames and SVG paints. Native preview exposed sans-serif fallback from
+  the old comma-separated family list; single-family Times New Roman renders
+  correctly. Final 52 tests, Ruff lint/format and strict source mypy passed.
+  Recaptured/inspected five native demos from 493 actual RELIANCE.NS observations
+  through the explicit 2026-11-09 cutoff, with updated provenance and matching
+  first/last header crops. Supplied meme, old still gallery and v0.1.0 unchanged;
+  no existing user instance driven or restarted.
+- 2026-11-12: User requested non-bold Times New Roman. Title and button labels
+  now explicitly use regular weight; no change to palette, navigation or GUI font.
+- 2026-11-12: Set the README title to the user's exact Stonks Sniper casing and space.
+- 2026-11-12: Replaced the hard square-to-circle cut with 3.84-second smooth
+  corner rounding. Regression rejected the old GIF; new asset has 84 intermediate
+  silhouettes over 3.80 seconds, with unchanged bounds and stationary center.
+  Refreshed native demos for the final still; final 52 tests passed.

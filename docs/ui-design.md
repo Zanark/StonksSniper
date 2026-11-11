@@ -66,21 +66,39 @@ Rectangular GUI elements use square corners consistently, including chart
 backgrounds and controls. The animated logo begins as a square chart whose side
 equals the final circle's outer diameter, including its border. The
 reticle makes erratic, seeded jumps across all quadrants, settles in the center
-and fires a visible bullet with a tracer and impact flash. It then cuts to a
-circle with transparent surroundings, not a circle painted onto a square tile.
-Its original green/coral candles are decorative illustrations, not observations.
-The header uses the GIF, while the window/taskbar icon uses the centered still
-SVG. Disabling **Animations** pauses the movie and shows that centered still;
-reenabling restores the movie. Closing the window stops it.
+and fires a visible bullet with a tracer and impact flash. Over 3.84 seconds,
+the corners gradually round into a circle, gently starting and finishing the
+movement. The chart and reticle stay fixed while the corners become transparent;
+the outer size never changes. It is not a circle painted onto a square tile.
+Its green/coral candles are decorative illustrations, not observations.
+The app header and window/taskbar icon always use the centered static SVG,
+regardless of **Animations**. Only the README logo plays the search/shot sequence.
 
-The README has a separate gold-and-green banner and linked, square image buttons.
-Buttons use the user's double-outline reference: fine gold/seafoam frames, a soft
-edge glow and a uniform square graph-paper grid on a dark background. Button
-labels and the project-title banner use Times New Roman, with Times/serif fallbacks
-on systems without that font. The actual Windows previews use installed Times
-New Roman; no font files are copied or embedded.
+The README banner, linked square buttons and both logos use this exact authored
+palette, replacing the earlier gold-and-green branding:
+
+```css
+:root {
+  --background: #0A0E0F;
+  --grid: #192220;
+  --green: #8AC8B1;
+  --blue: #B6CAD6;
+  --text-primary: #FFFFFF;
+  --text-secondary: #BDBEBE;
+}
+```
+
+Only candlesticks may add red/green colors. The logo GIF uses a fixed palette
+so adaptive encoding cannot shift the requested colors; transparent pixels are
+preserved. Native SVG antialiasing can blend edge pixels. Buttons use the user's
+double-outline reference, a soft edge glow and uniform 14x14-unit graph-paper
+cells. The title is exactly **Stonks Sniper**, preserving its case and space.
+Labels and the project title explicitly use regular-weight Times New Roman,
+never bold; no fonts are copied or embedded. The host needs that font for the exact face; the browser
+may substitute if it is unavailable. Actual native previews use installed Times
+New Roman. Authentic GUI demos and the supplied meme are not color-manipulated.
 Its logo displays at 352px, four times the original 88px width. The application
-keeps DeepSeaFoam rather than inheriting the README's promotional palette.
+keeps its existing DeepSeaFoam interface apart from the shared static brand.
 Detailed setup and explanations live in the linked written guides. GitHub's GIF
 player has no application-controlled pause switch; the guide and still logo
 provide a no-motion route, not a claim of automatic reduced-motion detection.

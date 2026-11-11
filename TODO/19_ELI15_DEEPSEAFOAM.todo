@@ -23,12 +23,18 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - [x] Apply square corners consistently to rectangular GUI surfaces and controls.
 - [x] Replace the logo tile with erratic rectangular-chart search, centered lock,
   a visible bullet and a transparent circular finish; center the still reticle.
-  Share the animation between the app header and four-times-larger README logo.
-- [x] Make README gold/green and GIF-led, with image navigation buttons and
-  linked setup/explanation guides.
+  Initially share the app/README animation; the later static-header task supersedes this.
+- [x] Initially make README gold/green and GIF-led, with image navigation buttons
+  and linked guides; the later exact-palette task supersedes those colors.
 - [x] Match the square chart's outer side to the final circle's outer diameter.
 - [x] Apply the supplied double-outline button effect, uniform graph-paper
   backgrounds and Times New Roman for README buttons/project title.
+- [x] Always show the centered static logo in the app header, independent of motion.
+- [x] Apply the user's exact six-color palette to README artwork and both logos;
+  allow red/green candlesticks, preserve actual GUI captures and refresh their logo.
+- [x] Use regular Times New Roman, not bold, for the README title and buttons.
+- [x] Display the README and app title/header exactly as Stonks Sniper, with the requested case and space.
+- [x] Replace the hard square-to-circle cut with a slow, smooth, equal-size transition.
 
 ## Acceptance criteria
 - No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
@@ -46,19 +52,24 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - Rectangular cards, controls, list selections, chart backgrounds and logo tile
   have square corners; the later logo follow-up removes its tile entirely.
 - Animated branding searches the rectangular chart, settles centrally, fires a
-  visible bullet and cuts to a circle with transparent surroundings. The matching
-  still reticle is centered, including when header motion is disabled.
+  visible bullet and smoothly rounds into a circle over about four seconds. The matching
+  still reticle is centered. The app header always uses the still, even with motion enabled.
   The 352px README logo is 4x its original 88px width.
 - The search chart is square, with exactly the final circle's visible width and
-  height, including borders; the cut changes shape without changing size.
-- README uses gold/green linked image buttons and native GIF demos with honest
+  height, including borders; gradual corner rounding changes shape without changing size.
+- README uses the exact six-color dark graph-paper palette, linked image buttons and native GIF demos with honest
   data provenance; longer explanations remain accessible in linked guides.
 - README buttons have consistent square grid cells, double-outline frames and
-  Times New Roman labels; the project-title banner uses Times New Roman too.
+  regular Times New Roman labels; the project-title banner uses regular Times New Roman too.
 - Screenshots show the real native application with actual observations, not a fictional dashboard.
 - Technical checks, human comprehension testing and normal Windows/DPI qualification are recorded separately.
 
 ## Completion evidence
+- Smooth-transition follow-up: the regression rejected the old hard cut.
+  The new GIF decodes as 155 frames; 84 intermediate silhouettes span 3.80 seconds
+  inside a 3.84-second eased transition. Constant bounds, monotonic corner removal,
+  bounded frame changes, exact colors and the static header pass targeted checks.
+  Final 52 tests passed after refreshing native GIFs for the final still logo.
 - Seven plain-language lessons and 74 shared dictionary entries pair meanings with
   everyday examples. Search covers names/abbreviations and explicitly reports gaps.
 - Real widget hover and Tab/Return navigation open the shared explanations without
@@ -114,6 +125,18 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   at 300px and actual 260px README widths; labels remain inside their frames.
   Windows resolved the installed Times New Roman family. Ruff lint/format passed.
   SVGs retain Times/serif fallbacks; no font files are copied or embedded.
+- Latest static/palette follow-up supersedes previous header/palette behavior:
+  app header always uses the centered SVG, including with Animations enabled.
+  README/banner/buttons/static logo use #0A0E0F, #192220, #8AC8B1, #B6CAD6,
+  #FFFFFF and #BDBEBE; only candlesticks may add red/green colors.
+  Logo GIF has a fixed palette; every frame's visible colors and SVG paint colors
+  are checked. Removed off-palette gradients. Native serif previews exposed and
+  corrected Qt's fallback from the previous comma-separated family list.
+  Explicit Times New Roman now renders visibly; font availability remains host-dependent.
+  Final 52 tests, Ruff lint/format and strict source mypy passed. Regenerated five
+  native 1366x768 GIF demos from 493 actual observations through 2026-11-09.
+  Inspected final artwork and native headers; first/last header crops match.
+  Published v0.1.0, supplied meme and historical still gallery remain unchanged.
 
 ## Completion log
 - 2026-11-11: User requested DeepSeaFoam material-inspired visuals, less scrolling,
@@ -151,3 +174,13 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - 2026-11-12: User supplied a double-outline button reference and requested
   uniform graph-paper backgrounds plus Times New Roman for buttons/project title.
   Rebuilt all three linked buttons and title banner, preserving gold/green.
+- 2026-11-12: User requested a permanently static app-header logo, rejected the
+  gold/green branding and supplied the exact six-color replacement palette.
+  Updated banner/buttons/static logo and the indexed logo GIF; kept red/green
+  candles as permitted. Corrected actual native Times New Roman rendering.
+  Refreshed all five real-data GUI demos and retained their provenance.
+- 2026-11-12: User rejected bold Times New Roman. Set the title and all button
+  labels to regular weight, preserving the six-color palette and graph-paper frames.
+- 2026-11-12: User specified exact title casing and spacing: Stonks Sniper.
+- 2026-11-12: User requested a slow, smooth square-to-circle transition. Added
+  3.84-second eased corner rounding without changing the outer size or moving the scene.

@@ -206,7 +206,7 @@ class MainWindow(QMainWindow):
         self.fetch_thread: QThread | None = None
         self.worker: FetchWorker | None = None
         self._animate_next = False
-        self.setWindowTitle("StonksSniper | Learn a pattern. Test an idea.")
+        self.setWindowTitle("Stonks Sniper | Learn a pattern. Test an idea.")
         self.setWindowIcon(application_icon())
         self.resize(1440, 900)
         self.setMinimumSize(1080, 720)
@@ -217,18 +217,12 @@ class MainWindow(QMainWindow):
         header = QHBoxLayout()
         self.brand_mark = QLabel()
         self.brand_mark.setFixedSize(46, 46)
-        self.brand_mark.setAccessibleName("StonksSniper circular candlestick scope")
-        self.brand_movie = QMovie(str(Path(__file__).parent / "assets" / "logo.gif"), parent=self)
-        if not self.brand_movie.isValid():
-            raise RuntimeError(f"Logo animation could not be loaded: {self.brand_movie.fileName()}")
-        self.brand_movie.setScaledSize(QSize(46, 46))
-        self.brand_movie.setCacheMode(QMovie.CacheMode.CacheAll)
-        self.brand_mark.setMovie(self.brand_movie)
-        self.brand_movie.start()
+        self.brand_mark.setAccessibleName("Stonks Sniper circular candlestick scope")
+        self.brand_mark.setPixmap(self.windowIcon().pixmap(46, 46))
         header.addWidget(self.brand_mark)
         brand = QVBoxLayout()
         brand.setSpacing(0)
-        brand.addWidget(label("StonksSniper", "brand"))
+        brand.addWidget(label("Stonks Sniper", "brand"))
         brand.addWidget(label("Understand an idea. Try it on real stock history."))
         header.addLayout(brand)
         header.addStretch()
@@ -236,7 +230,7 @@ class MainWindow(QMainWindow):
         self.motion = QCheckBox("Animations")
         self.motion.setChecked(True)
         self.motion.setToolTip(
-            "Optional logo, chart and loading motion. Turn off to stop all animation and replay."
+            "Optional chart and loading motion. Turn off to stop all animation and replay."
         )
         self.motion.toggled.connect(self.motion_changed)
         header.addWidget(self.motion)
@@ -646,11 +640,6 @@ class MainWindow(QMainWindow):
     @Slot()
     def motion_changed(self) -> None:
         self.stop_playback()
-        self.brand_movie.setPaused(not self.motion.isChecked())
-        if self.motion.isChecked():
-            self.brand_mark.setMovie(self.brand_movie)
-        else:
-            self.brand_mark.setPixmap(self.windowIcon().pixmap(46, 46))
         if self.fetch_thread is not None:
             self.loading_movie.setPaused(not self.motion.isChecked())
         self.play.setEnabled(self.motion.isChecked() and self.result is not None)
@@ -1240,7 +1229,6 @@ class MainWindow(QMainWindow):
             )
             event.ignore()
             return
-        self.brand_movie.stop()
         super().closeEvent(event)
 
 

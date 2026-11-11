@@ -4,9 +4,13 @@ import json
 import os
 import time
 from dataclasses import replace
+from importlib.resources import files
+from pathlib import Path
 from threading import Event
+from xml.etree import ElementTree
 
 import pytest
+from PIL import Image, ImageSequence
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
@@ -21,46 +25,61 @@ from stonks_sniper.models import DataError  # noqa: E402
 from stonks_sniper.patterns import PATTERNS  # noqa: E402
 
 
-def test_circular_logo_animates_and_respects_motion_and_close():
+def test_readme_artwork_uses_requested_palette_with_candle_exception():
+    palette = {"#0A0E0F", "#192220", "#8AC8B1", "#B6CAD6", "#FFFFFF", "#BDBEBE"}
+
+    def check(element, *, candles=False):
+        candles = candles or element.get("id") == "candles"
+        for attribute in ("fill", "stroke", "stop-color"):
+            color = element.get(attribute, "").upper()
+            if color.startswith("#"):
+                assert color in palette or (candles and color == "#E88472")
+        for child in element:
+            check(child, candles=candles)
+
+    images = Path(__file__).parents[1] / "docs" / "images"
+    for path in [
+        images / "readme-banner.svg",
+        *(images / f"button-{name}.svg" for name in ("start", "guide", "download")),
+        files("stonks_sniper") / "assets" / "logo.svg",
+    ]:
+        check(ElementTree.fromstring(path.read_text(encoding="utf-8")))
+    with Image.open(str(files("stonks_sniper") / "assets" / "logo.gif")) as logo:
+        for frame in ImageSequence.Iterator(logo):
+            colors = frame.convert("RGBA").getcolors(256)
+            assert colors is not None
+            for _, (red, green, blue, alpha) in colors:
+                color = f"#{red:02X}{green:02X}{blue:02X}"
+                assert alpha == 0 or color in palette or color == "#E88472"
+
+
+def test_header_logo_stays_static_with_motion_on_and_off():
     app = QApplication.instance() or QApplication([])
     window = MainWindow()
     try:
-        assert window.brand_movie.state() == QMovie.MovieState.Running
-        assert window.brand_movie.currentImage().pixelColor(0, 0).alpha() == 0
-        frame = window.brand_movie.currentFrameNumber()
-        deadline = time.monotonic() + 1
-        while window.brand_movie.currentFrameNumber() == frame and time.monotonic() < deadline:
-            app.processEvents()
-            time.sleep(0.01)
-        assert window.brand_movie.currentFrameNumber() != frame
-        window.motion.setChecked(False)
-        assert window.brand_movie.state() == QMovie.MovieState.Paused
+        expected = window.windowIcon().pixmap(46, 46).toImage()
         assert window.brand_mark.movie() is None
         assert not window.brand_mark.pixmap().isNull()
-        frame = window.brand_movie.currentFrameNumber()
-        deadline = time.monotonic() + 0.2
-        while time.monotonic() < deadline:
+        assert window.brand_mark.pixmap().toImage() == expected
+        for enabled in (False, True):
+            window.motion.setChecked(enabled)
             app.processEvents()
-            time.sleep(0.01)
-        assert window.brand_movie.currentFrameNumber() == frame
-        window.motion.setChecked(True)
-        assert window.brand_movie.state() == QMovie.MovieState.Running
-        assert window.brand_mark.movie() is window.brand_movie
+            assert window.brand_mark.movie() is None
+            assert window.brand_mark.pixmap().toImage() == expected
         assert window.loading_movie.state() == QMovie.MovieState.NotRunning
         assert window.windowIcon().pixmap(46, 46).toImage().pixelColor(0, 0).alpha() == 0
     finally:
         window.close()
-        assert window.brand_movie.state() == QMovie.MovieState.NotRunning
         window.deleteLater()
         app.processEvents()
 
 
-def test_logo_cuts_from_matching_square_to_transparent_circle():
+def test_logo_morphs_slowly_from_matching_square_to_transparent_circle():
     app = QApplication.instance() or QApplication([])
     window = MainWindow()
     try:
         window.motion.setChecked(False)
-        movie = QMovie(window.brand_movie.fileName())
+        movie = QMovie(str(files("stonks_sniper") / "assets" / "logo.gif"))
         movie.setCacheMode(QMovie.CacheMode.CacheAll)
         assert movie.jumpToFrame(0)
         first = movie.currentImage()
@@ -80,6 +99,19 @@ def test_logo_cuts_from_matching_square_to_transparent_circle():
         still = window.windowIcon().pixmap(256, 256).toImage()
         assert still.pixelColor(238, 70).alpha() == 0
         assert still.pixelColor(128, 128).alpha() == 255
+        with Image.open(str(files("stonks_sniper") / "assets" / "logo.gif")) as logo:
+            coverage = [
+                (frame.convert("RGBA").getchannel("A").histogram()[255], frame.info["duration"])
+                for frame in ImageSequence.Iterator(logo)
+            ]
+        square, circle = coverage[0][0], coverage[-1][0]
+        transition = [(area, duration) for area, duration in coverage if circle < area < square]
+        assert len({area for area, _ in transition}) >= 50
+        assert sum(duration for _, duration in transition) >= 3000
+        areas = [square, *(area for area, _ in transition), circle]
+        steps = [before - after for before, after in zip(areas, areas[1:], strict=False)]
+        assert all(step >= 0 for step in steps)
+        assert max(steps) < (square - circle) / 15
     finally:
         window.close()
         window.deleteLater()
