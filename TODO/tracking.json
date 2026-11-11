@@ -237,7 +237,7 @@
       "issue_number": 19,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH5GPs",
       "baseline": {
-        "body_sha256": "873b64de42590db6b136df9ad538488901901621956edf3092ebeae65d1ec303",
+        "body_sha256": "163f43afadef97f7e29e3e1c245d911566368d65449271a8590cf736f13e6d98",
         "title": "SS-19 - ELI15-first DeepSeaFoam learning experience",
         "issue_state": "closed",
         "state_reason": "completed",

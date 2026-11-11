@@ -35,6 +35,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - [x] Use regular Times New Roman, not bold, for the README title and buttons.
 - [x] Display the README and app title/header exactly as Stonks Sniper, with the requested case and space.
 - [x] Replace the hard square-to-circle cut with a slow, smooth, equal-size transition.
+- [x] Add tinted scope glass, curved reflections and an optical rim; shorten only
+  the square-to-circle transition to 2.56 seconds (1.5x faster).
 
 ## Acceptance criteria
 - No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
@@ -52,7 +54,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - Rectangular cards, controls, list selections, chart backgrounds and logo tile
   have square corners; the later logo follow-up removes its tile entirely.
 - Animated branding searches the rectangular chart, settles centrally, fires a
-  visible bullet and smoothly rounds into a circle over about four seconds. The matching
+  visible bullet and smoothly rounds into a circle over 2.56 seconds. Tinted glass,
+  curved highlights and a dark optical rim add depth without new authored colors. The matching
   still reticle is centered. The app header always uses the still, even with motion enabled.
   The 352px README logo is 4x its original 88px width.
 - The search chart is square, with exactly the final circle's visible width and
@@ -65,6 +68,17 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - Technical checks, human comprehension testing and normal Windows/DPI qualification are recorded separately.
 
 ## Completion evidence
+- Glass/faster follow-up supersedes the earlier transition timing: shared scope
+  now has approved-color lens shading, curved reflections and a layered optical
+  rim. Inspected the rendered still and decoded GIF states; kept clean fixed-palette
+  encoding rather than noisy dithering. No reference photo was copied.
+  The 96-sample eased morph takes 2.56 seconds (1.5x faster); other phases retain
+  their timing. Decoded GIF: 159 frames, 84 intermediate silhouettes over 2.40
+  seconds, 9.08-second loop. Rendered shading and faster timing regressions rejected
+  the old assets. Ten desktop tests, Ruff lint/format, strict source mypy and
+  diff checks passed, including exact palette, equal bounds, transparency,
+  smooth monotonic rounding and permanently static header. Gallery, loading meme
+  and frozen v0.1.0 wheel are unchanged; no existing app was driven/restarted.
 - Smooth-transition follow-up: the regression rejected the old hard cut.
   The new GIF decodes as 155 frames; 84 intermediate silhouettes span 3.80 seconds
   inside a 3.84-second eased transition. Constant bounds, monotonic corner removal,
@@ -184,3 +198,7 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - 2026-11-12: User specified exact title casing and spacing: Stonks Sniper.
 - 2026-11-12: User requested a slow, smooth square-to-circle transition. Added
   3.84-second eased corner rounding without changing the outer size or moving the scene.
+- 2026-11-12: User supplied glass-scope references and requested a 1.5x faster
+  transition. Added original lens tint, curved reflections and optical rim to
+  both logos; shortened only the morph to 2.56 seconds. Exact palette, centered
+  static reticle, equal outer size and existing search/shot timing are preserved.

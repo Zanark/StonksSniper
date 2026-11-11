@@ -67,10 +67,15 @@ Rectangular GUI elements use square corners consistently, including chart
 backgrounds and controls. The animated logo begins as a square chart whose side
 equals the final circle's outer diameter, including its border. The
 reticle makes erratic, seeded jumps across all quadrants, settles in the center
-and fires a visible bullet with a tracer and impact flash. Over 3.84 seconds,
+and fires a visible bullet with a tracer and impact flash. Over 2.56 seconds,
 the corners gradually round into a circle, gently starting and finishing the
 movement. The chart and reticle stay fixed while the corners become transparent;
 the outer size never changes. It is not a circle painted onto a square tile.
+Blue-tinted glass, curved highlights, a vignetted lens edge and layered optical
+rim give the scope depth. The SVG uses only approved gradient-stop colors;
+the GIF keeps the exact fixed palette without grainy dithering, so its shading
+is deliberately simpler. All 96 morph samples retain quintic easing, timed in
+30/30/20ms groups: exactly 1.5x faster than the previous 3.84 seconds.
 Its green/coral candles are decorative illustrations, not observations.
 The app header and window/taskbar icon always use the centered static SVG,
 regardless of **Animations**. Only the README logo plays the search/shot sequence.

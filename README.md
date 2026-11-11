@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="docs/guide.md"><img src="src/stonks_sniper/assets/logo.gif" width="352" alt="A pale blue reticle darts across a dark graph-paper candlestick chart, centers, fires a bullet and slowly rounds the square into an equally wide transparent circular logo."></a>
+  <a href="docs/guide.md"><img src="src/stonks_sniper/assets/logo.gif" width="352" alt="A pale blue reticle searches a candlestick chart through tinted scope glass with curved reflections and a dark lens rim, centers, fires a bullet and smoothly rounds the square into an equally wide transparent circle over 2.56 seconds."></a>
 </p>
 
 <p align="center"><b>Real history. Practice money. Every word explained.</b></p>

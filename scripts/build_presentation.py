@@ -78,27 +78,54 @@ def scope_svg(
         )
     outline = f'<rect x="5" y="5" width="118" height="118" rx="{59 * roundness:.5f}"'
     shape = f"{outline}/>"
-    surface = f'{outline} fill="{BACKGROUND}" stroke="{GREEN}" stroke-width="1.5"/>'
+    surface = f'{outline} fill="{BACKGROUND}"/>{outline} fill="url(#glass-depth)"/>'
     bezel = (
+        '<rect x="10" y="10" width="108" height="108" '
+        f'rx="{54 * roundness:.5f}" fill="none" stroke="{BACKGROUND}" '
+        'stroke-width="6" stroke-opacity=".7"/>'
         f'{outline} fill="none" stroke="{GREEN}" stroke-width="1.5"/>'
-        '<rect x="8.5" y="8.5" width="111" height="111" '
-        f'rx="{55.5 * roundness:.5f}" fill="none" stroke="{BLUE}" '
-        f'stroke-width=".5" stroke-opacity="{0.5 * roundness:.5f}"/>'
+        '<rect x="7.5" y="7.5" width="113" height="113" '
+        f'rx="{56.5 * roundness:.5f}" fill="none" stroke="{BLUE}" '
+        'stroke-width=".7" stroke-opacity=".65"/>'
+    )
+    glass = (
+        f'{outline} fill="url(#glass-reflection)"/>'
+        f'{outline} fill="url(#glass-edge)"/>'
+        f'<path d="M15 54C19 30 33 17 54 13" fill="none" stroke="{BLUE}" '
+        'stroke-width="2.2" stroke-linecap="round" opacity=".65"/>'
+        f'<path d="M21 39C28 25 36 20 47 17" fill="none" stroke="{TEXT_PRIMARY}" '
+        'stroke-width="1.4" stroke-linecap="round" opacity=".72"/>'
+        f'<path d="M74 115C101 110 112 94 115 73" fill="none" stroke="{GREEN}" '
+        'stroke-width="1.1" stroke-linecap="round" opacity=".45"/>'
     )
     grid = "".join(f"M5 {position}h118M{position} 5v118" for position in range(16, 113, 16))
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" width="352" height="352" '
         'viewBox="0 0 128 128">'
         "<title>Stonks Sniper circular candlestick scope</title>"
-        "<desc>A pale blue reticle targets the center of an illustrated candlestick chart. "
+        "<desc>A pale blue reticle looks through blue-tinted scope glass at a candlestick chart. "
+        "Curved reflections, a shaded lens edge and a layered rim give the glass depth. "
         "The animation searches a square, fires a bullet "
-        "and slowly rounds into an equally wide circle. "
+        "and smoothly rounds into an equally wide circle over 2.56 seconds. "
         "Decorative branding, not market data.</desc>"
-        f'<defs><clipPath id="scope">{shape}</clipPath></defs>'
+        f'<defs><clipPath id="scope">{shape}</clipPath>'
+        '<radialGradient id="glass-depth" cx="46%" cy="36%" r="74%">'
+        f'<stop offset="0" stop-color="{BLUE}" stop-opacity=".24"/>'
+        f'<stop offset=".65" stop-color="{GRID}" stop-opacity=".58"/>'
+        f'<stop offset="1" stop-color="{BACKGROUND}"/></radialGradient>'
+        '<linearGradient id="glass-reflection" x1="0" y1="0" x2=".35" y2="1">'
+        f'<stop offset="0" stop-color="{TEXT_PRIMARY}" stop-opacity=".16"/>'
+        f'<stop offset=".48" stop-color="{BLUE}" stop-opacity=".035"/>'
+        f'<stop offset="1" stop-color="{BLUE}" stop-opacity="0"/></linearGradient>'
+        '<radialGradient id="glass-edge" cx="50%" cy="50%" r="55%">'
+        f'<stop offset=".50" stop-color="{BACKGROUND}" stop-opacity="0"/>'
+        f'<stop offset=".84" stop-color="{BACKGROUND}" stop-opacity=".18"/>'
+        f'<stop offset="1" stop-color="{BACKGROUND}" stop-opacity=".96"/></radialGradient>'
+        "</defs>"
         f'{surface}<g clip-path="url(#scope)">'
         f'<path d="{grid}" '
         f'fill="none" stroke="{GRID}" stroke-width=".5"/>'
-        f'<g id="candles">{candles}</g>'
+        f'<g id="candles">{candles}</g>{glass}'
         f'<g transform="translate({x - 64:.3f} {y - 64:.3f})" '
         f'fill="none" stroke="{BLUE}" stroke-width="1.2">'
         '<circle cx="64" cy="64" r="22"/>'
@@ -217,12 +244,16 @@ def build_brand() -> None:
     for step in range(6):
         frames.append(render_svg(scope_svg(flash=1 - step / 6, roundness=0), 352, roundness=0))
         durations.append(60)
-    for step in range(1, 97):
-        progress = step / 96
+    morph_elapsed = 0
+    for step in range(96):
+        # GIF delays use 10ms ticks: three frames share 80ms, totaling exactly 2.56s.
+        duration = (30, 30, 20)[step % 3]
+        morph_elapsed += duration
+        progress = morph_elapsed / 2560
         # Quintic easing starts and ends with zero speed and acceleration.
         roundness = progress**3 * (progress * (6 * progress - 15) + 10)
         frames.append(render_svg(scope_svg(roundness=roundness), 352, roundness=roundness))
-        durations.append(40)
+        durations.append(duration)
     frames.append(render_svg(scope_svg(), 352))
     durations.append(1800)
     save_gif(
@@ -275,7 +306,7 @@ def build_brand() -> None:
             f'fill="{TEXT_SECONDARY}">{escape(subtitle.upper())}</text></g></svg>'
         )
         (IMAGES / f"button-{name}.svg").write_text(button, encoding="utf-8")
-    print("Built equal-size square/circle logo with slow eased rounding and centered still.")
+    print("Built glass scope, equal-size 2.56s eased rounding and centered static logo.")
 
 
 def build_gallery(app: QApplication, end: date | None) -> None:

@@ -340,6 +340,31 @@ It checks duration, monotonic corner removal, bounded changes between frames,
 constant bounds and transparent final corners. The full loop is 10.36 seconds;
 identical frames are merged by GIF encoding without losing their timing.
 
+### Glass scope and 1.5x faster rounding
+
+The subsequent request adds original blue-tinted lens shading, a dark optical
+edge, curved reflections and a layered rim to the shared SVG and README GIF.
+Reference photographs informed the effect; neither photo is copied or published.
+Gradient stops use only the six approved colors. Fixed-palette encoding retains
+only those colors plus candle red. Inspected both encodings: rejected noisy
+Floyd-Steinberg dithering and kept the clean, deliberately simpler GIF shading.
+The native static SVG retains smooth shading; the header remains static.
+
+The 96-sample quintic morph now takes exactly 2.56 seconds, down from 3.84.
+GIF delays use 10ms ticks, so 30/30/20ms groups distribute the time exactly;
+easing uses cumulative elapsed time. Search, lock, bullet, impact and final hold
+durations are unchanged. The final asset decodes as 159 frames, with 84 distinct
+intermediate silhouettes spanning 2.40 seconds and a 9.08-second complete loop.
+Constant bounds, monotonic rounding and transparent corners remain checked.
+
+New rendered-glass and faster-timing assertions rejected the old flat/slow
+artwork before generation. Ten desktop tests, Ruff lint/format, strict source
+mypy and diff checks passed. Inspected decoded search/lock/morph/final states and
+the native static render; no gallery recapture, network market request, external
+texture, dependency installation or existing-user-window control was performed.
+The frozen v0.1.0 wheel remains byte-identical. This is not human approval or
+fresh normal-Windows/DPI/installer qualification.
+
 ## Explicit GitHub tracking adoption
 
 `TODO\tracking.json` identifies the public repository, dedicated Project 14,

@@ -195,3 +195,13 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   corner rounding. Regression rejected the old GIF; new asset has 84 intermediate
   silhouettes over 3.80 seconds, with unchanged bounds and stationary center.
   Refreshed native demos for the final still; final 52 tests passed.
+- 2026-11-12: Added original glass-scope tint, curved reflections, dark edge and
+  layered rim to both logos. Changed only the 96-sample eased morph from 3.84
+  to 2.56 seconds (1.5x faster); search/shot timing is unchanged. Decoded GIF:
+  159 frames, 84 intermediate silhouettes over 2.40 seconds, 9.08-second loop.
+  Native SVG has smooth shading; strict-palette GIF deliberately simplifies
+  it without noisy dithering. Old assets failed new glass/timing regressions;
+  final ten desktop tests, Ruff lint/format, strict source mypy and diff checks
+  passed. Inspected actual renders/decoded states; static header, exact colors,
+  transparent circular finish and equal bounds preserved. No photo copying,
+  gallery recapture, market retrieval, app restart or v0.1.0 replacement.

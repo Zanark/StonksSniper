@@ -10,7 +10,7 @@ from threading import Event
 from xml.etree import ElementTree
 
 import pytest
-from PIL import Image, ImageSequence
+from PIL import Image, ImageSequence, ImageStat
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
@@ -23,6 +23,7 @@ from stonks_sniper.app import MainWindow  # noqa: E402
 from stonks_sniper.engine import simulate  # noqa: E402
 from stonks_sniper.models import DataError  # noqa: E402
 from stonks_sniper.patterns import PATTERNS  # noqa: E402
+from stonks_sniper.theme import application_icon  # noqa: E402
 
 
 def test_readme_artwork_uses_requested_palette_with_candle_exception():
@@ -74,7 +75,24 @@ def test_header_logo_stays_static_with_motion_on_and_off():
         app.processEvents()
 
 
-def test_logo_morphs_slowly_from_matching_square_to_transparent_circle():
+def test_scope_has_blue_glass_shading_instead_of_a_flat_background():
+    app = QApplication.instance() or QApplication([])
+    still = application_icon().pixmap(256, 256).toImage()
+    app.processEvents()
+    upper_glass = still.pixelColor(116, 34)
+    lower_glass = still.pixelColor(116, 220)
+    assert upper_glass.lightness() > lower_glass.lightness() + 8
+    assert upper_glass.blue() > upper_glass.red()
+    with Image.open(str(files("stonks_sniper") / "assets" / "logo.gif")) as logo:
+        logo.seek(logo.n_frames - 1)
+        lens = logo.convert("RGB")
+        upper = ImageStat.Stat(lens.crop((154, 47, 165, 55))).mean
+        lower = ImageStat.Stat(lens.crop((154, 294, 165, 302))).mean
+    assert sum(upper) > sum(lower) + 24
+    assert upper[2] > upper[0]
+
+
+def test_logo_morphs_smoothly_at_faster_speed_from_equal_square_to_transparent_circle():
     app = QApplication.instance() or QApplication([])
     window = MainWindow()
     try:
@@ -107,7 +125,8 @@ def test_logo_morphs_slowly_from_matching_square_to_transparent_circle():
         square, circle = coverage[0][0], coverage[-1][0]
         transition = [(area, duration) for area, duration in coverage if circle < area < square]
         assert len({area for area, _ in transition}) >= 50
-        assert sum(duration for _, duration in transition) >= 3000
+        assert 2200 <= sum(duration for _, duration in transition) <= 2560
+        assert sum(duration for _, duration in coverage) == 9080
         areas = [square, *(area for area, _ in transition), circle]
         steps = [before - after for before, after in zip(areas, areas[1:], strict=False)]
         assert all(step >= 0 for step in steps)

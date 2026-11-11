@@ -56,9 +56,12 @@ Broader pattern families, baskets of stocks and AI-proposed ideas remain planned
 ## About the moving pictures
 
 The logo is original decorative artwork: the reticle darts across a square
-chart, settles on the center candle and fires a visible bullet. After the impact,
-the corners slowly round away over about four seconds, leaving a circle with a
-transparent outside. It starts and finishes gently, without shrinking. The still logo keeps the
+chart through tinted scope glass, with curved reflections, a dark lens edge and
+a layered rim. It settles on the center candle and fires a visible bullet. After
+the impact, the corners smoothly round away over 2.56 seconds, leaving a circle
+with a transparent outside. That transition is 1.5x faster than the earlier
+3.84-second version; the search and shot keep their original pace.
+It starts and finishes gently, without shrinking. The still logo keeps the
 reticle centered. The app header always shows that still, even with **Animations**
 enabled; the search-and-shot animation is for the README.
 The square's side matches the circle's diameter, so the logo does not change size.
