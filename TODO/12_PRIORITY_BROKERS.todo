@@ -1,0 +1,27 @@
+# SS-12 - Investigate Upstox, Zerodha and FYERS data
+Workstream ID: SS-12
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/12
+Status: NOT_STARTED
+Milestone: M4
+Dependencies: SS-03
+
+## Purpose
+Qualify the strongest documented broker-backed alternatives to initial free daily access.
+
+## Tasks
+- [ ] Upstox: V3 history, instrument master, auth/session, BSE and expired/Plus boundaries.
+- [ ] Zerodha: Connect data subscription, instruments, history windows and continuous futures.
+- [ ] FYERS: Standard/Prime history, quotas, NSE/BSE entitlement and current data fees.
+- [ ] For each, execute the common eight-step qualification in docs/data-providers.md.
+- [ ] Produce separate go/no-go receipts; implement only an entitled read-only adapter.
+
+## Acceptance criteria
+- Current official terms, actual account entitlement, adjustments and costs are recorded per option.
+- No order endpoints, account opening or subscriptions activated without separate authority.
+
+## Completion evidence
+- Official documentation/pricing comparison exists in docs/data-providers.md.
+- Account-level qualification and adapter implementation not started.
+
+## Completion log
+- 2026-11-11: Completed desk-research shortlist; retained all three future investigations.

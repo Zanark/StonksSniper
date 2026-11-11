@@ -1,0 +1,27 @@
+# SS-15 - Investigate Breeze, Kotak Neo, 5paisa and IIFL
+Workstream ID: SS-15
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/15
+Status: NOT_STARTED
+Milestone: M4
+Dependencies: SS-03
+
+## Purpose
+Qualify bank/full-service API data routes and their differing exchange coverage.
+
+## Tasks
+- [ ] ICICI Breeze: NSE-only documented boundary, history, signed session auth and quotas.
+- [ ] Kotak Neo: official SDK/docs, historical versus quote support, TOTP/session and coverage.
+- [ ] 5paisa Xstream: candle history windows, OAuth, plan costs and adjustments.
+- [ ] IIFL Capital: current official API generation, history product and entitlement.
+- [ ] Complete common qualification and separate go/no-go for all four candidates.
+
+## Acceptance criteria
+- Breeze is not represented as a documented BSE solution.
+- JS portal availability alone is not historical-data capability evidence.
+
+## Completion evidence
+- Breeze docs, Kotak product page and 5paisa endpoint index read; IIFL shell discovered.
+- Account tests/adapter work not started.
+
+## Completion log
+- 2026-11-11: Registered four explicit provider investigation tasks.

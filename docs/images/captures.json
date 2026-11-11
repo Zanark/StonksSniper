@@ -1,0 +1,46 @@
+{
+  "captured_at": "2026-11-11T22:35:03.622238+05:30",
+  "source": "Yahoo Finance via yfinance (unofficial)",
+  "symbol": "RELIANCE.NS",
+  "exchange": "NSE",
+  "currency": "INR",
+  "fetched_at": "2026-11-11T22:35:01.012284+05:30",
+  "first_observation": "2024-11-11",
+  "last_observation": "2026-11-09",
+  "observations": 494,
+  "price_basis": "Yahoo split/dividend-adjusted OHLC (auto_adjust=True); total-return research proxy",
+  "platform": "offscreen",
+  "motion": false,
+  "captures": [
+    {
+      "file": "01-explore.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "file": "02-money.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "file": "03-rule.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "file": "04-pattern.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "file": "05-dictionary.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "file": "06-compact.png",
+      "width": 1366,
+      "height": 768
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+# SS-10 - Local snapshots and reproducible studies
+Workstream ID: SS-10
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/10
+Status: NOT_STARTED
+Milestone: M2
+Dependencies: SS-03, SS-04
+
+## Purpose
+Preserve the exact inputs and assumptions needed to revisit a study without stale-data ambiguity.
+
+## Tasks
+- [ ] Define local SQLite metadata and permitted immutable observation snapshots.
+- [ ] Record retrieval/version/hash, revisions, source terms and adjustment basis.
+- [ ] Import/replay saved studies with schema validation and explicit historical labels.
+- [ ] Add notebook annotations, comparisons, parameter versions and backup/export recovery.
+- [ ] Isolate stable-use state from development profiles and test migrations recoverably.
+
+## Acceptance criteria
+- Cached/saved data is never labelled newly fetched or current.
+- Raw market datasets and credentials stay outside public Git.
+
+## Completion evidence
+- Not started. M1 manual JSON export is not a full persistence/import system.
+
+## Completion log
+- 2026-11-11: Registered local study storage and revision accounting.

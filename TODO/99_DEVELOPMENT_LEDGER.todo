@@ -1,0 +1,98 @@
+# StonksSniper development ledger
+
+Status: PERPETUAL
+Milestone: All
+Dependencies: None
+
+## Purpose
+Keep a concise causal engineering record; this ledger is not a feature issue.
+
+## Tasks
+- Append substantial decisions, failures, fixes and exact completion evidence.
+- Keep technical completion, human acceptance and publication separate.
+
+## Acceptance criteria
+- Records describe observed work, not planned work presented as completed.
+- No secrets, private context or downloaded market observations are mirrored.
+
+## Completion evidence
+- See dated entries. No commit, push, release, broker purchase or deployment claimed.
+
+## Completion log
+- 2026-11-11: Confirmed NSE/BSE first, free labelled daily data and native Python/PySide6.
+  Chose a replaceable provider boundary; adjusted research units explicitly differ from
+  executable historical share prices. Current-day bars excluded conservatively.
+- 2026-11-11: Primary-provider research found materially different entitlements:
+  Kite history/streaming paid, FYERS plan-dependent depth, Breeze NSE-only.
+  Some portals exposed only JS shells; NSE/BSE official pages were unavailable.
+  Preserved those gaps and created named follow-up tasks instead of guessing.
+- 2026-11-11: Verified Zanark/public repository access. Ordinary gh project owner lookup
+  failed; direct GraphQL inventory worked. Created and linked dedicated Project 14;
+  adopted its actual Todo / In Progress / Done options.
+- 2026-11-11: Implemented seven daily teaching variants, causal long/cash simulation,
+  native replay/chart UI and manual JSON export. Validation still in progress.
+- 2026-11-11: Corrected a nonexistent curl_cffi exception import after dependency
+  execution exposed it; RequestException already inherits OSError. Renamed UI
+  members conflicting with Qt APIs and corrected QDate/static typing integration.
+- 2026-11-11: Initial full tracking apply hit Project read-after-write lag.
+  Added bounded read-only verification retries and explicit exhausted-bound tests.
+  Resumed all 18 mappings successfully; no blind mutation retries were added.
+- 2026-11-11: 37 tests, Ruff lint/format and strict source mypy passed.
+  Actual Yahoo checks returned RELIANCE.NS=494, TCS.NS=494 and TCS.BO=492
+  completed daily bars; ran seven variants per dataset. 500325.BO and RELIANCE.BO
+  failed explicitly; no fallback symbol or fabricated observations were supplied.
+- 2026-11-11: Native offscreen image inspection exposed missing text glyphs.
+  Explicitly loaded installed Segoe UI for that platform and inspected a readable
+  replacement. Improved source-link contrast. This is not human approval or a
+  packaged interactive Windows qualification.
+- 2026-11-11: Separate BSE requests showed materially differing simulation outputs.
+  A consecutive two-fetch comparison matched every admitted bar and target sequence;
+  prior inputs were not preserved, so root cause remains open in SS-07/SS-10.
+- 2026-11-11: A full idempotence apply verified SS-01 through SS-13, then stopped
+  explicitly on GitHub HTTP 503. Existing identities remain saved; final rerun pending.
+- 2026-11-11: Subsequent full apply verified all 18 original issue/Project identities
+  and synchronized SS-03/04/05 technical completion. No duplicates were created.
+- 2026-11-11: Cross-process BSE comparison isolated differing adjusted inputs:
+  203-210 bars differed by at most about INR 0.001, changing 15-22 engulfing targets
+  near exact body boundaries. Preserved prices/rules and made sensitivity visible;
+  provider-side precision/revision origin remains a research qualification gap.
+- 2026-11-11: Final unchanged-input full apply verified all 18 mappings again and
+  left the saved manifest hash unchanged. SS-01 through SS-05 are Done; remaining
+  registered streams are Todo. Private continuity, environment and runtime artifacts
+  remain excluded from public source candidates. No commit/push/deployment performed.
+- 2026-11-11: User requested compact, material-inspired DeepSeaFoam visuals, original
+  branding, animated graphs and screenshot-led documentation, then made ELI15 the
+  whole-product contract: no assumed market vocabulary, everyday examples, a direct
+  pattern button, highlighted-word help and a searchable dictionary.
+- 2026-11-11: Implemented seven simple lessons and 74 authored dictionary entries,
+  tonal cards, four focused chart views, selectable drawing windows and optional
+  replay/motion. Definitions reuse authored meanings and everyday analogies; the
+  actual-data path never consumes those teaching examples.
+- 2026-11-11: Native checks exposed an area-series boundary lifetime crash, a
+  captured-logging test wait hang, an invisible SVG icon, an overbroad button-style
+  selector and stale deferred chart axes. Fixed actual ownership, test event
+  pumping, explicit SVG rendering, styling scope and capture lifecycle.
+- 2026-11-11: A stronger keyboard test failed when it only positioned a text cursor.
+  Ordinary Tab then Return established keyboard link focus and navigated correctly.
+  Actual hover and keyboard tests now preserve the experiment; all seven rule
+  guides pass truncated-prefix comparison. Drawing windows preserve running highs.
+- 2026-11-11: Final 47 tests, Ruff lint/format and strict source mypy passed.
+  The live gallery ran 21 simulations over three actual datasets and recorded six
+  inspected native views, including a 1366x768 main workspace with no page scrollbar.
+  README now emphasizes those screenshots and beginner explanations. Human/DPI,
+  installer and independent feed qualification remain unverified; SS-19 tracking
+  and continuity finalization are still in progress.
+- 2026-11-11: Registered SS-19 as issue #19 and a dedicated Project 14 item, then
+  applied/read back completion across all 19 mappings. SS-01 through SS-05 and
+  SS-19 are closed-completed/Done; SS-06 through SS-18 remain open/Todo. All
+  original identities/backlinks were retained. Updated owned continuity and
+  persisted/read back the redesign episode; no commit/push/deployment performed.
+- 2026-11-11: User subsequently authorized committing/pushing the first prototype
+  and creating a GitHub release. Retained all six actual GUI screenshots in README
+  and added a visible release-download route. Chose an explicitly early-access
+  v0.1.0 Python wheel rather than presenting it as a qualified standalone installer.
+- 2026-11-11: Build first failed because the build tool was absent. Added its
+  development dependency, installed it and built through isolated setuptools.
+  A separate-target wheel install verified actual packaged imports, native startup,
+  logo rendering, theme notice, seven rules and 74 dictionary entries. Existing
+  dependencies were reused; clean-machine and human acceptance are not implied.

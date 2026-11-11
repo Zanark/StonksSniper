@@ -1,0 +1,28 @@
+# SS-13 - Investigate Dhan, Angel, Shoonya, Flattrade and Alice Blue
+Workstream ID: SS-13
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/13
+Status: NOT_STARTED
+Milestone: M4
+Dependencies: SS-03
+
+## Purpose
+Compare additional Indian retail API options without mistaking free trading for free data.
+
+## Tasks
+- [ ] DhanHQ: data entitlement, daily/intraday history, exclusive end boundaries and security IDs.
+- [ ] Angel One SmartAPI: actual historical docs, auth, depth, quotas and terms beyond JS shell.
+- [ ] Shoonya: current OAuth/history APIs, quotas and differences from older Noren SDKs.
+- [ ] Flattrade Pi: retrieve actual docs and qualify history, login, plan and terms.
+- [ ] Alice Blue ANT: current a3 API generation, history availability, fees and credentials.
+- [ ] Complete the common provider qualification separately for all five options.
+
+## Acceptance criteria
+- Each option has its own documented decision and permitted sample-data evidence.
+- Unsupported history or exchange coverage is recorded as such, never assumed.
+
+## Completion evidence
+- Dhan history and Shoonya/Alice docs read; Angel/Flattrade portal shells discovered.
+- Qualification and integration not started.
+
+## Completion log
+- 2026-11-11: Registered five explicit provider investigation tasks.

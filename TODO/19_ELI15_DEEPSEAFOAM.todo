@@ -1,0 +1,62 @@
+# SS-19 - ELI15-first DeepSeaFoam learning experience
+Workstream ID: SS-19
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/19
+Status: DONE
+Milestone: M1.1
+Dependencies: SS-01, SS-04, SS-05
+
+## Purpose
+Make the entire tool understandable without prior stock-market knowledge, while
+keeping exact rules, real observations and a clean, compact DeepSeaFoam interface.
+
+## Tasks
+- [x] Research canonical color roles, native charts and controllable motion.
+- [x] Add an original vector logo, tonal cards and focused chart views.
+- [x] Write seven plain-English pattern lessons with buy/sell rules and failure explanations.
+- [x] Add a pattern explanation button, hover definitions and a searchable dictionary.
+- [x] Give every authored explanation a vegetables/toys/household analogy; audit visible vocabulary.
+- [x] Verify replay safety, explanatory navigation, optional motion and compact layouts.
+- [x] Capture actual-data GUI screenshots and make the README image-led and ELI15-first.
+- [x] Synchronize the issue/Project, record evidence and update owned continuity.
+
+## Acceptance criteria
+- No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
+- Technical words are explained before use or have discoverable hover/click help.
+- Pattern and dictionary explanations include relatable everyday examples, clearly separated from actual market observations.
+- Hover help has an equivalent clickable/keyboard-accessible dictionary route.
+- A selected pattern has a direct explanation button and exact sourced rules remain accessible.
+- Search accepts common names and abbreviations and explicitly reports no match.
+- Charts/results remain causal; changing the drawn window never changes the test.
+- Motion can be disabled; no automatic playback or constant animation is required.
+- The main desktop workspace has no page scrollbar at representative desktop sizes.
+- Screenshots show the real native application with actual observations, not a fictional dashboard.
+- Technical checks, human comprehension testing and normal Windows/DPI qualification are recorded separately.
+
+## Completion evidence
+- Seven plain-language lessons and 74 shared dictionary entries pair meanings with
+  everyday examples. Search covers names/abbreviations and explicitly reports gaps.
+- Real widget hover and Tab/Return navigation open the shared explanations without
+  changing the experiment. All seven rule-guide charts pass prefix-safety checks.
+- 47 tests, Ruff lint/format and strict source mypy passed. Drawing-window tests
+  preserve calculations/running highs; motion-off stops playback and transitions.
+- Six inspected native screenshots use actual RELIANCE.NS observations, at
+  1440x900 and 1366x768. The main workspace fits without a page scrollbar;
+  long explanation panels can scroll. README embeds each view with a caption.
+- Live checks ran all seven rules on RELIANCE.NS=494, TCS.NS=494 and TCS.BO=492
+  completed daily observations. docs/images/captures.json records gallery provenance.
+- Explicit native chart ownership, deferred chart cleanup, SVG rendering and
+  button styling fixes are recorded in docs/development.md.
+- Human comprehension, normal Windows/DPI and installer acceptance remain unverified.
+  Actual provider retrieval is not independent market-price reconciliation.
+
+## Completion log
+- 2026-11-11: User requested DeepSeaFoam material-inspired visuals, less scrolling,
+  better graphs/motion, an original logo and screenshot-led documentation.
+- 2026-11-11: User made ELI15 a whole-product requirement and explicitly requested
+  hover explanations, a pattern button, everyday analogies and a searchable dictionary.
+- 2026-11-11: Completed the native redesign, seven lessons, shared dictionary,
+  actual-data gallery and regression checks. Issue synchronization and continuity
+  finalization are still in progress.
+- 2026-11-11: Registered/read back issue #19 and its Project 14 item; recorded
+  evidence and persisted owned continuity. Technical completion is ready for
+  closed-completed/Done synchronization, not a claim of human acceptance.

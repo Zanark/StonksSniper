@@ -1,0 +1,26 @@
+# SS-08 - Shared-cash portfolio and basket experiments
+Workstream ID: SS-08
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/8
+Status: NOT_STARTED
+Milestone: M3
+Dependencies: SS-07, SS-10
+
+## Purpose
+Build smallcase-style research baskets without implying integration with that service.
+
+## Tasks
+- [ ] Create versioned baskets, weights, cash rules, sizing and rebalance schedules.
+- [ ] Align instruments/calendars without fabricated or forward-filled tradable candles.
+- [ ] Allocate simultaneous orders against one cash ledger with costs/actions.
+- [ ] Report contribution, turnover, exposure, drawdown and benchmark comparisons.
+- [ ] Test overlapping signals, unavailable assets, delistings and insufficient cash.
+
+## Acceptance criteria
+- No double-spending; weights and units reconcile to shared equity.
+- A basket result is not the naive mean of separately fully-funded stock backtests.
+
+## Completion evidence
+- Not started; native roadmap tab explicitly labels baskets as planned.
+
+## Completion log
+- 2026-11-11: Registered portfolio implementation separately from single-stock M1.

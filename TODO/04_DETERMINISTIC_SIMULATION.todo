@@ -1,0 +1,31 @@
+# SS-04 - Seven causal rules and daily simulation engine
+Workstream ID: SS-04
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/4
+Status: DONE
+Milestone: M1
+Dependencies: SS-01
+
+## Purpose
+Provide explicit teaching rules and deterministic long/cash accounting over real observations.
+
+## Tasks
+- [x] Implement SMA, EMA, Wilder RSI, Donchian, Bollinger, MACD and body engulfing.
+- [x] Execute previous-close targets only at next-session opens with fees/slippage.
+- [x] Report marked equity, open units, drawdown, fill ledger and cost-matched benchmark.
+- [x] Verify prefix invariance, warmup, final pending signals, edge inputs and costs.
+
+## Acceptance criteria
+- Future observations cannot alter earlier decisions/equity on a fixed input dataset.
+- Every variant has exact rules, concept source and limits; no implied efficacy.
+
+## Completion evidence
+- src/stonks_sniper/patterns.py and engine.py implemented.
+- Focused arithmetic/causality tests pass within the 37-test M1 suite.
+- All seven variants ran over each of three real NSE/BSE datasets (21 simulations).
+- Repeated identical-input runs agreed; fresh upstream requests are not immutable snapshots.
+- Point-in-time source validity is a separate workstream. Human acceptance is not recorded.
+
+## Completion log
+- 2026-11-11: Implemented the bounded single-stock engine; no portfolio/short/leverage claim.
+- 2026-11-11: Verified warmup, prefix invariance, next-session fills, final pending
+  signals and accounting. Closed technical M1 scope, not research-quality qualification.

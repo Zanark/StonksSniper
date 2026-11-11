@@ -1,0 +1,35 @@
+# SS-02 - Numbered TODO and GitHub tracking adoption
+Workstream ID: SS-02
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/2
+Status: DONE
+Milestone: M1
+Dependencies: SS-01
+
+## Purpose
+Maintain one public-safe workstream to one issue to one dedicated Project issue item.
+
+## Tasks
+- [x] Verify Zanark identity, public repository permissions and existing tracking.
+- [x] Create and link the dedicated Project; discover actual status options.
+- [x] Define local source of truth, public boundary and stable workstream IDs.
+- [x] Preview, pilot one workstream and rerun without duplicates.
+- [x] Apply all mappings and verify bodies, issue states, Project statuses and backlinks.
+- [x] Exercise conflict detection and record explicit sync usage.
+
+## Acceptance criteria
+- Every actual workstream has one matching issue and non-draft Project item.
+- Index/ledger are excluded; unexpected remote edits stop writes; no scheduling enabled.
+
+## Completion evidence
+- Project https://github.com/users/Zanark/projects/14 exists and is linked.
+- TODO/tracking.json records adoption and actual per-stream mappings after sync.
+- All 18 mappings were created, read back and subsequently verified again with
+  their original issue and Project item identities; no duplicate issues/items.
+- Conflict, preview-no-write and bounded eventual-consistency tests pass.
+- docs/development.md records preview/apply usage, public boundary and failure behavior.
+- Human acceptance remains separate; no scheduler or publication workflow was enabled.
+
+## Completion log
+- 2026-11-11: Established adoption and implementation; remote sync verification in progress.
+- 2026-11-11: Completed all 18 mappings and reran safely. One rerun stopped on
+  HTTP 503; a later explicit rerun verified every mapping without recreating identities.

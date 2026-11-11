@@ -1,0 +1,30 @@
+# SS-17 - Investigate licensed vendors and global data APIs
+Workstream ID: SS-17
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/17
+Status: NOT_STARTED
+Milestone: M4
+Dependencies: SS-03
+
+## Purpose
+Assess independent feeds when free/broker data cannot meet study quality or coverage needs.
+
+## Tasks
+- [ ] TrueData: personal API quote, exchange authorization, history/actions and retention.
+- [ ] Global Datafeeds: REST/socket history, NSE/BSE coverage, contract and continuity.
+- [ ] Accelpix: independent authorization check, API history, revisions and personal license.
+- [ ] Twelve Data: NSE/BSE Grow+ EOD, credit limits and adjustment terms, not assumed free Basic.
+- [ ] Alpha Vantage: actual Indian symbols/history, free quotas and educational access eligibility.
+- [ ] EODHD: entitled exchange/ticker discovery, NSE/BSE depth, delistings and actions.
+- [ ] Enterprise options: exchange-direct, LSEG, Bloomberg and FactSet discovery/cost boundary.
+- [ ] Produce common qualification receipts per viable option without purchases.
+
+## Acceptance criteria
+- Marketing claims do not establish contracts, data accuracy or redistribution rights.
+- Global coverage is not assumed to imply usable NSE/BSE data on a free plan.
+
+## Completion evidence
+- Primary pages read for six named retail/vendor candidates; no subscription or sample entitlement.
+- Enterprise discovery remains unverified.
+
+## Completion log
+- 2026-11-11: Registered independent-vendor and cross-market provider investigations.

@@ -1,0 +1,35 @@
+# SS-07 - Market-data and backtest qualification
+Workstream ID: SS-07
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/7
+Status: NOT_STARTED
+Milestone: M2
+Dependencies: SS-03, SS-04, SS-14
+
+## Purpose
+Distinguish a functioning teaching simulation from a point-in-time qualified research system.
+
+## Tasks
+- [ ] Reconcile representative OHLCV against permitted independent sources.
+- [ ] Qualify differing adjusted inputs seen across separate live TCS requests;
+  investigate provider precision/revisions and boundary sensitivity without silent rounding.
+- [ ] Qualify exchange holidays, special sessions, suspensions, circuits and missing bars.
+- [ ] Implement nominal-share corporate actions, dividends, bonuses/rights and delistings.
+- [ ] Add complete configurable Indian fee/tax schedules and liquidity/circuit constraints.
+- [ ] Define shared evaluation windows, return definitions, benchmarks and sensitivity.
+- [ ] Add walk-forward/holdout methodology and survivorship/data-snooping disclosures.
+
+## Acceptance criteria
+- Point-in-time availability is not inferred from adjusted-history prefix invariance.
+- Every quality gap is visible and unsupported experiments fail explicitly.
+
+## Completion evidence
+- Not started. M1 validates shape/causality, not independent market truth.
+
+## Completion log
+- 2026-11-11: Registered explicit research-quality gates.
+- 2026-11-11: Separate TCS requests produced differing body-engulfing results.
+  A same-process pair matched all 492 BSE bars/targets, but three fresh-process
+  BSE requests differed in 203-210 bars by up to about INR 0.001 in adjusted OHLC.
+  Tiny boundary crossings changed 15-22 target states. Exact comparisons follow
+  the documented variant; no prices were rounded or replaced to hide the issue.
+  Provider-side origin/precision remains unqualified. Preserve inputs for comparisons.

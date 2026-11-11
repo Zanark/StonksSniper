@@ -1,0 +1,248 @@
+{
+  "repository": "Zanark/StonksSniper",
+  "source_of_truth": "local TODO workstreams; stop on unexpected remote edits",
+  "visibility_boundary": "public-safe numbered workstreams only; no private context, tokens or raw market datasets",
+  "triggers": "explicit local preview/apply only; no scheduler or Actions",
+  "backlink_commit_policy": "local writes only; no commit or push without authorization",
+  "project": {
+    "id": "PVT_kwHOAe2wCs4BrLTx",
+    "number": 14,
+    "owner": "Zanark",
+    "url": "https://github.com/users/Zanark/projects/14"
+  },
+  "status_mapping": {
+    "NOT_STARTED": "Todo",
+    "IN_PROGRESS": "In Progress",
+    "DONE": "Done"
+  },
+  "workstreams": {
+    "SS-01": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/1",
+      "issue_number": 1,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4HX4",
+      "baseline": {
+        "body_sha256": "21e80028eb1185c51f25fc8eb913dd86ff5f7fc6b7fb75be37fcf86fbd922c04",
+        "title": "SS-01 - Product contract and architecture",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
+    },
+    "SS-02": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/2",
+      "issue_number": 2,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4Ikk",
+      "baseline": {
+        "body_sha256": "1c64cb4a5ef2c7e82376af9a97ac65160a5f8c85a3439a75e28648c2c1776d6e",
+        "title": "SS-02 - Numbered TODO and GitHub tracking adoption",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
+    },
+    "SS-03": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/3",
+      "issue_number": 3,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4KIM",
+      "baseline": {
+        "body_sha256": "a236459377210b5953ea4e7419ebfd1bcc090f0c6252f59058b3606fdece31ff",
+        "title": "SS-03 - Free real daily-data vertical slice",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
+    },
+    "SS-04": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/4",
+      "issue_number": 4,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4KOo",
+      "baseline": {
+        "body_sha256": "56f6e9e4ec21927d80be9a7fa78bfb0fe6ff7c9fa4be51a60018d7c9be42d911",
+        "title": "SS-04 - Seven causal rules and daily simulation engine",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
+    },
+    "SS-05": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/5",
+      "issue_number": 5,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4KV8",
+      "baseline": {
+        "body_sha256": "686826a7d962dc26b97af82d744c34fb9dd28b41d9a978a2c1b81dd1a1eb8a6c",
+        "title": "SS-05 - Native desktop pattern learning and replay",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
+    },
+    "SS-06": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/6",
+      "issue_number": 6,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4KeI",
+      "baseline": {
+        "body_sha256": "7aa86088d59b85fd25e6da8f121374f72a199c38746c958dd686ccd5a94a5456",
+        "title": "SS-06 - Expand the source-cited pattern catalogue",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-07": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/7",
+      "issue_number": 7,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4KmA",
+      "baseline": {
+        "body_sha256": "d677235b719aa9917b1b37ae12cd1d3c338a1d26e849b32044327e6e9281858e",
+        "title": "SS-07 - Market-data and backtest qualification",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-08": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/8",
+      "issue_number": 8,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4Ks0",
+      "baseline": {
+        "body_sha256": "b3736f7ace14bc39a1c869978b5830cf616f0dd1bee33f4074c0a43d4b127d7d",
+        "title": "SS-08 - Shared-cash portfolio and basket experiments",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-09": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/9",
+      "issue_number": 9,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4KyM",
+      "baseline": {
+        "body_sha256": "fbddf048e1a880d93e4b7b6c6c5c335855ee584689b6c8c9fd3119f86a608cad",
+        "title": "SS-09 - Constrained AI strategy hypotheses and evaluation",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-10": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/10",
+      "issue_number": 10,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4K40",
+      "baseline": {
+        "body_sha256": "1906c5c18fae8e339dd7746b71eb9202520dce8f9e961e29e24b6b6c73f4f258",
+        "title": "SS-10 - Local snapshots and reproducible studies",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-11": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/11",
+      "issue_number": 11,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4K_c",
+      "baseline": {
+        "body_sha256": "af79eae08c2dd65a77d1c16c2c299e5ff7f9c7e5596271b7aadf659c90234c7c",
+        "title": "SS-11 - Verified Windows packaging and acceptance",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-12": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/12",
+      "issue_number": 12,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4LEw",
+      "baseline": {
+        "body_sha256": "9bff1866bc5f236347351c3f1e2f4a097e98be23f5fceab60607ff81f4bd3906",
+        "title": "SS-12 - Investigate Upstox, Zerodha and FYERS data",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-13": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/13",
+      "issue_number": 13,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4LKo",
+      "baseline": {
+        "body_sha256": "c7ae6021a4ad82608c63cd38240269843c04745b3393724536de80d74961f84a",
+        "title": "SS-13 - Investigate Dhan, Angel, Shoonya, Flattrade and Alice Blue",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-14": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/14",
+      "issue_number": 14,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4LSk",
+      "baseline": {
+        "body_sha256": "084b0373aacb08fd2e1df0644c390bb23c4011bd103701cbab7b11ebae262a18",
+        "title": "SS-14 - Investigate exchange files and free public data routes",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-15": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/15",
+      "issue_number": 15,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4LYo",
+      "baseline": {
+        "body_sha256": "603c31d7aa347a8ba2adc0975a66d5fb76d78ec5476486340021347882bce505",
+        "title": "SS-15 - Investigate Breeze, Kotak Neo, 5paisa and IIFL",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-16": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/16",
+      "issue_number": 16,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4LhI",
+      "baseline": {
+        "body_sha256": "858293fba0ffd4cee4c7b4e0355701df95daeef6b2ba2d77f83908c414f05787",
+        "title": "SS-16 - Investigate Groww, Paytm Money, m.Stock and Samco",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-17": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/17",
+      "issue_number": 17,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4LoY",
+      "baseline": {
+        "body_sha256": "6ad43cfe85b510f3ecca959c029f9e9d3ff33bc40cd622aa09973c65ffbf9fc4",
+        "title": "SS-17 - Investigate licensed vendors and global data APIs",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-18": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/18",
+      "issue_number": 18,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4Lu4",
+      "baseline": {
+        "body_sha256": "648fcb99b2d11a16408514e48cf4c9e8d02cdaf75cda576f9400962a58b7e2a9",
+        "title": "SS-18 - Investigate additional providers and keep discovery open",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "Todo"
+      }
+    },
+    "SS-19": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/19",
+      "issue_number": 19,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH5GPs",
+      "baseline": {
+        "body_sha256": "ea098a3ebd99667f3dbf34d75aadf96be8fa1ee4b9f8bbcf273ef5b59348c39b",
+        "title": "SS-19 - ELI15-first DeepSeaFoam learning experience",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
+    }
+  }
+}

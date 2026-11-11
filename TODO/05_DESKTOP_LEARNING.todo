@@ -1,0 +1,36 @@
+# SS-05 - Native desktop pattern learning and replay
+Workstream ID: SS-05
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/5
+Status: DONE
+Milestone: M1
+Dependencies: SS-03, SS-04
+
+## Purpose
+Let users choose a stock/pattern, inspect real candles and learn causal simulated decisions.
+
+## Tasks
+- [x] Build PySide6 controls, background fetching, rule explanations and candle/fill charts.
+- [x] Add equity/benchmark, replay cursor, visible fill ledger and full JSON export.
+- [x] Invalidate stale results when parameters change and disclose unavailable features.
+- [x] Exercise native rendering, replay, error states and export.
+- [x] Record visual inspection separately from user acceptance.
+
+## Acceptance criteria
+- Network work does not run on the GUI thread; no future candles/fills/metrics leak in replay.
+- Actual dataset identity remains visible even if request controls subsequently change.
+- Export includes observations and assumptions; no broker or AI feature is falsely advertised.
+
+## Completion evidence
+- Desktop tests pass for replay, worker success/failure, closing during a fetch,
+  parameter invalidation, dataset identity, export contents and insufficient history.
+- Inspected a real-data 1600x1150 offscreen native render: readable controls,
+  provenance, candle/fill and equity charts, explanation and fill ledger.
+- Initial missing-glyph failure was traced to Windows offscreen font discovery;
+  the script explicitly loads installed Segoe UI. Source links use a readable accent.
+- Offscreen inspection does not qualify every normal Windows display/DPI configuration.
+- Human acceptance remains pending independently of technical completion.
+
+## Completion log
+- 2026-11-11: Implemented native M1 interface; visual and runtime checks in progress.
+- 2026-11-11: Completed automated native behavior checks and real-data visual inspection.
+  Human acceptance and packaged Windows delivery remain separate SS-11 gates.

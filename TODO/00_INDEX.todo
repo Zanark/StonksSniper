@@ -1,0 +1,60 @@
+# StonksSniper workstream index
+
+Authority: user-requested application development and TODO/issue/Project registration.
+Adoption: numbered local workstreams own managed issue bodies and completion.
+Project: https://github.com/users/Zanark/projects/14
+Mapping: tracking.json; NOT_STARTED/open/Todo, IN_PROGRESS/open/In Progress,
+DONE/closed-completed/Done. Actual Project options were discovered, not invented.
+Sync: scripts/sync_tracking.py previews by default; --apply is explicit.
+Conflicts: stop on unexpected remote body, title, state or Project status changes.
+Privacy: public-safe workstreams only; never export private context or raw data.
+Excluded from feature issues: this index and the perpetual development ledger.
+
+## Milestones
+
+M1: native single-stock daily-data learning and deterministic simulation slice.
+M1.1: ELI15-first explanations, DeepSeaFoam native design and screenshot gallery.
+M2: source qualification, broader catalogue and robust study/reproducibility.
+M3: portfolio baskets and controlled AI hypothesis experiments.
+M4: independently qualified optional data integrations and Windows distribution.
+
+## Workstreams
+
+SS-01  01_PRODUCT_CONTRACT.todo              M1 product and architecture
+SS-02  02_TRACKING_ADOPTION.todo             M1 issues, Project and explicit sync
+SS-03  03_REAL_DATA_SLICE.todo               M1 initial free daily-data adapter
+SS-04  04_DETERMINISTIC_SIMULATION.todo      M1 seven rules and simulation accounting
+SS-05  05_DESKTOP_LEARNING.todo              M1 native charts, replay and export
+SS-06  06_PATTERN_CATALOGUE.todo             M2 expanded sourced strategy families
+SS-07  07_RESEARCH_QUALIFICATION.todo        M2 correctness and point-in-time evidence
+SS-08  08_PORTFOLIO_BASKETS.todo             M3 shared-cash basket experiments
+SS-09  09_AI_HYPOTHESES.todo                 M3 constrained AI research
+SS-10  10_PERSISTENCE_AND_STUDIES.todo       M2 local snapshots and reproducibility
+SS-11  11_WINDOWS_DELIVERY.todo              M4 packaging and human acceptance
+SS-12  12_PRIORITY_BROKERS.todo              M4 Upstox, Kite, FYERS
+SS-13  13_RETAIL_BROKER_ALTERNATIVES.todo    M4 Dhan, Angel, Shoonya, Flattrade, Alice
+SS-14  14_FREE_AND_EXCHANGE_DATA.todo        M2 Yahoo, exchange files, public routes
+SS-15  15_BANK_AND_FULL_SERVICE_APIS.todo    M4 Breeze, Kotak, 5paisa, IIFL
+SS-16  16_OTHER_RETAIL_APIS.todo             M4 Groww, Paytm, m.Stock, Samco
+SS-17  17_VENDORS_AND_GLOBAL_APIS.todo       M4 licensed and cross-market vendors
+SS-18  18_PROVIDER_DISCOVERY.todo           M4 additional providers and discovery
+SS-19  19_ELI15_DEEPSEAFOAM.todo             M1.1 beginner-first design and dictionary
+
+Provider investigations each retain named option tasks plus the common
+qualification contract in docs/data-providers.md. This register is extensible,
+not a promise to enumerate every service in existence. Integration remains
+read-only market data; account opening, purchases and real trading are excluded.
+
+## Completion
+
+M1 (SS-01 through SS-05): technically complete with representative real-data
+checks and offscreen native inspection. Human acceptance is not recorded.
+M1.1 (SS-19): technically complete. Seven explained rules and 74 authored dictionary entries,
+not every possible strategy or an unlimited vocabulary.
+SS-06 through SS-18 remain planned; no broad catalogue, basket, AI or qualified-feed
+completion is implied. The user authorized first-prototype commit, push and
+release on 2026-11-11; publication does not complete the remaining roadmap.
+
+Read each workstream for current status and its verified completion evidence.
+Human acceptance and publication are separate from technical completion.
+See 99_DEVELOPMENT_LEDGER.todo for the causal development record.

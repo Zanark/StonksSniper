@@ -1,0 +1,27 @@
+# SS-16 - Investigate Groww, Paytm Money, m.Stock and Samco
+Workstream ID: SS-16
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/16
+Status: NOT_STARTED
+Milestone: M4
+Dependencies: SS-03
+
+## Purpose
+Evaluate newer/alternative retail APIs without accepting marketing history claims as qualification.
+
+## Tasks
+- [ ] Groww: active subscription requirement, historical depth, feed permissions and NSE/BSE.
+- [ ] Paytm Money: actual developer docs beyond portal shell, history, fees and auth.
+- [ ] m.Stock: versioned history/data docs, advertised free plan, account needs and quotas.
+- [ ] Samco: advertised adjusted 30-year history, per-instrument coverage and retention rights.
+- [ ] Complete common qualification and separate go/no-go for each candidate.
+
+## Acceptance criteria
+- Price/history claims are labelled provider-authored and rechecked before integration.
+- No accounts, paid plans or broker orders are activated by research work.
+
+## Completion evidence
+- Groww SDK and m.Stock/Samco official product pages read; Paytm portal shell discovered.
+- Actual data qualification not started.
+
+## Completion log
+- 2026-11-11: Registered four explicit provider investigation tasks.

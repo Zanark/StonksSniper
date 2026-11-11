@@ -1,0 +1,33 @@
+# SS-03 - Free real daily-data vertical slice
+Workstream ID: SS-03
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/3
+Status: DONE
+Milestone: M1
+Dependencies: SS-01
+
+## Purpose
+Fetch actual NSE/BSE history without tokens, hidden repairs or fabricated fallback prices.
+
+## Tasks
+- [x] Implement replaceable provider contract and Yahoo daily adapter.
+- [x] Validate symbol/exchange/currency, OHLC, volume, ordering and provenance.
+- [x] Exclude current-day bars and show observation dates, price basis and fetch time.
+- [x] Verify actual NSE and BSE requests and explicit provider failures.
+
+## Acceptance criteria
+- Real provider checks succeed for representative NSE/BSE symbols or are honestly blocked.
+- Failure never returns dummy data; adjusted research prices are not labelled nominal fills.
+
+## Completion evidence
+- src/stonks_sniper/providers.py and models.py implemented.
+- Provider tests cover validation, current-day exclusion and explicit failures.
+- Actual Yahoo requests admitted 494 RELIANCE.NS bars, 494 TCS.NS bars and
+  492 TCS.BO bars, covering 2024-11-11 through 2026-11-09.
+- 500325.BO failed symbol/history resolution; RELIANCE.BO supplied only an excluded
+  current-day bar. Neither request was silently substituted with another instrument.
+- Production data qualification belongs to SS-07/SS-14; human acceptance is not recorded.
+
+## Completion log
+- 2026-11-11: Implemented initial unofficial personal-research adapter, not an accuracy SLA.
+- 2026-11-11: Completed representative NSE/BSE live checks and provider error tests.
+  Upstream availability, revisions and independent price accuracy remain unqualified.

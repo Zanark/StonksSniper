@@ -1,0 +1,33 @@
+# SS-11 - Verified Windows packaging and acceptance
+Workstream ID: SS-11
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/11
+Status: NOT_STARTED
+Milestone: M4
+Dependencies: SS-05, SS-07, SS-10
+
+## Purpose
+Deliver a repeatable native Windows package with honest runtime and acceptance evidence.
+
+## Tasks
+- [ ] Lock release dependencies and review redistribution/license notices.
+- [ ] Produce isolated installer/portable candidate and test a clean Windows profile.
+- [ ] Verify startup, Qt plugins, networking, Unicode paths, exports and recovery.
+- [ ] Test keyboard access, scaling, large histories and worker shutdown behaviour.
+- [ ] Record human acceptance and separately authorized release/publication.
+
+## Acceptance criteria
+- Source launch, packaged launch, visual inspection and user acceptance remain distinct.
+- No user instance is restarted or overwritten during development qualification.
+
+## Completion evidence
+- Standalone Windows qualification has not started. The separately authorized
+  v0.1.0 prototype Python wheel was built and launched from a separate installation
+  target with existing dependencies; its logo and theme notice were verified.
+  This is not a standalone executable, clean-machine dependency test, installer
+  qualification or recorded human acceptance.
+
+## Completion log
+- 2026-11-11: Registered packaging and acceptance gates.
+- 2026-11-11: User authorized first-prototype commit, push and GitHub release.
+  Built/smoke-tested the Python wheel without restarting any existing user app.
+  Dedicated M4 qualification and clean-profile acceptance remain planned.

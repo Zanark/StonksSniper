@@ -1,0 +1,30 @@
+# SS-18 - Investigate additional providers and keep discovery open
+Workstream ID: SS-18
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/18
+Status: NOT_STARTED
+Milestone: M4
+Dependencies: SS-03
+
+## Purpose
+Keep the provider catalogue open rather than claim that any dated inventory is exhaustive.
+
+## Tasks
+- [ ] Mastertrust: locate actual historical market-data product beyond readable order/profile docs.
+- [ ] Motilal Oswal: verify SDK ownership via corporate link and discover current data/history API.
+- [ ] Definedge: find valid official portal and establish current market-data entitlement.
+- [ ] Pocketful: find valid official portal and establish API/version/history.
+- [ ] Jainam/Duck: verify current official naming, docs, account/data access and coverage.
+- [ ] Zebu/Mynt: verify current official naming, docs, account/data access and coverage.
+- [ ] XTS-based and newly discovered brokers: qualify each broker independently of shared OMS.
+- [ ] Maintain review date, current evidence level and separate go/no-go receipts.
+
+## Acceptance criteria
+- Failed URLs and discovery-only names remain explicitly unverified.
+- New candidates get traceable investigation tasks; no claim to know every possible provider.
+
+## Completion evidence
+- Mastertrust readable docs obtained; other discovery gaps recorded in docs/data-providers.md.
+- No unverified candidate is selectable as a working app provider.
+
+## Completion log
+- 2026-11-11: Registered continuing provider discovery with explicit uncertainty.

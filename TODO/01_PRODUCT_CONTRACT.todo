@@ -1,0 +1,26 @@
+# SS-01 - Product contract and architecture
+Workstream ID: SS-01
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/1
+Status: DONE
+Milestone: M1
+Dependencies: None
+
+## Purpose
+Translate the simulator vision into an honest, extensible native desktop contract.
+
+## Tasks
+- [x] Record NSE/BSE first, free labelled daily data, Python/PySide6 and future adapters.
+- [x] Define real-observation boundaries, exact M1 scope and staged portfolio/AI work.
+- [x] Document adjusted units, causal fills, costs, warmup and validation limitations.
+
+## Acceptance criteria
+- Product choices match the user-selected direction; no fictitious exhaustive catalogue.
+- Provider/network, rules, accounting and presentation have explicit boundaries.
+
+## Completion evidence
+- docs/product-and-architecture.md records the agreed scope and architecture.
+- docs/data-providers.md separates documented, advertised and unverified capabilities.
+- Technical specification completed; human acceptance and publication not claimed.
+
+## Completion log
+- 2026-11-11: Recorded confirmed choices and bounded M1 rather than inventing full coverage.

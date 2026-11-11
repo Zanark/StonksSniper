@@ -1,0 +1,27 @@
+# SS-09 - Constrained AI strategy hypotheses and evaluation
+Workstream ID: SS-09
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/9
+Status: NOT_STARTED
+Milestone: M3
+Dependencies: SS-06, SS-07, SS-10
+
+## Purpose
+Propose testable new rule combinations without inventing novelty or validated performance.
+
+## Tasks
+- [ ] Select an explicit opt-in local/model API provider and privacy/cost boundary.
+- [ ] Define a constrained declarative rule schema; never execute generated source code.
+- [ ] Record model/version/prompt/source/parameter provenance and hypothesis identity.
+- [ ] Reject invalid/data-leaking proposals and separate established vs AI-created variants.
+- [ ] Run fixed holdouts/walk-forward tests with multiple-testing controls.
+- [ ] Show actual engine results, rejected hypotheses and out-of-sample limitations.
+
+## Acceptance criteria
+- AI cannot supply market observations, fake returns or self-certify strategy success.
+- No remote model receives private datasets or account data without explicit consent.
+
+## Completion evidence
+- Not started. No AI provider is connected or billed.
+
+## Completion log
+- 2026-11-11: Registered controlled hypothesis research; no guaranteed novelty/profit claims.

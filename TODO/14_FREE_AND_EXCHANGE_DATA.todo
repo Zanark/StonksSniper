@@ -1,0 +1,29 @@
+# SS-14 - Investigate exchange files and free public data routes
+Workstream ID: SS-14
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/14
+Status: NOT_STARTED
+Milestone: M2
+Dependencies: SS-03
+
+## Purpose
+Improve authoritative provenance and assess sustainable free daily-data options.
+
+## Tasks
+- [ ] NSE: current bhavcopy/UDiFF, archives, ISIN/symbol history and corporate-action files.
+- [ ] BSE: current bhavcopy/history formats, scrip mapping and corporate-action files.
+- [ ] Yahoo/yfinance: personal-use terms, throttling, revisions, adjustment semantics and gaps.
+- [ ] Google Finance: record restrictions; investigate only an officially permitted API route.
+- [ ] Community wrappers/mirrors: nsepython, jugaad-data and public datasets; trace upstream rights.
+- [ ] Define permitted CSV/file ingestion, reconciliation and source-version retention.
+- [ ] Complete common qualification per viable route; no blocked-site bypass or fallback fabrication.
+
+## Acceptance criteria
+- Downloadability is not treated as redistribution permission.
+- Unavailable official pages/schemas remain unverified until actual primary evidence is obtained.
+
+## Completion evidence
+- Yahoo project documentation and Google restrictions read.
+- NSE pages timed out and BSE page failed retrieval; no exchange-file integration claimed.
+
+## Completion log
+- 2026-11-11: Recorded free-route findings and explicit authoritative-data gaps.

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>StonksSniper: a focused view of a market pattern</title>
+  <rect x="4" y="4" width="120" height="120" rx="34" fill="#001e26"/>
+  <path d="M37 24H27a3 3 0 0 0-3 3v10M91 24h10a3 3 0 0 1 3 3v10M24 91v10a3 3 0 0 0 3 3h10M91 104h10a3 3 0 0 0 3-3V91" fill="none" stroke="#586e75" stroke-width="4" stroke-linecap="round"/>
+  <path d="M34 79l20-21 17 10 23-29" fill="none" stroke="#00a591" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M37 83v12m17-35v36m17-23v23m23-46v46" fill="none" stroke="#00a591" stroke-opacity=".22" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="94" cy="39" r="7" fill="#eee8d5"/>
+</svg>

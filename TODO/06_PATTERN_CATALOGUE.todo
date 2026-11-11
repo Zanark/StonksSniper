@@ -1,0 +1,28 @@
+# SS-06 - Expand the source-cited pattern catalogue
+Workstream ID: SS-06
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/6
+Status: NOT_STARTED
+Milestone: M2
+Dependencies: SS-04, SS-07
+
+## Purpose
+Grow beyond seven teaching variants without pretending any finite list is exhaustive.
+
+## Tasks
+- [ ] Inventory trend/momentum (ADX, SAR, stochastic, ROC, Ichimoku) with primary sources.
+- [ ] Inventory volatility/volume (ATR, Keltner, OBV, VWAP) and required data intervals.
+- [ ] Research candle families and confirmed price structures (triangles, flags, H&S, doubles).
+- [ ] Research statistical mean reversion, pairs, seasonality and multi-timeframe rules.
+- [ ] Separate indicator, detector, confirmation, entry, exit and position-sizing definitions.
+- [ ] Add parameter schemas, exact variants, causal confirmation delays and focused tests.
+
+## Acceptance criteria
+- Each implemented variant lists source, parameters, data needs and failure modes.
+- Repainting/retroactive pattern confirmation is prevented or explicitly delayed.
+- No imported performance claim substitutes for a reproducible local experiment.
+
+## Completion evidence
+- Not started. Initial seven variants are SS-04, not completion of this catalogue.
+
+## Completion log
+- 2026-11-11: Registered staged catalogue research.
