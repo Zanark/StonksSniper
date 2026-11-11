@@ -62,6 +62,64 @@ No existing user window was driven or restarted. Fresh live-data reconciliation,
 human comprehension, normal Windows/DPI and installer qualification remain
 separate; the old release and historical GIFs were not regenerated.
 
+## Complete strategy reference - 2026-11-12
+
+The linked [strategy reference](strategies.md) now explains all 27 implemented
+rules, including the original seven, in actual picker order. Every entry has
+an ELI15 idea, exact buy/sell/retain conditions, calculation and warmup,
+illustrative numeric walkthrough, failure modes and educational source.
+The catalogue table identifies stable keys and required signal inputs.
+
+The source audit covered `patterns.py`, `studies.py`, the existing lessons and
+`engine.py`. It distinguishes strict/inclusive boundaries, state retention,
+EMA/Wilder seeds, previous-only Donchian ranges, shifted cloud values and the
+app-specific Chandelier ratchet and Ultimate midpoint rule. Shared instructions
+explain next-opening execution, all-cash sizing, fractional research units,
+fees/slippage, benchmark timing and unsold final holdings.
+
+Documentation checks matched all 27 names, keys, order, minimum histories and
+source URLs to the actual catalogue; checked explanation coverage, local links
+and section anchors; and checked the illustrative arithmetic. These are source
+and documentation checks, not a new runtime test run, fresh data qualification,
+performance evidence or human acceptance. README remains image-led and links
+to the full reference. The strategy-documentation work itself changes no runtime,
+asset, dependency or frozen-release content.
+SS-06 remains in progress for its broader research and configuration work.
+
+## Clear glass and consistent static icons - 2026-11-12
+
+The user rejected the square GIF's glass appearance: broad gradients collapsed
+into a jagged opaque patch when reduced to the exact approved palette.
+A new regression reproduced the hidden grid before regeneration. The GIF now
+uses thin reflection contours over a clear chart, retaining every approved
+visible color, transparent circular finish, constant bounds and 2.56-second morph.
+The still SVG has lighter tint/vignetting and a curved specular reflection.
+
+The shared centered still is rendered at seven native icon sizes:
+16, 24, 32, 48, 64, 128 and 256px. The generated, packaged `logo.ico` contains
+pixel-identical renders for Windows/browser use. Application and window icons
+share the helper; the header remains static. README's new PNG cover composites
+the same still with the existing regular Times New Roman banner. The generator
+explicitly loads the installed font when rendering that cover offscreen.
+GitHub's own browser favicon and Windows pinned-shortcut caches are not controlled
+by the README or this native icon helper.
+
+Final targeted desktop/learning checks: **62 passed**; Ruff lint/format,
+strict source mypy and diff checks passed. Checks include a clear background and
+visible grid, all-frame palette/clarity, equal-size transparent rounding, static
+header and exact ICO/native equality at every size. Inspected before/after
+decoded states, the actual SVG/native icons, a new empty offscreen native window
+and the cover at its authored resolution.
+
+A no-isolation wheel build failed explicitly because setuptools was absent from
+the local environment. The ordinary isolated build then resolved the declared
+backend without changing the app environment. Its wheel contains the exact
+SVG/GIF/ICO; an extracted candidate imported outside the editable source and
+confirmed shared static app/window icons using existing dependencies.
+This is not a clean-machine or normal Windows-shell/DPI qualification.
+The frozen v0.1.0 wheel checksum is unchanged. No market retrieval, gallery
+recapture, actual-user-window control or automatic restart was performed.
+
 ## Initial verification evidence - 2026-11-11
 
 - 37 tests passed. Ruff checks/formatting and strict source mypy passed.

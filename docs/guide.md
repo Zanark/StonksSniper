@@ -49,21 +49,30 @@ can revise older values. The **Data** panel preserves source and timing.
 
 Decisions use a finished day; practice trades happen at the next available
 opening price with chosen costs. No broker or real-money trading is connected.
-27 rules work today: the original seven plus [20 new sourced strategies](strategies.md).
-The new guide explains each buy/sell condition, formula, warmup and limitation.
+[All 27 implemented strategies](strategies.md) have a complete reference:
+ELI15 ideas, exact buy/sell/hold conditions, formulas, warmups, examples,
+limitations and sources for the original seven and the 20 additions.
 Broader pattern families, baskets of stocks and AI-proposed ideas remain planned.
 
 ## About the moving pictures
 
 The logo is original decorative artwork: the reticle darts across a square
-chart through tinted scope glass, with curved reflections, a dark lens edge and
-a layered rim. It settles on the center candle and fires a visible bullet. After
+chart through clear glass, with thin curved reflections and a layered rim.
+The fixed-palette GIF avoids broad gradient fills that hide the grid or candles.
+It settles on the center candle and fires a visible bullet. After
 the impact, the corners smoothly round away over 2.56 seconds, leaving a circle
 with a transparent outside. That transition is 1.5x faster than the earlier
 3.84-second version; the search and shot keep their original pace.
 It starts and finishes gently, without shrinking. The still logo keeps the
 reticle centered. The app header always shows that still, even with **Animations**
 enabled; the search-and-shot animation is for the README.
+The same static glass artwork supplies the README cover and native app/window
+icons, rendered at seven sizes from 16 to 256px. The
+[Windows/browser ICO](../src/stonks_sniper/assets/logo.ico) contains those same
+sizes. This is a native app, not a hosted website: the ICO is favicon-ready,
+but a README cannot replace GitHub's own browser favicon.
+An already running app must be relaunched to load the updated icon; no existing
+user window is restarted by the asset builder.
 The square's side matches the circle's diameter, so the logo does not change size.
 Its candles are **not market observations or a recommendation**.
 
@@ -82,7 +91,7 @@ interface and always-static header.
 ## Go deeper
 
 - [Exact product, simulator and architecture](product-and-architecture.md)
-- [Twenty additional buy/sell strategies with ELI15 examples and sources](strategies.md)
+- [All 27 buy/sell strategies with ELI15 examples, exact rules and sources](strategies.md)
 - [Data providers and qualification gaps](data-providers.md)
 - [Design and explanation contract](ui-design.md)
 - [Development, media reproduction and verification](development.md)

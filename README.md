@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="docs/images/readme-banner.svg" width="960" alt="Stonks Sniper. Learn the idea. Test it on real history.">
+  <img src="docs/images/readme-banner.png" width="960" alt="Stonks Sniper, with the centered static glass-scope logo. Learn the idea. Test it on real history.">
 </p>
 
 <p align="center">
-  <a href="docs/guide.md"><img src="src/stonks_sniper/assets/logo.gif" width="352" alt="A pale blue reticle searches a candlestick chart through tinted scope glass with curved reflections and a dark lens rim, centers, fires a bullet and smoothly rounds the square into an equally wide transparent circle over 2.56 seconds."></a>
+  <a href="docs/guide.md"><img src="src/stonks_sniper/assets/logo.gif" width="352" alt="A pale blue reticle searches a clear candlestick chart with delicate glass reflections, centers, fires a bullet and smoothly rounds the square into an equally wide transparent circle over 2.56 seconds."></a>
 </p>
 
 <p align="center"><b>Real history. Practice money. Every word explained.</b></p>
@@ -14,7 +14,7 @@
   <a href="https://github.com/Zanark/StonksSniper/releases/tag/v0.1.0"><img src="docs/images/button-download.svg" width="260" alt="Download prototype v0.1.0: Python package, not an installer"></a>
 </p>
 
-<p align="center"><sub>Current source shown below. The v0.1.0 download predates this design. <a href="docs/guide.md">Written guide / no-motion alternative</a> · <a href="src/stonks_sniper/assets/logo.svg">Still logo</a></sub></p>
+<p align="center"><sub>Current source shown below. The v0.1.0 download predates this design. <a href="docs/guide.md">Written guide / no-motion alternative</a> · <a href="src/stonks_sniper/assets/logo.svg">Still logo</a> · <a href="src/stonks_sniper/assets/logo.ico">Windows / browser icon</a></sub></p>
 
 ## Pick a stock. Test an idea.
 
@@ -47,6 +47,6 @@
 
 <p align="center"><sub>The meme brings the hype. The app explains the ideas.</sub></p>
 
-<p align="center"><a href="docs/strategies.md">20 new strategies, explained</a> · <a href="docs/guide.md">Rules, sources &amp; limits</a> · <a href="docs/images/gif-captures.json">GIF provenance</a> · <a href="docs/development.md">Build &amp; development</a> · <a href="TODO/00_INDEX.todo">Roadmap</a></p>
+<p align="center"><a href="docs/strategies.md">All 27 strategies, explained</a> · <a href="docs/guide.md">Rules, sources &amp; limits</a> · <a href="docs/images/gif-captures.json">GIF provenance</a> · <a href="docs/development.md">Build &amp; development</a> · <a href="TODO/00_INDEX.todo">Roadmap</a></p>
 
 <p align="center"><sub>Completed daily history, not live prices. 27 explained rules; baskets and AI are planned. For education and simulation, not investment advice.</sub></p>

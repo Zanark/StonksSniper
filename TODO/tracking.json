@@ -81,7 +81,7 @@
       "issue_number": 6,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4KeI",
       "baseline": {
-        "body_sha256": "edaf532232f3a2ade754721aa84ce8cd2df4067f2778fb947beb59a23fe3a2da",
+        "body_sha256": "f8259732b5539e01257189a0cf15aaa366de8b94bad88b9abce0dad2693b284d",
         "title": "SS-06 - Expand the source-cited pattern catalogue",
         "issue_state": "open",
         "state_reason": null,
@@ -237,7 +237,7 @@
       "issue_number": 19,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH5GPs",
       "baseline": {
-        "body_sha256": "163f43afadef97f7e29e3e1c245d911566368d65449271a8590cf736f13e6d98",
+        "body_sha256": "27adf7a1e98171a3f4b7de99388bee512a9824a496761295bad5ceb047cade11",
         "title": "SS-19 - ELI15-first DeepSeaFoam learning experience",
         "issue_state": "closed",
         "state_reason": "completed",

@@ -67,8 +67,8 @@ exchange/provider qualification beyond this slice.
 
 1. Qualify authoritative daily data, action handling, holidays, suspensions,
    delistings and versioned snapshots; integrate an entitled read-only broker feed.
-2. Continue the sourced catalogue: [20 additional daily strategies](strategies.md)
-   now extend the original seven. Confirmed candlestick/price structures,
+2. Continue catalogue research beyond the [27 documented daily strategies](strategies.md):
+   the original seven plus 20 additions. Confirmed candlestick/price structures,
    multi-timeframe and statistical families remain planned.
 3. Portfolio baskets with shared cash, allocations, correlated assets, rebalancing,
    costs and instrument/date alignment. Use "basket", not a claimed smallcase

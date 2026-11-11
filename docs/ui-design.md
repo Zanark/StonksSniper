@@ -71,14 +71,22 @@ and fires a visible bullet with a tracer and impact flash. Over 2.56 seconds,
 the corners gradually round into a circle, gently starting and finishing the
 movement. The chart and reticle stay fixed while the corners become transparent;
 the outer size never changes. It is not a circle painted onto a square tile.
-Blue-tinted glass, curved highlights, a vignetted lens edge and layered optical
-rim give the scope depth. The SVG uses only approved gradient-stop colors;
-the GIF keeps the exact fixed palette without grainy dithering, so its shading
-is deliberately simpler. All 96 morph samples retain quintic easing, timed in
+The static SVG uses restrained blue tint, a soft edge, a curved specular
+reflection and a layered optical rim. Its grid and candles remain visible.
+Broad gradients quantized into a jagged opaque patch in the GIF; that rejected
+version is superseded. The GIF now uses thin palette-safe reflection contours,
+not full-surface shading or grainy dithering. All 96 morph samples retain quintic easing, timed in
 30/30/20ms groups: exactly 1.5x faster than the previous 3.84 seconds.
 Its green/coral candles are decorative illustrations, not observations.
 The app header and window/taskbar icon always use the centered static SVG,
 regardless of **Animations**. Only the README logo plays the search/shot sequence.
+Native icons are rendered directly at 16/24/32/48/64/128/256px instead of deriving
+every small icon from a single large raster. The packaged `logo.ico` has the
+same seven sizes and pixel-matches those native renders; it is also usable as
+a browser favicon asset. There is no hosted web-app favicon to configure, and
+GitHub controls its own browser chrome. README's raster cover composites the
+same static glass logo with the regular Times New Roman banner.
+Existing user windows, pinned shortcuts and the frozen release are not replaced.
 
 The README banner, linked square buttons and both logos use this exact authored
 palette, replacing the earlier gold-and-green branding:
@@ -96,7 +104,8 @@ palette, replacing the earlier gold-and-green branding:
 
 Only candlesticks may add red/green colors. The logo GIF uses a fixed palette
 so adaptive encoding cannot shift the requested colors; transparent pixels are
-preserved. Native SVG antialiasing can blend edge pixels. Buttons use the user's
+preserved. Native SVG shading and the raster cover can blend the authored colors.
+Buttons use the user's
 double-outline reference, a soft edge glow and uniform 14x14-unit graph-paper
 cells. The title is exactly **Stonks Sniper**, preserving its case and space.
 Labels and the project title explicitly use regular-weight Times New Roman,

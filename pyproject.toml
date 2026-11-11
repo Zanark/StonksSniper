@@ -29,7 +29,7 @@ stonks-sniper = "stonks_sniper.app:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-stonks_sniper = ["assets/*.svg", "assets/*.txt", "assets/*.gif"]
+stonks_sniper = ["assets/*.svg", "assets/*.txt", "assets/*.gif", "assets/*.ico"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

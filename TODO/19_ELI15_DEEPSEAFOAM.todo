@@ -37,6 +37,9 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - [x] Replace the hard square-to-circle cut with a slow, smooth, equal-size transition.
 - [x] Add tinted scope glass, curved reflections and an optical rim; shorten only
   the square-to-circle transition to 2.56 seconds (1.5x faster).
+- [x] Replace opaque GIF glass patches with clear palette-safe reflections;
+  improve the static glass and share it across native icons, Windows/browser ICO
+  and README cover.
 
 ## Acceptance criteria
 - No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
@@ -68,6 +71,20 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - Technical checks, human comprehension testing and normal Windows/DPI qualification are recorded separately.
 
 ## Completion evidence
+- Clear-glass follow-up supersedes the earlier quantized lens fill: every GIF
+  frame keeps a readable chart, using thin reflection contours instead of a large
+  opaque patch. A new grid-visibility regression failed on the old GIF.
+  The lighter, specular static SVG supplies seven native icon sizes and the
+  README cover. Packaged ICO pixels match native icons at all seven resolutions.
+  Inspected actual decoded states, static/native renders, cover and an owned
+  empty native window. Final 62 desktop/learning checks, Ruff lint/format,
+  strict source mypy and diff checks passed. Isolated candidate wheel contains
+  exact SVG/GIF/ICO and loads shared static icons outside the editable source.
+  The initial no-isolation build failed on missing setuptools; the ordinary
+  isolated backend build passed without modifying the app environment.
+  Frozen release, historical gallery, supplied meme and user-owned windows are
+  unchanged. Browser favicon asset is supplied; GitHub's favicon/pinned-shortcut
+  caches, normal Windows shell/DPI and human acceptance are not claimed verified.
 - Glass/faster follow-up supersedes the earlier transition timing: shared scope
   now has approved-color lens shading, curved reflections and a layered optical
   rim. Inspected the rendered still and decoded GIF states; kept clean fixed-palette
@@ -153,6 +170,9 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   Published v0.1.0, supplied meme and historical still gallery remain unchanged.
 
 ## Completion log
+- 2026-11-12: Corrected the rejected square-phase glass, enhanced the static glass,
+  generated shared multi-size native/ICO icons and a branded README cover.
+  Retained exact palette, static header, 2.56-second morph and existing release.
 - 2026-11-11: User requested DeepSeaFoam material-inspired visuals, less scrolling,
   better graphs/motion, an original logo and screenshot-led documentation.
 - 2026-11-11: User made ELI15 a whole-product requirement and explicitly requested

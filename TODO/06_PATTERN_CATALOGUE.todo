@@ -15,6 +15,9 @@ Grow beyond seven teaching variants without pretending any finite list is exhaus
   accurate replay guides and exact metadata export.
 - [x] Check arithmetic references, buy/sell/retain behavior, zero-range/volume
   conventions, causal prefixes and native learning/chart/export integration.
+- [x] Document every implemented strategy, including the original seven, with
+  ELI15 ideas, exact rules, signal inputs, formulas, warmups, worked examples,
+  failure modes and educational sources; link the complete reference from README.
 - [ ] Inventory trend/momentum (ADX, SAR, stochastic, ROC, Ichimoku) with primary sources.
 - [ ] Inventory volatility/volume (ATR, Keltner, OBV, VWAP) and required data intervals.
 - [ ] Research candle families and confirmed price structures (triangles, flags, H&S, doubles).
@@ -41,6 +44,11 @@ Grow beyond seven teaching variants without pretending any finite list is exhaus
 - The references are educational ChartSchool pages, not original-author primary
   publications. Explicit app variants include a ratcheted Chandelier system and
   Ultimate Oscillator midpoint system; overlapping indicators are not called independent.
+- Complete-reference follow-up: all 27 names, keys, order, minimum histories and
+  source links matched the catalogue. Every entry has the five explanation
+  fields; local links/anchors and illustrative arithmetic were checked.
+  Execution/accounting text was checked against engine.py. Documentation-only:
+  no new runtime-test, market-data, performance or human-acceptance claim.
 - Broader primary-source inventory, formal schemas, SAR/VWAP, confirmed price
   structures, statistical pairs and multi-timeframe work remain unfinished.
 
@@ -48,3 +56,6 @@ Grow beyond seven teaching variants without pretending any finite list is exhaus
 - 2026-11-11: Registered staged catalogue research.
 - 2026-11-12: Delivered the bounded 20-strategy expansion without closing the wider
   research roadmap or claiming investment performance.
+- 2026-11-12: Replaced the additions-only guide with a complete 27-strategy
+  reference and aligned README/guide/architecture navigation. Kept this workstream
+  in progress because the broader catalogue roadmap is unfinished.

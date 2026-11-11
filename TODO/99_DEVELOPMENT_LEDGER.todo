@@ -205,3 +205,23 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   passed. Inspected actual renders/decoded states; static header, exact colors,
   transparent circular finish and equal bounds preserved. No photo copying,
   gallery recapture, market retrieval, app restart or v0.1.0 replacement.
+- 2026-11-12: Audited all 27 implementations and documented every strategy,
+  including the original seven, with ELI15 ideas, exact boundaries/retained state,
+  formulas, inputs, warmups, toy-number examples, failure modes and sources.
+  Explained next-opening fills, fees/slippage, sizing, benchmark timing and final
+  open holdings. Matched catalogue names/keys/order/history/source URLs, checked
+  local links/anchors and example arithmetic. README stays image-led with a
+  complete-reference link. Documentation-only; no runtime/assets/data/release
+  changes and no new test-run claim. SS-06 broader research remains in progress.
+- 2026-11-12: User rejected the square GIF's opaque jagged glass and requested
+  consistent static glass everywhere. Replaced quantized full-surface fills with
+  delicate reflection contours; made native SVG tint/edge lighter with a curved
+  specular reflection. Shared seven-size native icons, matching packaged ICO and
+  static-logo README cover. New visibility regression rejected the old GIF.
+  Final 62 desktop/learning checks, Ruff lint/format, strict source mypy and
+  diff checks passed. Inspected before/after/native/cover images. No-isolation
+  build failed on missing setuptools; isolated build and extracted-wheel native
+  smoke passed, with exact SVG/GIF/ICO and frozen-release hash preserved.
+  No gallery recapture, market retrieval, user-window control or restart.
+  GitHub favicon/pinned-shortcut caches and normal shell/DPI remain outside
+  the verified native-icon/asset result; no human-approval claim.

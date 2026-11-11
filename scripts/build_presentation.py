@@ -29,6 +29,7 @@ GREEN = "#8AC8B1"
 BLUE = "#B6CAD6"
 TEXT_PRIMARY = "#FFFFFF"
 TEXT_SECONDARY = "#BDBEBE"
+ICON_SIZES = (16, 24, 32, 48, 64, 128, 256)
 
 
 def scope_svg(
@@ -38,6 +39,7 @@ def scope_svg(
     *,
     roundness: float = 1,
     bullet: float | None = None,
+    palette_safe: bool = False,
 ) -> str:
     """Illustrated branding, never market observations or a trading signal."""
     candles = ""
@@ -78,7 +80,9 @@ def scope_svg(
         )
     outline = f'<rect x="5" y="5" width="118" height="118" rx="{59 * roundness:.5f}"'
     shape = f"{outline}/>"
-    surface = f'{outline} fill="{BACKGROUND}"/>{outline} fill="url(#glass-depth)"/>'
+    surface = f'{outline} fill="{BACKGROUND}"/>'
+    if not palette_safe:
+        surface += f'{outline} fill="url(#glass-depth)"/>'
     bezel = (
         '<rect x="10" y="10" width="108" height="108" '
         f'rx="{54 * roundness:.5f}" fill="none" stroke="{BACKGROUND}" '
@@ -86,17 +90,27 @@ def scope_svg(
         f'{outline} fill="none" stroke="{GREEN}" stroke-width="1.5"/>'
         '<rect x="7.5" y="7.5" width="113" height="113" '
         f'rx="{56.5 * roundness:.5f}" fill="none" stroke="{BLUE}" '
-        'stroke-width=".7" stroke-opacity=".65"/>'
+        f'stroke-width=".7" stroke-opacity="{1 if palette_safe else 0.65}"/>'
     )
-    glass = (
-        f'{outline} fill="url(#glass-reflection)"/>'
-        f'{outline} fill="url(#glass-edge)"/>'
+    # Broad gradients collapse into opaque bands in the exact seven-color GIF.
+    glass = ""
+    if not palette_safe:
+        glass += (
+            f'{outline} fill="url(#glass-reflection)"/>'
+            f'{outline} fill="url(#glass-edge)"/>'
+            '<path d="M20 53C22 30 39 15 64 13C43 20 31 34 29 54Z" '
+            'fill="url(#glass-glint)"/>'
+        )
+    glass += (
         f'<path d="M15 54C19 30 33 17 54 13" fill="none" stroke="{BLUE}" '
-        'stroke-width="2.2" stroke-linecap="round" opacity=".65"/>'
+        f'stroke-width="{0.8 if palette_safe else 1.4}" stroke-linecap="round" '
+        f'opacity="{1 if palette_safe else 0.65}"/>'
         f'<path d="M21 39C28 25 36 20 47 17" fill="none" stroke="{TEXT_PRIMARY}" '
-        'stroke-width="1.4" stroke-linecap="round" opacity=".72"/>'
+        f'stroke-width="{0.5 if palette_safe else 0.7}" stroke-linecap="round" '
+        f'opacity="{1 if palette_safe else 0.72}"/>'
         f'<path d="M74 115C101 110 112 94 115 73" fill="none" stroke="{GREEN}" '
-        'stroke-width="1.1" stroke-linecap="round" opacity=".45"/>'
+        f'stroke-width="{0.6 if palette_safe else 0.8}" stroke-linecap="round" '
+        f'opacity="{1 if palette_safe else 0.45}"/>'
     )
     grid = "".join(f"M5 {position}h118M{position} 5v118" for position in range(16, 113, 16))
     return (
@@ -104,23 +118,27 @@ def scope_svg(
         'viewBox="0 0 128 128">'
         "<title>Stonks Sniper circular candlestick scope</title>"
         "<desc>A pale blue reticle looks through blue-tinted scope glass at a candlestick chart. "
-        "Curved reflections, a shaded lens edge and a layered rim give the glass depth. "
+        "Clear glass, curved reflections and a layered rim keep the chart visible. "
         "The animation searches a square, fires a bullet "
         "and smoothly rounds into an equally wide circle over 2.56 seconds. "
         "Decorative branding, not market data.</desc>"
         f'<defs><clipPath id="scope">{shape}</clipPath>'
         '<radialGradient id="glass-depth" cx="46%" cy="36%" r="74%">'
-        f'<stop offset="0" stop-color="{BLUE}" stop-opacity=".24"/>'
-        f'<stop offset=".65" stop-color="{GRID}" stop-opacity=".58"/>'
+        f'<stop offset="0" stop-color="{BLUE}" stop-opacity=".14"/>'
+        f'<stop offset=".65" stop-color="{GRID}" stop-opacity=".30"/>'
         f'<stop offset="1" stop-color="{BACKGROUND}"/></radialGradient>'
         '<linearGradient id="glass-reflection" x1="0" y1="0" x2=".35" y2="1">'
-        f'<stop offset="0" stop-color="{TEXT_PRIMARY}" stop-opacity=".16"/>'
+        f'<stop offset="0" stop-color="{TEXT_PRIMARY}" stop-opacity=".08"/>'
         f'<stop offset=".48" stop-color="{BLUE}" stop-opacity=".035"/>'
         f'<stop offset="1" stop-color="{BLUE}" stop-opacity="0"/></linearGradient>'
         '<radialGradient id="glass-edge" cx="50%" cy="50%" r="55%">'
         f'<stop offset=".50" stop-color="{BACKGROUND}" stop-opacity="0"/>'
-        f'<stop offset=".84" stop-color="{BACKGROUND}" stop-opacity=".18"/>'
-        f'<stop offset="1" stop-color="{BACKGROUND}" stop-opacity=".96"/></radialGradient>'
+        f'<stop offset=".84" stop-color="{BACKGROUND}" stop-opacity=".10"/>'
+        f'<stop offset="1" stop-color="{BACKGROUND}" stop-opacity=".65"/></radialGradient>'
+        '<linearGradient id="glass-glint" x1="0" y1="0" x2="0" y2="1">'
+        f'<stop offset="0" stop-color="{TEXT_PRIMARY}" stop-opacity=".35"/>'
+        f'<stop offset=".45" stop-color="{BLUE}" stop-opacity=".08"/>'
+        f'<stop offset="1" stop-color="{BLUE}" stop-opacity="0"/></linearGradient>'
         "</defs>"
         f'{surface}<g clip-path="url(#scope)">'
         f'<path d="{grid}" '
@@ -204,7 +222,14 @@ def save_gif(
 
 
 def build_brand() -> None:
-    (ASSETS / "logo.svg").write_text(scope_svg(), encoding="utf-8")
+    still_svg = scope_svg()
+    (ASSETS / "logo.svg").write_text(still_svg, encoding="utf-8")
+    icon_images = [render_svg(still_svg, size) for size in ICON_SIZES]
+    icon_images[-1].save(
+        ASSETS / "logo.ico",
+        sizes=[(size, size) for size in ICON_SIZES],
+        append_images=icon_images[:-1],
+    )
     frames = []
     durations = []
     rng = random.Random(27)
@@ -221,7 +246,12 @@ def build_brand() -> None:
                 progress = step / 4
                 frames.append(
                     render_svg(
-                        scope_svg(x + (tx - x) * progress, y + (ty - y) * progress, roundness=0),
+                        scope_svg(
+                            x + (tx - x) * progress,
+                            y + (ty - y) * progress,
+                            roundness=0,
+                            palette_safe=True,
+                        ),
                         352,
                         roundness=0,
                     )
@@ -232,17 +262,28 @@ def build_brand() -> None:
         progress = 1 - (1 - step / 8) ** 3
         frames.append(
             render_svg(
-                scope_svg(x + (64 - x) * progress, y + (64 - y) * progress, roundness=0),
+                scope_svg(
+                    x + (64 - x) * progress,
+                    y + (64 - y) * progress,
+                    roundness=0,
+                    palette_safe=True,
+                ),
                 352,
                 roundness=0,
             )
         )
         durations.append(70 if step < 8 else 450)
     for step in range(7):
-        frames.append(render_svg(scope_svg(roundness=0, bullet=step / 6), 352, roundness=0))
+        frames.append(
+            render_svg(scope_svg(roundness=0, bullet=step / 6, palette_safe=True), 352, roundness=0)
+        )
         durations.append(60)
     for step in range(6):
-        frames.append(render_svg(scope_svg(flash=1 - step / 6, roundness=0), 352, roundness=0))
+        frames.append(
+            render_svg(
+                scope_svg(flash=1 - step / 6, roundness=0, palette_safe=True), 352, roundness=0
+            )
+        )
         durations.append(60)
     morph_elapsed = 0
     for step in range(96):
@@ -252,9 +293,11 @@ def build_brand() -> None:
         progress = morph_elapsed / 2560
         # Quintic easing starts and ends with zero speed and acceleration.
         roundness = progress**3 * (progress * (6 * progress - 15) + 10)
-        frames.append(render_svg(scope_svg(roundness=roundness), 352, roundness=roundness))
+        frames.append(
+            render_svg(scope_svg(roundness=roundness, palette_safe=True), 352, roundness=roundness)
+        )
         durations.append(duration)
-    frames.append(render_svg(scope_svg(), 352))
+    frames.append(render_svg(scope_svg(palette_safe=True), 352))
     durations.append(1800)
     save_gif(
         frames,
@@ -271,7 +314,7 @@ def build_brand() -> None:
         'viewBox="0 0 960 144"><rect x="1" y="1" width="958" height="142" '
         f'fill="{BACKGROUND}" stroke="{BLUE}"/>'
         f'<path d="{paper}" fill="none" stroke="{GRID}" stroke-width=".5"/>'
-        f'<path d="M24 28h80M856 28h80M24 116h80M856 116h80" stroke="{GREEN}" '
+        f'<path d="M176 28h80M856 28h80M176 116h80M856 116h80" stroke="{GREEN}" '
         'stroke-opacity=".6"/>'
         '<text x="480" y="78" text-anchor="middle" '
         'font-family="Times New Roman" '
@@ -281,6 +324,14 @@ def build_brand() -> None:
         'letter-spacing="2">LEARN THE IDEA. TEST IT ON REAL HISTORY.</text></svg>'
     )
     (IMAGES / "readme-banner.svg").write_text(banner, encoding="utf-8")
+    cover = QImage(960, 144, QImage.Format.Format_ARGB32_Premultiplied)
+    cover.fill(Qt.GlobalColor.transparent)
+    painter = QPainter(cover)
+    QSvgRenderer(banner.encode("utf-8")).render(painter)
+    painter.end()
+    cover_image = image_from_qt(cover)
+    cover_image.alpha_composite(render_svg(still_svg, 120), (32, 12))
+    cover_image.save(IMAGES / "readme-banner.png")
     paper = "".join(f"M{position} 0v86" for position in range(0, 301, 14))
     paper += "".join(f"M0 {position}h300" for position in range(0, 87, 14))
     for name, title, subtitle in (
@@ -306,7 +357,7 @@ def build_brand() -> None:
             f'fill="{TEXT_SECONDARY}">{escape(subtitle.upper())}</text></g></svg>'
         )
         (IMAGES / f"button-{name}.svg").write_text(button, encoding="utf-8")
-    print("Built glass scope, equal-size 2.56s eased rounding and centered static logo.")
+    print("Built clear-glass GIF, static SVG/ICO, branded cover and 2.56s eased rounding.")
 
 
 def build_gallery(app: QApplication, end: date | None) -> None:
@@ -422,9 +473,10 @@ def main() -> None:
         parser.error("Choose --brand and/or --gallery; only --gallery retrieves market history.")
     app = QApplication([])
     if sys.platform == "win32" and app.platformName() == "offscreen":
-        font = Path(os.environ["WINDIR"]) / "Fonts" / "segoeui.ttf"
-        if QFontDatabase.addApplicationFont(str(font)) < 0:
-            raise RuntimeError(f"Could not load installed UI font: {font}")
+        for name in ("segoeui.ttf", "times.ttf") if args.brand else ("segoeui.ttf",):
+            font = Path(os.environ["WINDIR"]) / "Fonts" / name
+            if QFontDatabase.addApplicationFont(str(font)) < 0:
+                raise RuntimeError(f"Could not load installed font: {font}")
     if args.brand:
         build_brand()
     if args.gallery:

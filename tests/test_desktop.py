@@ -10,12 +10,12 @@ from threading import Event
 from xml.etree import ElementTree
 
 import pytest
-from PIL import Image, ImageSequence, ImageStat
+from PIL import Image, ImageSequence
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import QCoreApplication, QThread  # noqa: E402
-from PySide6.QtGui import QBitmap, QMovie, QRegion  # noqa: E402
+from PySide6.QtGui import QBitmap, QImage, QMovie, QRegion  # noqa: E402
 from PySide6.QtWidgets import QApplication, QFileDialog  # noqa: E402
 from test_research import observations  # noqa: E402
 
@@ -83,13 +83,41 @@ def test_scope_has_blue_glass_shading_instead_of_a_flat_background():
     lower_glass = still.pixelColor(116, 220)
     assert upper_glass.lightness() > lower_glass.lightness() + 8
     assert upper_glass.blue() > upper_glass.red()
+
+
+def test_animated_glass_keeps_the_chart_clear_without_opaque_palette_patches():
     with Image.open(str(files("stonks_sniper") / "assets" / "logo.gif")) as logo:
-        logo.seek(logo.n_frames - 1)
-        lens = logo.convert("RGB")
-        upper = ImageStat.Stat(lens.crop((154, 47, 165, 55))).mean
-        lower = ImageStat.Stat(lens.crop((154, 294, 165, 302))).mean
-    assert sum(upper) > sum(lower) + 24
-    assert upper[2] > upper[0]
+        square = logo.convert("RGB")
+        for x, y in ((88, 88), (220, 88), (88, 264), (264, 264)):
+            assert square.getpixel((x, y)) == (25, 34, 32)
+            assert square.getpixel((x + 6, y + 6)) == (10, 14, 15)
+        for index, frame in enumerate(ImageSequence.Iterator(logo)):
+            colors = frame.convert("RGBA").getcolors(256)
+            assert colors is not None
+            opaque = sum(count for count, color in colors if color[3] == 255)
+            clear = sum(count for count, color in colors if color == (10, 14, 15, 255))
+            assert clear / opaque > 0.65, index
+
+
+def test_exported_windows_browser_icon_matches_native_glass_at_each_resolution():
+    app = QApplication.instance() or QApplication([])
+    icon = application_icon()
+    sizes = {16, 24, 32, 48, 64, 128, 256}
+    assert {(size.width(), size.height()) for size in icon.availableSizes()} == {
+        (size, size) for size in sizes
+    }
+    with Image.open(str(files("stonks_sniper") / "assets" / "logo.ico")) as exported:
+        assert exported.ico.sizes() == {(size, size) for size in sizes}
+        for size in sizes:
+            actual = exported.ico.getimage((size, size)).convert("RGBA")
+            native = (
+                icon.pixmap(size, size).toImage().convertToFormat(QImage.Format.Format_RGBA8888)
+            )
+            expected = Image.frombytes("RGBA", (size, size), bytes(native.constBits()))
+            assert actual.tobytes() == expected.tobytes(), size
+            assert actual.getpixel((0, 0))[3] == 0
+            assert actual.getpixel((size // 2, size // 2))[3] == 255
+    app.processEvents()
 
 
 def test_logo_morphs_smoothly_at_faster_speed_from_equal_square_to_transparent_circle():

@@ -24,17 +24,27 @@ def application_icon() -> QIcon:
     renderer = QSvgRenderer(str(LOGO))
     if not renderer.isValid():
         raise RuntimeError(f"Application logo could not be loaded: {LOGO}")
-    pixmap = QPixmap(256, 256)
-    pixmap.fill(Qt.GlobalColor.transparent)
-    painter = QPainter(pixmap)
-    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-    # Match the circular SVG boundary even when Qt ignores its clip path.
-    clip = QPainterPath()
-    clip.addEllipse(QRectF(8.5, 8.5, 239, 239))
-    painter.setClipPath(clip)
-    renderer.render(painter)
-    painter.end()
-    return QIcon(pixmap)
+    icon = QIcon()
+    for size in (16, 24, 32, 48, 64, 128, 256):
+        pixmap = QPixmap(size, size)
+        pixmap.fill(Qt.GlobalColor.transparent)
+        painter = QPainter(pixmap)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        # Match the circular SVG boundary even when Qt ignores its clip path.
+        clip = QPainterPath()
+        clip.addEllipse(
+            QRectF(
+                size * 4.25 / 128,
+                size * 4.25 / 128,
+                size * 119.5 / 128,
+                size * 119.5 / 128,
+            )
+        )
+        painter.setClipPath(clip)
+        renderer.render(painter)
+        painter.end()
+        icon.addPixmap(pixmap)
+    return icon
 
 
 def configure_application(app: QApplication) -> None:
