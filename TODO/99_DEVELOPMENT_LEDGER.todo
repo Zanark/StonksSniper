@@ -20,6 +20,12 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-12: First hosted live run passed Windows regressions, actual providers,
+  standalone build and frozen native HDFCBANK/27-rule/export diagnostics. Linux
+  passed 208 assertions but aborted during interpreter finalization; did not
+  treat that process as successful. Added session-owned QApplication lifetime
+  and explicit deferred-window deletion after Qt tests. Local live suite again
+  passed 211 tests; hosted Linux re-verification and publication remain pending.
 - 2026-11-12: Reproduced HDFCBANK's missing raw close and all-NaN adjusted OHLC
   on November 11. Three new regressions first failed, then passed after explicit,
   dated exclusions preserved valid history without fabricating prices. Full

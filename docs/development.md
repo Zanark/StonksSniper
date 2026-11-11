@@ -37,6 +37,15 @@ to verified commit IDs and receive read-only repository permissions. Windows als
 builds the executable and runs its native-plugin diagnostic before retaining
 the candidate as an Actions artifact. These artifacts are not GitHub releases.
 
+The first hosted run passed Windows tests, actual provider checks and the frozen
+native diagnostic. Linux completed 208 tests, then Python 3.11 aborted during
+interpreter finalization with `none_dealloc`. Qt tests now retain one
+session-owned QApplication and explicitly deliver deferred deletions after each
+test; `processEvents()` alone does not drain `deleteLater()` outside an event
+loop. The updated local suite passed all 211 tests, including actual downloads.
+The Linux rerun remains a release gate; an assertion-pass summary does not
+override a nonzero process exit.
+
 Yahoo availability must not make every pull request nondeterministic. Live tests
 are opt-in, locally or through **Run workflow / live_provider** on trusted `main`:
 

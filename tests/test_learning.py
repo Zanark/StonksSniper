@@ -21,6 +21,8 @@ from stonks_sniper.lessons import LESSONS  # noqa: E402
 from stonks_sniper.patterns import PATTERNS  # noqa: E402
 from stonks_sniper.studies import study  # noqa: E402
 
+pytestmark = pytest.mark.usefixtures("qt_events")
+
 
 @pytest.fixture
 def learning_window():

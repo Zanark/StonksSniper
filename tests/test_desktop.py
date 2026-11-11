@@ -25,6 +25,8 @@ from stonks_sniper.models import DataError  # noqa: E402
 from stonks_sniper.patterns import PATTERNS  # noqa: E402
 from stonks_sniper.theme import application_icon  # noqa: E402
 
+pytestmark = pytest.mark.usefixtures("qt_events")
+
 
 def test_readme_artwork_uses_requested_palette_with_candle_exception():
     palette = {"#0A0E0F", "#192220", "#8AC8B1", "#B6CAD6", "#FFFFFF", "#BDBEBE"}
