@@ -27,6 +27,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - [x] Make README gold/green and GIF-led, with image navigation buttons and
   linked setup/explanation guides.
 - [x] Match the square chart's outer side to the final circle's outer diameter.
+- [x] Apply the supplied double-outline button effect, uniform graph-paper
+  backgrounds and Times New Roman for README buttons/project title.
 
 ## Acceptance criteria
 - No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
@@ -51,6 +53,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   height, including borders; the cut changes shape without changing size.
 - README uses gold/green linked image buttons and native GIF demos with honest
   data provenance; longer explanations remain accessible in linked guides.
+- README buttons have consistent square grid cells, double-outline frames and
+  Times New Roman labels; the project-title banner uses Times New Roman too.
 - Screenshots show the real native application with actual observations, not a fictional dashboard.
 - Technical checks, human comprehension testing and normal Windows/DPI qualification are recorded separately.
 
@@ -104,6 +108,12 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   Inspected first/final frames together; eight desktop tests and targeted Ruff
   lint/format passed. The regression failed against the old 332x244px stage.
   No market retrieval, gallery recapture or published-package replacement.
+- README typography follow-up: all three SVG buttons use uniform 14x14-unit
+  grid cells, double-outline gold/seafoam frames and a soft edge glow. Button
+  labels and project-title banner use Times New Roman. Inspected native renders
+  at 300px and actual 260px README widths; labels remain inside their frames.
+  Windows resolved the installed Times New Roman family. Ruff lint/format passed.
+  SVGs retain Times/serif fallbacks; no font files are copied or embedded.
 
 ## Completion log
 - 2026-11-11: User requested DeepSeaFoam material-inspired visuals, less scrolling,
@@ -138,3 +148,6 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - 2026-11-12: User requested the chart square's side equal the final circle's
   diameter. Matched their visible outer bounds, expanded the grid/search area
   and regenerated the shared app/README animation; centered still unchanged.
+- 2026-11-12: User supplied a double-outline button reference and requested
+  uniform graph-paper backgrounds plus Times New Roman for buttons/project title.
+  Rebuilt all three linked buttons and title banner, preserving gold/green.

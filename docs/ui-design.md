@@ -74,6 +74,11 @@ SVG. Disabling **Animations** pauses the movie and shows that centered still;
 reenabling restores the movie. Closing the window stops it.
 
 The README has a separate gold-and-green banner and linked, square image buttons.
+Buttons use the user's double-outline reference: fine gold/seafoam frames, a soft
+edge glow and a uniform square graph-paper grid on a dark background. Button
+labels and the project-title banner use Times New Roman, with Times/serif fallbacks
+on systems without that font. The actual Windows previews use installed Times
+New Roman; no font files are copied or embedded.
 Its logo displays at 352px, four times the original 88px width. The application
 keeps DeepSeaFoam rather than inheriting the README's promotional palette.
 Detailed setup and explanations live in the linked written guides. GitHub's GIF

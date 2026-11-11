@@ -232,13 +232,16 @@ def build_brand() -> None:
         f'fill="url(#money)" stroke="{GOLD}"/>'
         f'<path d="M24 28h80M856 28h80M24 116h80M856 116h80" stroke="{GOLD}" '
         'stroke-opacity=".6"/>'
-        '<text x="480" y="78" text-anchor="middle" font-family="Segoe UI, sans-serif" '
+        '<text x="480" y="78" text-anchor="middle" '
+        'font-family="Times New Roman, Times, serif" '
         f'font-size="58" font-weight="700" letter-spacing="3" fill="{GOLD}">'
         'STONKSSNIPER</text><text x="480" y="113" text-anchor="middle" '
-        f'font-family="Segoe UI, sans-serif" font-size="16" fill="{GREEN}" '
+        f'font-family="Times New Roman, Times, serif" font-size="16" fill="{GREEN}" '
         'letter-spacing="2">LEARN THE IDEA. TEST IT ON REAL HISTORY.</text></svg>'
     )
     (IMAGES / "readme-banner.svg").write_text(banner, encoding="utf-8")
+    paper = "".join(f"M{position} 0v86" for position in range(0, 301, 14))
+    paper += "".join(f"M0 {position}h300" for position in range(0, 87, 14))
     for name, title, subtitle in (
         ("start", "Run the latest source", "Windows / Python / setup"),
         ("guide", "Understand the tool", "Simple lessons / rules / real data"),
@@ -248,15 +251,22 @@ def build_brand() -> None:
             '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="86" '
             'viewBox="0 0 300 86"><defs>'
             '<linearGradient id="face" x2="0" y2="1">'
-            '<stop stop-color="#1d5b39"/><stop offset="1" stop-color="#0b3020"/>'
+            '<stop stop-color="#0a1a14"/><stop offset="1" stop-color="#06100c"/>'
             "</linearGradient></defs>"
-            '<rect x="1" y="7" width="298" height="78" fill="#a08336"/>'
-            f'<rect x="1" y="1" width="298" height="78" fill="url(#face)" stroke="{GOLD}"/>'
-            f'<path d="M2 2h296" stroke="#fff0b0" stroke-opacity=".45"/>'
-            '<text x="150" y="34" text-anchor="middle" font-family="Segoe UI, sans-serif" '
-            f'font-size="18" font-weight="650" fill="{GOLD}">{escape(title)}</text>'
-            '<text x="150" y="59" text-anchor="middle" font-family="Segoe UI, sans-serif" '
-            f'font-size="12" fill="#b9d8bd">{escape(subtitle)}</text></svg>'
+            '<rect width="300" height="86" fill="url(#face)"/>'
+            f'<path d="{paper}" fill="none" stroke="{GREEN}" '
+            'stroke-opacity=".14" stroke-width=".5"/>'
+            f'<g fill="none" stroke="{GOLD}">'
+            '<rect x="2" y="2" width="296" height="82" stroke-width="4" stroke-opacity=".12"/>'
+            '<rect x="2" y="2" width="296" height="82" stroke-width="1"/>'
+            '</g><g fill="none" stroke="#a2d8be">'
+            '<rect x="7" y="7" width="286" height="72" stroke-width="4" stroke-opacity=".10"/>'
+            '<rect x="7" y="7" width="286" height="72" stroke-width="1"/>'
+            '</g><g text-anchor="middle" font-family="Times New Roman, Times, serif">'
+            f'<text x="150" y="38" font-size="20" letter-spacing=".6" fill="#f2e7c6">'
+            f"{escape(title.upper())}</text>"
+            '<text x="150" y="61" font-size="11.5" letter-spacing=".65" '
+            f'fill="#b9d8bd">{escape(subtitle.upper())}</text></g></svg>'
         )
         (IMAGES / f"button-{name}.svg").write_text(button, encoding="utf-8")
     print("Built matching square/circle logo, erratic search, bullet shot and centered still.")

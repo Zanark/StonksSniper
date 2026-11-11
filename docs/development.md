@@ -241,6 +241,20 @@ circle. Inspected full-size first/final frames side by side. Eight desktop tests
 and targeted Ruff lint/format checks passed. Published v0.1.0 remains unchanged;
 no existing user app was driven or restarted.
 
+### Graph-paper buttons and serif title
+
+The three README buttons follow the user's double-outline reference, with a
+subtle edge glow and uniform 14x14-unit square grids. Gold/seafoam outlines retain
+the requested money palette. Button labels and the project-title banner now use
+Times New Roman, with Times/serif fallbacks where unavailable. No font files are
+copied or embedded.
+
+Inspected actual native SVG renders of the banner and every button at authored
+300px and README 260px widths. Windows resolved installed Times New Roman; labels
+fit within both frames. Ruff lint/format passed. Navigation targets, app theme,
+logo geometry and existing GUI demos are unchanged. This is native SVG inspection,
+not a claim of full browser or all-platform font qualification.
+
 ## Explicit GitHub tracking adoption
 
 `TODO\tracking.json` identifies the public repository, dedicated Project 14,

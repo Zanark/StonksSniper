@@ -147,3 +147,9 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   tests and targeted Ruff lint/format passed. The regression rejected the previous
   332x244px stage. Shared README/app GIF regenerated; centered still, native GUI
   gallery and frozen release unchanged. No market data or user app accessed.
+- 2026-11-12: Applied the supplied double-outline look to the three linked README
+  buttons, with subtle edge glow and uniform 14x14-unit graph-paper grids.
+  Switched button labels and project-title banner to Times New Roman. Inspected
+  actual SVG renders at authored/README widths using the installed Windows font;
+  all labels fit. Ruff lint/format passed. Original vector artwork, no embedded
+  fonts; Times/serif fallbacks remain explicit. App theme and logo unchanged.
