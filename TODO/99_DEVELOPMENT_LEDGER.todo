@@ -20,8 +20,14 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
-- 2026-11-12: Correct Qt test teardown did not eliminate Linux's finalization
-  abort; the second hosted run again passed all Windows/frozen live checks.
+- 2026-11-12: Exact compatibility run 43118850013 selected PySide6 6.11.3 on
+  Python 3.11 but type checking exposed two newer-only QDate(date) overloads,
+  before Linux regression execution. Use the supported year/month/day
+  constructor, preserving the date range. Windows again passed actual frozen
+  fetching, all 27 strategies and export; the full Linux gate remains open.
+- 2026-11-12: Second hosted manual run again aborted on Linux and passed all
+  Windows/frozen live checks. Later run metadata showed its source was still
+  af2fa53, not the Qt cleanup commit: it cannot qualify that cleanup change.
   Verified an independent minimal PySide6 6.12/Python 3.11 singleton-refcount
   reproduction, linked from development docs. Added a Python-3.11-only binding
   upper bound instead of skipping tests, changing supported Python versions

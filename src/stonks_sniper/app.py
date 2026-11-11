@@ -294,8 +294,9 @@ class MainWindow(QMainWindow):
         self.exchange.setToolTip(tooltip("exchange"))
         self.exchange.currentTextChanged.connect(self.exchange_changed)
         today = datetime.now(INDIA).date()
-        self.start = QDateEdit(QDate(today - timedelta(days=730)))
-        self.end = QDateEdit(QDate(today))
+        start_date = today - timedelta(days=730)
+        self.start = QDateEdit(QDate(start_date.year, start_date.month, start_date.day))
+        self.end = QDateEdit(QDate(today.year, today.month, today.day))
         for field in (self.start, self.end):
             field.setCalendarPopup(True)
             field.setDisplayFormat("yyyy-MM-dd")
