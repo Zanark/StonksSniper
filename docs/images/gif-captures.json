@@ -1,0 +1,56 @@
+{
+  "captured_at": "2026-11-12T00:15:32.482814+05:30",
+  "source": "Yahoo Finance via yfinance (unofficial)",
+  "symbol": "RELIANCE.NS",
+  "exchange": "NSE",
+  "currency": "INR",
+  "fetched_at": "2026-11-12T00:15:25.569878+05:30",
+  "first_observation": "2024-11-12",
+  "last_observation": "2026-11-09",
+  "observations": 493,
+  "requested_end": "2026-11-09",
+  "provider_warnings": [
+    "Unofficial Yahoo access: personal research only; availability/accuracy not guaranteed.",
+    "Adjusted research units, not historical tradable share prices. Dividends are not credited again; adjustments can revise past observations.",
+    "Daily data only; current-day candles are excluded. This is not a live quote.",
+    "No holiday-calendar completeness or cross-provider reconciliation yet."
+  ],
+  "price_basis": "Yahoo split/dividend-adjusted OHLC (auto_adjust=True); total-return research proxy",
+  "platform": "offscreen",
+  "width": 1366,
+  "height": 768,
+  "motion": "Deterministic native replay/navigation captures; transitions disabled.",
+  "branding": "Decorative illustration; never claimed as stock observations.",
+  "captures": [
+    {
+      "file": "explore.gif",
+      "frames": 25,
+      "duration_ms": 7880,
+      "action": "Actual native replay cursor advanced through the final 60 completed sessions."
+    },
+    {
+      "file": "money.gif",
+      "frames": 25,
+      "duration_ms": 7880,
+      "action": "Actual native replay cursor advanced through the final 60 completed sessions."
+    },
+    {
+      "file": "rule.gif",
+      "frames": 25,
+      "duration_ms": 7880,
+      "action": "Actual native replay cursor advanced through the final 60 completed sessions."
+    },
+    {
+      "file": "learn.gif",
+      "frames": 3,
+      "duration_ms": 7800,
+      "action": "Explain pattern opens three authored native lessons."
+    },
+    {
+      "file": "dictionary.gif",
+      "frames": 3,
+      "duration_ms": 7800,
+      "action": "Dictionary opens three real authored definitions and everyday examples."
+    }
+  ]
+}

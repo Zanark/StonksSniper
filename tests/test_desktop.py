@@ -21,6 +21,64 @@ from stonks_sniper.models import DataError  # noqa: E402
 from stonks_sniper.patterns import PATTERNS  # noqa: E402
 
 
+def test_circular_logo_animates_and_respects_motion_and_close():
+    app = QApplication.instance() or QApplication([])
+    window = MainWindow()
+    try:
+        assert window.brand_movie.state() == QMovie.MovieState.Running
+        assert window.brand_movie.currentImage().pixelColor(0, 0).alpha() == 0
+        frame = window.brand_movie.currentFrameNumber()
+        deadline = time.monotonic() + 1
+        while window.brand_movie.currentFrameNumber() == frame and time.monotonic() < deadline:
+            app.processEvents()
+            time.sleep(0.01)
+        assert window.brand_movie.currentFrameNumber() != frame
+        window.motion.setChecked(False)
+        assert window.brand_movie.state() == QMovie.MovieState.Paused
+        assert window.brand_mark.movie() is None
+        assert not window.brand_mark.pixmap().isNull()
+        frame = window.brand_movie.currentFrameNumber()
+        deadline = time.monotonic() + 0.2
+        while time.monotonic() < deadline:
+            app.processEvents()
+            time.sleep(0.01)
+        assert window.brand_movie.currentFrameNumber() == frame
+        window.motion.setChecked(True)
+        assert window.brand_movie.state() == QMovie.MovieState.Running
+        assert window.brand_mark.movie() is window.brand_movie
+        assert window.loading_movie.state() == QMovie.MovieState.NotRunning
+        assert window.windowIcon().pixmap(46, 46).toImage().pixelColor(0, 0).alpha() == 0
+    finally:
+        window.close()
+        assert window.brand_movie.state() == QMovie.MovieState.NotRunning
+        window.deleteLater()
+        app.processEvents()
+
+
+def test_logo_cuts_from_rectangle_to_transparent_circle():
+    app = QApplication.instance() or QApplication([])
+    window = MainWindow()
+    try:
+        window.motion.setChecked(False)
+        movie = QMovie(window.brand_movie.fileName())
+        movie.setCacheMode(QMovie.CacheMode.CacheAll)
+        assert movie.jumpToFrame(0)
+        assert movie.currentImage().pixelColor(16, 80).alpha() == 255
+        for frame in range(movie.frameCount()):
+            assert movie.jumpToFrame(frame)
+        final = movie.currentImage()
+        assert final.pixelColor(16, 80).alpha() == 0
+        assert final.pixelColor(327, 96).alpha() == 0
+        assert final.pixelColor(176, 176).alpha() == 255
+        still = window.windowIcon().pixmap(256, 256).toImage()
+        assert still.pixelColor(238, 70).alpha() == 0
+        assert still.pixelColor(128, 128).alpha() == 255
+    finally:
+        window.close()
+        window.deleteLater()
+        app.processEvents()
+
+
 def test_desktop_replay_hides_future_fills_and_recomputes_summary():
     app = QApplication.instance() or QApplication([])
     window = MainWindow()

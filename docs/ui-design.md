@@ -31,10 +31,13 @@ drawing-window invariance and motion-off behavior are covered by regression
 checks. The final suite has 47 passing tests; lint, formatting and strict typing
 also pass. Detailed failures and fixes are retained in `development.md`.
 
-Six inspected screenshots in `images` show the actual application with retrieved
-RELIANCE.NS history, not mock data. The main workspace fits at 1440x900 and
-1366x768; long explanations remain scrollable within their panels. Each image
-has a README caption, and `images/captures.json` records its provenance.
+The original six screenshots remain in `images` with their receipt at
+`images/captures.json`. README now uses five native GIF demos of retrieved
+RELIANCE.NS history, lessons and Dictionary; `images/gif-captures.json` records
+their exact cutoff and actions. They are sampled real widget states, not
+dashboard mockups or real-time recordings. Each GIF has a concise README caption.
+The main workspace fits at 1440x900 and 1366x768; long explanations remain
+scrollable within their panels.
 
 These are technical/visual checks, not demonstrated comprehension by a teenager,
 normal Windows/DPI qualification, an installer test or independent price
@@ -56,6 +59,25 @@ These are source receipts and implementation choices, not user approval.
 DeepSeaFoam notices and origin attribution ship in
 `src\stonks_sniper\assets\DEEPSEAFOAM-NOTICE.txt`.
 The original StonksSniper logo contains no third-party artwork or icons.
+
+### Square surfaces, circular brand
+
+Rectangular GUI elements use square corners consistently, including chart
+backgrounds and controls. The animated logo begins as a rectangular chart: the
+reticle makes erratic, seeded jumps across all quadrants, settles in the center
+and fires a visible bullet with a tracer and impact flash. It then cuts to a
+circle with transparent surroundings, not a circle painted onto a square tile.
+Its original green/coral candles are decorative illustrations, not observations.
+The header uses the GIF, while the window/taskbar icon uses the centered still
+SVG. Disabling **Animations** pauses the movie and shows that centered still;
+reenabling restores the movie. Closing the window stops it.
+
+The README has a separate gold-and-green banner and linked, square image buttons.
+Its logo displays at 352px, four times the original 88px width. The application
+keeps DeepSeaFoam rather than inheriting the README's promotional palette.
+Detailed setup and explanations live in the linked written guides. GitHub's GIF
+player has no application-controlled pause switch; the guide and still logo
+provide a no-motion route, not a claim of automatic reduced-motion detection.
 
 ## Compact without hiding the truth
 

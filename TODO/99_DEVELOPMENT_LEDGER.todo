@@ -117,3 +117,27 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   Sixteen desktop/learning tests, Ruff lint/format and strict source mypy passed.
   Inspected all tabs and the loading surface in an owned 1366x768 native window,
   without fetching prices or controlling an existing app. Release/gallery unchanged.
+- 2026-11-12: Removed the logo tile; authored a transparent circular gold/green
+  candlestick scope GIF that searches, locks and flashes. Header motion respects
+  Animations and accepted close; the matching still SVG serves window/taskbar icons.
+  README uses the 352px animated logo, gold/green linked image buttons and five
+  native GUI GIFs; setup/details moved to linked guides.
+- 2026-11-12: Latest-range Yahoo capture failed validation on a non-finite/
+  non-positive 2026-11-11 price. Kept the failure explicit; requested a separate
+  historical range through 2026-11-09 and received 493 RELIANCE.NS observations.
+  No invalid row was silently discarded and no replacement prices were invented.
+  New GIF provenance records the cutoff, actual dates and sampled native actions.
+- 2026-11-12: Fifty tests, Ruff lint/format and strict source mypy passed.
+  Inspected search/lock/flash artwork and first/last frames for all five native
+  GIF demos; checked transparent small/large icons and navigation artwork.
+  Separate installed-wheel smoke verified actual imports/assets, pause/resume
+  and cleanup. Original v0.1.0 wheel remains unchanged; no user app was driven.
+- 2026-11-12: Refined the animated brand per user feedback: erratic seeded search
+  across a rectangular chart, centered lock, visible bullet/tracer, impact and
+  transparent circular finish. The static reticle stays centered. Native visual
+  inspection exposed ignored SVG clipping; explicit painter clips prevent chart
+  and reticle overhang. Motion-off now displays the centered still. Final 51 tests,
+  Ruff lint/format and strict source mypy passed; a separate installed candidate
+  verified exact assets, circular boundaries and motion/close lifecycle.
+  Regenerated five actual-data GUI GIFs through the explicit 2026-11-09 cutoff.
+  Existing v0.1.0 wheel checksum remains unchanged; no user app was controlled.

@@ -21,6 +21,11 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - [x] Show the supplied Stonks GIF during stock downloads, with optional motion and completion cleanup.
 - [x] Replace the shared logo with a sniper reticle aimed at a candlestick chart.
 - [x] Apply square corners consistently to rectangular GUI surfaces and controls.
+- [x] Replace the logo tile with erratic rectangular-chart search, centered lock,
+  a visible bullet and a transparent circular finish; center the still reticle.
+  Share the animation between the app header and four-times-larger README logo.
+- [x] Make README gold/green and GIF-led, with image navigation buttons and
+  linked setup/explanation guides.
 
 ## Acceptance criteria
 - No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
@@ -36,7 +41,13 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - The main desktop workspace has no page scrollbar at representative desktop sizes.
 - The shared app/README logo clearly shows a circular scope and crosshairs over price candles.
 - Rectangular cards, controls, list selections, chart backgrounds and logo tile
-  have square corners; the scope remains circular.
+  have square corners; the later logo follow-up removes its tile entirely.
+- Animated branding searches the rectangular chart, settles centrally, fires a
+  visible bullet and cuts to a circle with transparent surroundings. The matching
+  still reticle is centered, including when header motion is disabled.
+  The 352px README logo is 4x its original 88px width.
+- README uses gold/green linked image buttons and native GIF demos with honest
+  data provenance; longer explanations remain accessible in linked guides.
 - Screenshots show the real native application with actual observations, not a fictional dashboard.
 - Technical checks, human comprehension testing and normal Windows/DPI qualification are recorded separately.
 
@@ -69,6 +80,22 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   source mypy passed. Inspected all four tabs and the loading surface in an owned
   1366x768 native window; all four chart backgrounds have zero roundness.
   No network retrieval, market observations or existing-user-window control.
+- Animated presentation follow-up: 50 tests, Ruff lint/format and strict source
+  mypy passed. Actual header-frame movement, transparent corners, pause/resume
+  and close cleanup are covered. Separate installed-wheel smoke confirmed
+  exact SVG/GIF assets and runtime motion without changing the existing release.
+- Inspected original circular search/lock/flash frames, 46/88/256px native still
+  icons, gold/green banner/buttons and five native 1366x768 GIF demos.
+  The demos use 493 actual RELIANCE.NS observations through 2026-11-09;
+  docs/images/gif-captures.json records the explicit historical cutoff.
+  A latest-range request failed price validation; no invented fallback was used.
+- Revised animation: inspected erratic rectangular-chart search, centered lock,
+  visible bullet/tracer, impact and circular cut. All 70 frames decode in Qt;
+  final outside pixels are transparent. Native still reticle is centered.
+  Explicit painter clips correct Qt's ignored SVG clip path.
+  Final 51 tests, Ruff lint/format and strict source mypy passed. Motion-off
+  shows the centered still; resume restores animation. A separately installed
+  candidate verified exact packaged assets, clipping and motion/close behavior.
 
 ## Completion log
 - 2026-11-11: User requested DeepSeaFoam material-inspired visuals, less scrolling,
@@ -91,3 +118,12 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - 2026-11-11: User requested no rounded rectangular GUI corners. Removed rounding
   from shared widget styling, chart backgrounds and the logo's rectangular tile/
   candle bodies; retained the circular reticle. Existing gallery/release unchanged.
+- 2026-11-12: Removed the logo's rectangular background and added a circular,
+  transparent, original search/lock/flash animation. Updated app header/still
+  icon, made README logo 352px and added gold/green image navigation buttons.
+  Replaced README screenshots with five actual native GIF demos; moved detailed
+  text into linked guides. Historical still gallery and v0.1.0 remain unchanged.
+- 2026-11-12: User clarified the animation should roam erratically over a
+  rectangular chart, settle in the middle, shoot a visible bullet and then cut
+  to a transparent circular logo. Implemented the 70-frame sequence and centered
+  static icon; regenerated the native GIF gallery with the centered header still.

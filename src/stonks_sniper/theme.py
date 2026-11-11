@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont, QIcon, QPainter, QPixmap
+from PySide6.QtCore import QRectF, Qt
+from PySide6.QtGui import QFont, QIcon, QPainter, QPainterPath, QPixmap
 from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtWidgets import QApplication
 
@@ -27,6 +27,11 @@ def application_icon() -> QIcon:
     pixmap = QPixmap(256, 256)
     pixmap.fill(Qt.GlobalColor.transparent)
     painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    # Match the circular SVG boundary even when Qt ignores its clip path.
+    clip = QPainterPath()
+    clip.addEllipse(QRectF(8.5, 8.5, 239, 239))
+    painter.setClipPath(clip)
     renderer.render(painter)
     painter.end()
     return QIcon(pixmap)

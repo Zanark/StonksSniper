@@ -1,90 +1,52 @@
 <p align="center">
-  <img src="src/stonks_sniper/assets/logo.svg" width="88" alt="StonksSniper logo: a sniper scope aimed at a candlestick chart">
+  <img src="docs/images/readme-banner.svg" width="960" alt="StonksSniper. Learn the idea. Test it on real history.">
 </p>
-
-# StonksSniper
 
 <p align="center">
-  <img src="src/stonks_sniper/assets/stonks-meme.gif" width="360" alt="Stonks meme: a suited figure beside a rising red arrow">
+  <a href="docs/guide.md"><img src="src/stonks_sniper/assets/logo.gif" width="352" alt="A gold reticle darts across a rectangular candlestick chart, centers, fires a bullet and cuts to a transparent circular logo."></a>
 </p>
 
-*The meme brings the hype. The app explains the ideas.*
+<p align="center"><b>Real history. Practice money. Every word explained.</b></p>
 
-**Learn a stock-market idea. Understand every word. Try it with practice money.**
+<p align="center">
+  <a href="docs/getting-started.md"><img src="docs/images/button-start.svg" width="260" alt="Run the latest source: Windows and Python setup"></a>
+  <a href="docs/guide.md"><img src="docs/images/button-guide.svg" width="260" alt="Understand the tool: lessons, rules and real data"></a>
+  <a href="https://github.com/Zanark/StonksSniper/releases/tag/v0.1.0"><img src="docs/images/button-download.svg" width="260" alt="Download prototype v0.1.0: Python package, not an installer"></a>
+</p>
 
-A local Windows app with real Indian stock history, seven explained buy/sell
-rules and a calm [DeepSeaFoam](https://github.com/Zanark/DeepSeaFoam) interface.
-No stock-market knowledge is assumed.
+<p align="center"><sub>Current source shown below. The v0.1.0 download predates this design. <a href="docs/guide.md">Written guide / no-motion alternative</a> · <a href="src/stonks_sniper/assets/logo.svg">Still logo</a></sub></p>
 
-## Load a stock. Pick an idea. Explain it. Test it.
+## Pick a stock. Test an idea.
 
-![Real-data stock exploration](docs/images/01-explore.png)
-*Actual RELIANCE history, practice trades and a plain-English explanation beside the chart.*
+![Native app replaying actual RELIANCE stock history with practice trades](docs/images/explore.gif)
+*Actual history, revealed day by day. No made-up market data.*
 
-## The explanation comes with the pattern
+## Understand before you test.
 
-![A pattern explained simply](docs/images/04-pattern.png)
-*Explain pattern teaches when it buys, when it sells and what can go wrong, with a toy-shop example.*
+![Explain pattern opening simple lessons with toy-shop and everyday examples](docs/images/learn.gif)
+*What it buys, what it sells, what can fail — with everyday examples.*
 
-## No unexplained vocabulary
+## Every unfamiliar word has a way in.
 
-![Searchable everyday dictionary](docs/images/05-dictionary.png)
-*Hover a highlighted word for its meaning and an everyday example. Click or activate it with the keyboard to open Dictionary; search names or abbreviations.*
+![Native dictionary navigating shares, falls from high and trading-price differences](docs/images/dictionary.gif)
+*Meaning + example. Hover, click or search.*
 
-## See what happened, not just a score
+## Watch your practice money.
 
-![Practice money compared with buying once](docs/images/02-money.png)
-*The solid line follows your chosen rule. The dashed line buys once and waits. Both use the chosen trading costs.*
+![Native replay comparing a trading rule with buying once and waiting](docs/images/money.gif)
+*The rule versus buying once. Same prices. Same costs.*
 
-![The measurements behind a rule](docs/images/03-rule.png)
-*See the rule shows its actual calculations. Play days replays history without revealing later results; Animations can turn motion off.*
+## See why the rule acted.
 
-![Compact laptop workspace](docs/images/06-compact.png)
-*The main workspace fits 1366 x 768 without a page scrollbar. Longer lessons and trade lists scroll only inside their own panels.*
+![Native chart replaying the actual measurements behind a buy and sell rule](docs/images/rule.gif)
+*No mystery score. See the measurements behind the decision.*
 
-These are captures of the native application, not dashboard mockups.
-[Capture dates and source](docs/images/captures.json) are recorded separately.
+<p align="center">
+  <img src="src/stonks_sniper/assets/stonks-meme.gif" width="240" alt="The supplied Stonks meme, also used while the app downloads stock history.">
+</p>
 
-## Run locally
+<p align="center"><sub>The meme brings the hype. The app explains the ideas.</sub></p>
 
-**[Download the first prototype](https://github.com/Zanark/StonksSniper/releases).**
-The release includes a Python package and source code, not a standalone Windows
-installer. Python 3.11 or newer is required; installation steps are on the release.
-The loading GIF is in the current source; the v0.1.0 package predates it.
+<p align="center"><a href="docs/guide.md">Rules, sources &amp; limits</a> · <a href="docs/images/gif-captures.json">GIF provenance</a> · <a href="docs/development.md">Build &amp; development</a> · <a href="TODO/00_INDEX.todo">Roadmap</a></p>
 
-Windows, Python 3.11 or newer:
-
-```powershell
-Set-Location C:\devdesk\homedesk\StonksSniper
-python -m venv .venv
-& .\.venv\Scripts\python.exe -m pip install -e '.[dev]'
-& .\.venv\Scripts\python.exe -m stonks_sniper
-```
-
-Once installed:
-
-```powershell
-& C:\devdesk\homedesk\StonksSniper\.venv\Scripts\python.exe -m stonks_sniper
-```
-
-Try `RELIANCE` on **NSE**, or `TCS` on **BSE**. **Load stock** downloads history
-and runs the first test, with the Stonks GIF while you wait. Turn off **Animations**
-to keep it still. After changing an idea or cost, click **Test idea**.
-**Save results** keeps the full test and exact prices, not just the visible day.
-
-## Real history, clear boundaries
-
-The free, unofficial Yahoo connection needs no API token. This is completed
-daily history, **not live prices**. Unavailable data produces an error, never
-made-up replacements. Older prices are rescaled for changes to shares and
-payments to owners; **Data** explains why these test quantities are not literal
-historical share purchases. Later downloads can change earlier values.
-
-Seven rules work today. More patterns, multi-stock baskets and AI-proposed
-ideas are [planned, not implemented](TODO/00_INDEX.todo).
-
-[How the simulator works](docs/product-and-architecture.md) |
-[Data sources](docs/data-providers.md) | [Design and explanation contract](docs/ui-design.md) |
-[Development](docs/development.md) | [Project board](https://github.com/users/Zanark/projects/14)
-
-For education and simulation only; not investment advice or a guarantee of results.
+<p align="center"><sub>Completed daily history, not live prices. Seven rules today; baskets and AI are planned. For education and simulation, not investment advice.</sub></p>

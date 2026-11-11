@@ -215,9 +215,17 @@ class MainWindow(QMainWindow):
         outer.setContentsMargins(22, 14, 22, 12)
         outer.setSpacing(10)
         header = QHBoxLayout()
-        mark = QLabel()
-        mark.setPixmap(self.windowIcon().pixmap(46, 46))
-        header.addWidget(mark)
+        self.brand_mark = QLabel()
+        self.brand_mark.setFixedSize(46, 46)
+        self.brand_mark.setAccessibleName("StonksSniper circular candlestick scope")
+        self.brand_movie = QMovie(str(Path(__file__).parent / "assets" / "logo.gif"), parent=self)
+        if not self.brand_movie.isValid():
+            raise RuntimeError(f"Logo animation could not be loaded: {self.brand_movie.fileName()}")
+        self.brand_movie.setScaledSize(QSize(46, 46))
+        self.brand_movie.setCacheMode(QMovie.CacheMode.CacheAll)
+        self.brand_mark.setMovie(self.brand_movie)
+        self.brand_movie.start()
+        header.addWidget(self.brand_mark)
         brand = QVBoxLayout()
         brand.setSpacing(0)
         brand.addWidget(label("StonksSniper", "brand"))
@@ -228,7 +236,7 @@ class MainWindow(QMainWindow):
         self.motion = QCheckBox("Animations")
         self.motion.setChecked(True)
         self.motion.setToolTip(
-            "Optional chart and loading animations. Turn off to stop all animation and replay."
+            "Optional logo, chart and loading motion. Turn off to stop all animation and replay."
         )
         self.motion.toggled.connect(self.motion_changed)
         header.addWidget(self.motion)
@@ -638,6 +646,11 @@ class MainWindow(QMainWindow):
     @Slot()
     def motion_changed(self) -> None:
         self.stop_playback()
+        self.brand_movie.setPaused(not self.motion.isChecked())
+        if self.motion.isChecked():
+            self.brand_mark.setMovie(self.brand_movie)
+        else:
+            self.brand_mark.setPixmap(self.windowIcon().pixmap(46, 46))
         if self.fetch_thread is not None:
             self.loading_movie.setPaused(not self.motion.isChecked())
         self.play.setEnabled(self.motion.isChecked() and self.result is not None)
@@ -1227,6 +1240,7 @@ class MainWindow(QMainWindow):
             )
             event.ignore()
             return
+        self.brand_movie.stop()
         super().closeEvent(event)
 
 

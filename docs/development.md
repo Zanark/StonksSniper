@@ -173,6 +173,60 @@ offscreen window; all four chart backgrounds were checked. No market data was
 retrieved or generated and no existing user instance was driven. Prior gallery
 screenshots and the published v0.1.0 package remain unchanged.
 
+## Circular animated brand and GIF-led README - 2026-11-12
+
+The original animation starts with a rectangular green/coral candle chart.
+Its gold reticle darts across all four quadrants, settles in the center, fires
+a visible bullet and flashes on impact. The scene then cuts to a circular logo
+with transparent surroundings. The matching static SVG has its reticle centered.
+This is decorative branding, not market observations or a recommendation.
+README displays the GIF at 352px (previously 88px); gold-and-green vector image
+buttons link to setup, the written guide and the frozen prototype download.
+Application window/taskbar icons use the matching still SVG, and the header uses
+the packaged GIF. **Animations** pauses it and shows the centered still; reenabling
+restores the movie, and accepted close stops it.
+The existing DeepSeaFoam GUI and square rectangular surfaces remain unchanged.
+
+Pillow is a development-only media dependency. Reproduce the original artwork:
+
+```powershell
+& .\.venv\Scripts\python.exe .\scripts\build_presentation.py --brand
+```
+
+Reproduce the native GIF demos with explicit real network retrieval:
+
+```powershell
+& .\.venv\Scripts\python.exe .\scripts\build_presentation.py --gallery --end 2026-11-09
+```
+
+The initial latest-range request failed the existing price validation on
+2026-11-11: prices must be finite and positive. No invalid row was dropped and
+no observations were substituted. A separate explicitly bounded request through
+2026-11-09 succeeded with 493 actual RELIANCE.NS observations starting 2024-11-12.
+The provider's precise reason for the invalid row is unverified. GIF provenance
+records the requested end, actual observation dates, fetch time and provider
+warnings; these historical demos are not a claim of latest-price qualification.
+
+Five 1366x768 GIFs show native replay of the final 60 completed sessions plus
+lesson/dictionary navigation. Frames are sampled deterministically, not presented
+as real-time screen recordings. Inspected first/last frames for every demo and
+search/lock/bullet/impact/circular-finish branding frames plus native still icons.
+The supplied Stonks GIF remains embedded and used for downloads.
+
+Fifty-one tests, Ruff lint/format and strict source mypy passed. Desktop tests
+check actual logo frame advancement, rectangle-to-circle transparency, native
+still clipping, motion-off stability, still-image substitution, resume and close
+cleanup. All 70 frames decode through Qt. Visual inspection exposed Qt ignoring
+the SVG clip path: explicit painter clips now keep searching arms inside the
+rectangle and the final logo/icon entirely inside the circle. An initial asset
+test incorrectly used full-size coordinates on the 46px header image; corrected
+the test to decode the full-size asset independently.
+A separately built/installed candidate
+imports outside the source checkout and contains byte-identical logo SVG/GIF
+and loading GIF; motion and transparency worked there. It reuses existing runtime
+dependencies, not a clean-machine qualification. The published v0.1.0 wheel and
+checksum remain unchanged. No existing user instance was driven or restarted.
+
 ## Explicit GitHub tracking adoption
 
 `TODO\tracking.json` identifies the public repository, dedicated Project 14,
