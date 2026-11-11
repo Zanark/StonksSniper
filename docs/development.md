@@ -60,6 +60,13 @@ year/month/day constructor without changing the selected dates. A complete
 compatibility rerun remains a release gate. An assertion-pass summary does not
 override a nonzero process exit.
 
+Run `43119611661` then passed the complete Linux/Python 3.11 suite and actual
+provider checks with a normal exit. Windows caught a one-unit RGB difference
+between the checked-in ICO and native Qt rendering. That comparison now allows
+one 8-bit RGB quantization unit while retaining exact alpha, all seven sizes
+and transparent/opaque boundary checks. No artwork or application behavior was
+changed; both platforms must pass the final rerun.
+
 Yahoo availability must not make every pull request nondeterministic. Live tests
 are opt-in, locally or through **Run workflow / live_provider** on trusted `main`:
 

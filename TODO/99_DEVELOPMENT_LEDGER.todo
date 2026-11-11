@@ -20,6 +20,11 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-12: Run 43119611661 passed Linux/Python 3.11 regressions and actual
+  providers with normal exit. Windows exposed a one-unit native-rendered versus
+  exported ICO RGB difference. Bound color comparison to one quantization unit
+  while retaining exact alpha, all resolutions and silhouette checks; artwork
+  is unchanged. Final two-platform live re-verification is pending.
 - 2026-11-12: Exact compatibility run 43118850013 selected PySide6 6.11.3 on
   Python 3.11 but type checking exposed two newer-only QDate(date) overloads,
   before Linux regression execution. Use the supported year/month/day

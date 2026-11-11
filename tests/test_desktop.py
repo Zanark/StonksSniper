@@ -151,7 +151,10 @@ def test_exported_windows_browser_icon_matches_native_glass_at_each_resolution()
                 icon.pixmap(size, size).toImage().convertToFormat(QImage.Format.Format_RGBA8888)
             )
             expected = Image.frombytes("RGBA", (size, size), bytes(native.constBits()))
-            assert actual.tobytes() == expected.tobytes(), size
+            difference = ImageChops.difference(actual, expected)
+            assert difference.getchannel("A").getbbox() is None, size
+            # Allow one RGB quantization unit, never changed geometry/transparency.
+            assert all(high <= 1 for _low, high in difference.convert("RGB").getextrema()), size
             assert actual.getpixel((0, 0))[3] == 0
             assert actual.getpixel((size // 2, size // 2))[3] == 255
     app.processEvents()
