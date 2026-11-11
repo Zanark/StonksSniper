@@ -16,7 +16,8 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
 - No secrets, private context or downloaded market observations are mirrored.
 
 ## Completion evidence
-- See dated entries. No commit, push, release, broker purchase or deployment claimed.
+- See dated entries for verified implementation and publication. No broker purchase,
+  order execution or deployment was performed.
 
 ## Completion log
 - 2026-11-11: Confirmed NSE/BSE first, free labelled daily data and native Python/PySide6.
@@ -96,3 +97,13 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   A separate-target wheel install verified actual packaged imports, native startup,
   logo rendering, theme notice, seven rules and 74 dictionary entries. Existing
   dependencies were reused; clean-machine and human acceptance are not implied.
+- 2026-11-11: Committed/pushed the first prototype as 85ca49b and published the
+  v0.1.0 prerelease with a separately verified wheel and checksum. Added the supplied
+  GIF to README in subsequent pushed commit 5d4d809; the original release was retained.
+- 2026-11-11: Reused that exact GIF as a packaged, in-window loading screen for
+  captured stock requests. Animations can pause/resume it; shared fetch completion
+  stops it and restores the workspace on success or failure, without fake delays.
+  Six desktop and ten learning tests, Ruff lint/format and strict source mypy passed.
+  A separately installed candidate verified GIF bytes/looping and an inspected
+  1366x768 owned offscreen loading view with no market observations. The published
+  v0.1.0 artifact is unchanged; no existing user instance was controlled.

@@ -18,6 +18,7 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - [x] Verify replay safety, explanatory navigation, optional motion and compact layouts.
 - [x] Capture actual-data GUI screenshots and make the README image-led and ELI15-first.
 - [x] Synchronize the issue/Project, record evidence and update owned continuity.
+- [x] Show the supplied Stonks GIF during stock downloads, with optional motion and completion cleanup.
 
 ## Acceptance criteria
 - No market knowledge is assumed: basics such as a share, price, exchange and cash have explanations.
@@ -28,6 +29,8 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - Search accepts common names and abbreviations and explicitly reports no match.
 - Charts/results remain causal; changing the drawn window never changes the test.
 - Motion can be disabled; no automatic playback or constant animation is required.
+- Downloads show the requested stock and supplied GIF without artificial delays;
+  success and failure both restore the workspace. Disabled motion keeps the GIF still.
 - The main desktop workspace has no page scrollbar at representative desktop sizes.
 - Screenshots show the real native application with actual observations, not a fictional dashboard.
 - Technical checks, human comprehension testing and normal Windows/DPI qualification are recorded separately.
@@ -48,6 +51,13 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
   button styling fixes are recorded in docs/development.md.
 - Human comprehension, normal Windows/DPI and installer acceptance remain unverified.
   Actual provider retrieval is not independent market-price reconciliation.
+- Loading follow-up: six desktop and ten learning tests passed, with Ruff lint/format
+  and strict source mypy. Tests verify actual frame advancement, paused motion,
+  mid-download toggles, worker success/failure and stopped hidden animation.
+- A separate installed candidate wheel contains the exact supplied 30-frame,
+  infinitely looping GIF. Its loading view was inspected at 1366x768 with an owned,
+  blocked test provider; no market observations were generated or claimed.
+  The published v0.1.0 wheel remains unchanged.
 
 ## Completion log
 - 2026-11-11: User requested DeepSeaFoam material-inspired visuals, less scrolling,
@@ -60,3 +70,7 @@ keeping exact rules, real observations and a clean, compact DeepSeaFoam interfac
 - 2026-11-11: Registered/read back issue #19 and its Project 14 item; recorded
   evidence and persisted owned continuity. Technical completion is ready for
   closed-completed/Done synchronization, not a claim of human acceptance.
+- 2026-11-11: Added the user's supplied GIF to README, then reused the exact asset
+  in an in-window stock-download screen. The header's Animations switch controls
+  both charts and the GIF; completing or failing the request stops it and restores
+  the tabs. Verified the installed package without controlling a user's app.

@@ -5,7 +5,7 @@
 # StonksSniper
 
 <p align="center">
-  <img src="docs/images/stonks-meme.gif" width="360" alt="Stonks meme: a suited figure beside a rising red arrow">
+  <img src="src/stonks_sniper/assets/stonks-meme.gif" width="360" alt="Stonks meme: a suited figure beside a rising red arrow">
 </p>
 
 *The meme brings the hype. The app explains the ideas.*
@@ -37,7 +37,7 @@ No stock-market knowledge is assumed.
 *The solid line follows your chosen rule. The dashed line buys once and waits. Both use the chosen trading costs.*
 
 ![The measurements behind a rule](docs/images/03-rule.png)
-*See the rule shows its actual calculations. Play days replays history without revealing later results; Animate charts can turn motion off.*
+*See the rule shows its actual calculations. Play days replays history without revealing later results; Animations can turn motion off.*
 
 ![Compact laptop workspace](docs/images/06-compact.png)
 *The main workspace fits 1366 x 768 without a page scrollbar. Longer lessons and trade lists scroll only inside their own panels.*
@@ -50,6 +50,7 @@ These are captures of the native application, not dashboard mockups.
 **[Download the first prototype](https://github.com/Zanark/StonksSniper/releases).**
 The release includes a Python package and source code, not a standalone Windows
 installer. Python 3.11 or newer is required; installation steps are on the release.
+The loading GIF is in the current source; the v0.1.0 package predates it.
 
 Windows, Python 3.11 or newer:
 
@@ -67,7 +68,8 @@ Once installed:
 ```
 
 Try `RELIANCE` on **NSE**, or `TCS` on **BSE**. **Load stock** downloads history
-and runs the first test. After changing an idea or cost, click **Test idea**.
+and runs the first test, with the Stonks GIF while you wait. Turn off **Animations**
+to keep it still. After changing an idea or cost, click **Test idea**.
 **Save results** keeps the full test and exact prices, not just the visible day.
 
 ## Real history, clear boundaries

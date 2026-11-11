@@ -107,7 +107,7 @@ adjustments may revise and upstream deprecation warnings remain visible.
 ## First-prototype publication
 
 The user separately authorized commit, push and a GitHub release on 2026-11-11.
-The v0.1.0 candidate is an early-access Python package, not a standalone Windows
+The published v0.1.0 prerelease is an early-access Python package, not a standalone Windows
 installer. README embeds six actual-data native screenshots with captions.
 
 Build the wheel after installing the declared development dependencies:
@@ -128,6 +128,28 @@ inventory and 74-entry dictionary succeeded. This reuses existing runtime
 dependencies, not a clean-machine test. No existing user app was driven.
 Generated wheels/checksums stay ignored and are release attachments, not source
 files. SS-11 retains the standalone Windows, clean-profile and human gates.
+
+## Stock-download loading screen - 2026-11-11
+
+The supplied GIF is a single packaged asset also embedded by README. A stacked
+in-window loading page shows the captured stock/exchange while the existing
+worker runs; its shared completion handler stops the movie and restores the
+tabs after success or failure. There is no artificial wait or invented progress.
+The header's Animations switch also pauses/resumes the GIF, without starting it
+while idle or changing retrieval.
+
+Six desktop and ten learning tests passed, plus Ruff lint/format and strict
+source mypy. Controlled worker tests check real frame advancement, disabled
+motion, toggles, captured request identity and both completion paths.
+A separately installed wheel imported outside the source tree and contained
+the exact source GIF: 30 frames with infinite looping. Its 1366x768 native loading
+view was inspected using a blocked test provider, not downloaded or fabricated
+market observations. Only owned offscreen instances were used.
+
+The candidate was built outside the existing release outputs. The published
+v0.1.0 wheel and checksum remain unchanged; this follow-up is available in source,
+not retroactively in that release. These checks do not qualify a clean Windows
+machine, DPI scaling or human acceptance.
 
 ## Explicit GitHub tracking adoption
 

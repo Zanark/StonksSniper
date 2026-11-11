@@ -11,6 +11,7 @@ import pytest
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import QCoreApplication, QThread  # noqa: E402
+from PySide6.QtGui import QMovie  # noqa: E402
 from PySide6.QtWidgets import QApplication, QFileDialog  # noqa: E402
 from test_research import observations  # noqa: E402
 
@@ -43,7 +44,8 @@ def test_desktop_replay_hides_future_fills_and_recomputes_summary():
 
 
 @pytest.mark.parametrize("fails", [False, True])
-def test_fetch_uses_worker_and_clears_previous_run_on_failure(fails, caplog):
+@pytest.mark.parametrize("motion", [False, True])
+def test_fetch_uses_worker_and_clears_previous_run_on_failure(fails, motion, caplog):
     app = QApplication.instance() or QApplication([])
     release = Event()
     data = observations()
@@ -54,7 +56,7 @@ def test_fetch_uses_worker_and_clears_previous_run_on_failure(fails, caplog):
         def fetch(self, *request):
             threads.append(QThread.currentThread())
             requests.append(request)
-            if not release.wait(2):
+            if not release.wait(5):
                 raise TimeoutError("Test did not release its owned worker")
             if fails:
                 raise DataError("Explicit test provider failure")
@@ -62,9 +64,29 @@ def test_fetch_uses_worker_and_clears_previous_run_on_failure(fails, caplog):
 
     window = MainWindow(Provider())
     window.data_ready(data)
+    window.motion.setChecked(motion)
     window.show()
     window.fetch_data()
     try:
+        assert window.workspace.currentWidget() is window.loading_page
+        assert window.loading_image.isVisible()
+        assert "RELIANCE / NSE" in window.loading_status.text()
+        assert window.loading_movie.state() == (
+            QMovie.MovieState.Running if motion else QMovie.MovieState.Paused
+        )
+        frame = window.loading_movie.currentFrameNumber()
+        deadline = time.monotonic() + (1 if motion else 0.1)
+        while time.monotonic() < deadline:
+            app.processEvents()
+            time.sleep(0.01)
+            if motion and window.loading_movie.currentFrameNumber() != frame:
+                break
+        assert (window.loading_movie.currentFrameNumber() != frame) is motion
+        window.motion.setChecked(not motion)
+        assert window.loading_movie.state() == (
+            QMovie.MovieState.Paused if motion else QMovie.MovieState.Running
+        )
+        window.motion.setChecked(motion)
         assert window.data is None and window.result is None
         assert not window.export.isEnabled()
         assert not window.fetch.isEnabled()
@@ -83,6 +105,11 @@ def test_fetch_uses_worker_and_clears_previous_run_on_failure(fails, caplog):
         assert threads[0] != app.thread()
         assert requests[0][:2] == ("RELIANCE", "NSE")
         assert window.fetch.isEnabled()
+        assert window.workspace.currentWidget() is window.tabs
+        assert not window.loading_image.isVisible()
+        assert window.loading_movie.state() == QMovie.MovieState.NotRunning
+        window.motion.setChecked(not motion)
+        assert window.loading_movie.state() == QMovie.MovieState.NotRunning
         if fails:
             assert window.data is None and window.result is None
             assert not window.export.isEnabled()

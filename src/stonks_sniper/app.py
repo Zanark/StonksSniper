@@ -26,13 +26,14 @@ from PySide6.QtCore import (
     QEasingCurve,
     QMargins,
     QObject,
+    QSize,
     Qt,
     QThread,
     QTimer,
     Signal,
     Slot,
 )
-from PySide6.QtGui import QBrush, QCloseEvent, QColor, QFont, QPainter, QPen
+from PySide6.QtGui import QBrush, QCloseEvent, QColor, QFont, QMovie, QPainter, QPen
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
@@ -55,6 +56,7 @@ from PySide6.QtWidgets import (
     QSizePolicy,
     QSlider,
     QSplitter,
+    QStackedWidget,
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
@@ -223,17 +225,52 @@ class MainWindow(QMainWindow):
         header.addLayout(brand)
         header.addStretch()
         header.addWidget(label("REAL HISTORY  /  PRACTICE MONEY", "eyebrow"))
-        self.motion = QCheckBox("Animate charts")
+        self.motion = QCheckBox("Animations")
         self.motion.setChecked(True)
         self.motion.setToolTip(
-            "Optional short chart transitions. Turn off to stop all animation and replay."
+            "Optional chart and loading animations. Turn off to stop all animation and replay."
         )
         self.motion.toggled.connect(self.motion_changed)
         header.addWidget(self.motion)
         outer.addLayout(header)
         self.tabs = QTabWidget()
         self.tabs.currentChanged.connect(self.stop_playback)
-        outer.addWidget(self.tabs, 1)
+        self.workspace = QStackedWidget()
+        self.workspace.addWidget(self.tabs)
+        self.loading_page = QWidget()
+        loading_layout = QVBoxLayout(self.loading_page)
+        loading_layout.addStretch()
+        loading_card, loading_content = card()
+        loading_card.setFixedWidth(480)
+        self.loading_status = label("Loading real stock history...", "section")
+        self.loading_status.setTextFormat(Qt.TextFormat.PlainText)
+        self.loading_status.setWordWrap(True)
+        self.loading_status.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        loading_content.addWidget(self.loading_status)
+        self.loading_movie = QMovie(
+            str(Path(__file__).parent / "assets" / "stonks-meme.gif"), parent=self
+        )
+        if not self.loading_movie.isValid():
+            raise RuntimeError(
+                f"Loading animation could not be loaded: {self.loading_movie.fileName()}"
+            )
+        self.loading_movie.setScaledSize(QSize(360, 270))
+        self.loading_image = QLabel()
+        self.loading_image.setFixedSize(360, 270)
+        self.loading_image.setAccessibleName("Stonks meme while stock history loads")
+        self.loading_image.setMovie(self.loading_movie)
+        loading_content.addWidget(self.loading_image, 0, Qt.AlignmentFlag.AlignHCenter)
+        loading_note = label(
+            "Getting finished daily prices from Yahoo Finance.\n"
+            "Your practice test starts when the download finishes."
+        )
+        loading_note.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        loading_note.setWordWrap(True)
+        loading_content.addWidget(loading_note)
+        loading_layout.addWidget(loading_card, 0, Qt.AlignmentFlag.AlignHCenter)
+        loading_layout.addStretch()
+        self.workspace.addWidget(self.loading_page)
+        outer.addWidget(self.workspace, 1)
         self.setCentralWidget(root)
         self.play_timer = QTimer(self)
         self.play_timer.setInterval(240)
@@ -601,6 +638,8 @@ class MainWindow(QMainWindow):
     @Slot()
     def motion_changed(self) -> None:
         self.stop_playback()
+        if self.fetch_thread is not None:
+            self.loading_movie.setPaused(not self.motion.isChecked())
         self.play.setEnabled(self.motion.isChecked() and self.result is not None)
         for view in (self.price_chart, self.equity_chart, self.drawdown_chart, self.rule_chart):
             view.chart().setAnimationOptions(QChart.AnimationOption.NoAnimation)
@@ -691,6 +730,11 @@ class MainWindow(QMainWindow):
         self.worker.finished.connect(self.worker.deleteLater)
         self.fetch_thread.finished.connect(self.fetch_finished)
         self.fetch_thread.finished.connect(self.fetch_thread.deleteLater)
+        self.loading_status.setText(f"Loading {symbol} / {exchange} stock history...")
+        self.workspace.setCurrentWidget(self.loading_page)
+        self.loading_movie.start()
+        if not self.motion.isChecked():
+            self.loading_movie.setPaused(True)
         self.fetch_thread.start()
 
     @Slot(object)
@@ -748,6 +792,8 @@ class MainWindow(QMainWindow):
     def fetch_finished(self) -> None:
         self.fetch_thread = None
         self.worker = None
+        self.loading_movie.stop()
+        self.workspace.setCurrentWidget(self.tabs)
         self.fetch.setEnabled(True)
 
     @Slot()
