@@ -4,6 +4,12 @@
 
 # StonksSniper
 
+<p align="center">
+  <img src="docs/images/stonks-meme.gif" width="360" alt="Stonks meme: a suited figure beside a rising red arrow">
+</p>
+
+*The meme brings the hype. The app explains the ideas.*
+
 **Learn a stock-market idea. Understand every word. Try it with practice money.**
 
 A local Windows app with real Indian stock history, seven explained buy/sell
