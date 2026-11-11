@@ -20,6 +20,18 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-12: Exact-source live run 43120473704 passed Linux and Windows on
+  9284b00bc9647f65c76bf81d96e2d79cef1cdbb6. The actual native Windows EXE
+  fetched 493 usable HDFCBANK bars, preserved its warning, simulated 27 rules
+  and exported the experiment. Published separate v0.2.0 prerelease at that
+  source and downloaded all four assets again; every byte matched the qualified
+  CI output. All 24 input hashes and the 330-entry notices archive checked:
+  LICENSE differs locally only by proven LF/CRLF checkout conversion, while
+  its bundled bytes match the receipt. Local full live suite: 211 passed.
+  Kept v0.1.0 immutable and SS-11 open for broader M4 acceptance; unsigned and
+  local Application Control/clean-machine/DPI/human limits remain explicit.
+  Existing issue #11 and its unchanged Project 14 item were previewed, applied
+  and read back open/In Progress with the published prototype evidence.
 - 2026-11-12: Run 43119611661 passed Linux/Python 3.11 regressions and actual
   providers with normal exit. Windows exposed a one-unit native-rendered versus
   exported ICO RGB difference. Bound color comparison to one quantization unit

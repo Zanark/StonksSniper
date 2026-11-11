@@ -10,7 +10,7 @@ Deliver a repeatable native Windows package with honest runtime and acceptance e
 
 ## Tasks
 - [x] Add Windows/Linux regression CI and an explicit live-provider test mode.
-- [ ] Build and publish the separately authorized v0.2.0 executable prototype.
+- [x] Build and publish the separately authorized v0.2.0 executable prototype.
 - [ ] Lock release dependencies and review redistribution/license notices.
 - [ ] Produce isolated installer/portable candidate and test a clean Windows profile.
 - [ ] Verify startup, Qt plugins, networking, Unicode paths, exports and recovery.
@@ -22,7 +22,7 @@ Deliver a repeatable native Windows package with honest runtime and acceptance e
 - No user instance is restarted or overwritten during development qualification.
 
 ## Completion evidence
-- Standalone prototype packaging is in progress; broader M4 acceptance is open.
+- Published the separate v0.2.0 standalone prototype; broader M4 acceptance is open.
   Source-native Windows diagnostics fetched actual HDFCBANK history, exercised
   27 rules and exported the exact experiment without showing/controlling a user
   window. The full local suite including opt-in live checks passed 211 tests.
@@ -31,8 +31,17 @@ Deliver a repeatable native Windows package with honest runtime and acceptance e
   includes licenses and documents equivalent-access source/rebuild locations.
 - A local standalone candidate built, but this machine's Application Control
   blocked its extracted Python DLL before initialization. No policy workaround
-  was attempted; hosted Windows packaged-runtime verification gates publication.
+  was attempted; hosted Windows packaged-runtime verification passed separately.
   Local frozen/Unicode runtime qualification is not claimed.
+- Release: https://github.com/Zanark/StonksSniper/releases/tag/v0.2.0
+  Exact clean source: 9284b00bc9647f65c76bf81d96e2d79cef1cdbb6.
+  Windows/Linux live CI:
+  https://github.com/Zanark/StonksSniper/actions/runs/43120473704
+  Both platforms passed; the actual Windows EXE fetched 493 HDFCBANK bars,
+  simulated all 27 strategies and exported the experiment. All four published
+  assets were downloaded again and matched the verified CI artifacts exactly.
+  Checksums, all 24 build inputs and the 330-entry notices archive were checked.
+  The EXE remains unsigned; clean-profile/DPI/human acceptance are not implied.
 - The separately authorized
   v0.1.0 prototype Python wheel was built and launched from a separate installation
   target with existing dependencies; its logo and theme notice were verified.
@@ -40,6 +49,9 @@ Deliver a repeatable native Windows package with honest runtime and acceptance e
   qualification or recorded human acceptance.
 
 ## Completion log
+- 2026-11-12: Published and downloaded/hash-verified v0.2.0 after exact-source
+  Windows/Linux live CI passed. Tag remains at the built source, not a later
+  documentation commit. Keep this workstream open for its broader acceptance.
 - 2026-11-12: User authorized executable creation, a new prototype release, an
   HDFCBANK fetch fix and GitHub Actions tests. Preserve frozen v0.1.0.
   Added read-only Windows/Linux CI with pinned Actions, an explicit live mode

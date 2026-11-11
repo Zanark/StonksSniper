@@ -141,7 +141,7 @@
       "issue_number": 11,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4K_c",
       "baseline": {
-        "body_sha256": "14b2a45e6bb2fa8698e34d10a24a8e417219d2950bc94e11410d4b860c11ca06",
+        "body_sha256": "0a2bfca5dbdf52a0951bf416bb0e836326b44d8d5e677fc39b7036fc47237640",
         "title": "SS-11 - Verified Windows packaging and acceptance",
         "issue_state": "open",
         "state_reason": null,

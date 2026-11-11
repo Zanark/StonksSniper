@@ -56,8 +56,8 @@ Revisit that temporary bound only after corrected wheels pass the complete suite
 with normal interpreter exit. The compatibility run on `6ca68ba` resolved
 PySide6 6.11.3, exposing two newer-only `QDate(date)` overloads during type
 checking before Linux tests could run. Date controls now use the stable explicit
-year/month/day constructor without changing the selected dates. A complete
-compatibility rerun remains a release gate. An assertion-pass summary does not
+year/month/day constructor without changing the selected dates. The subsequent
+compatibility runs are recorded below. An assertion-pass summary does not
 override a nonzero process exit.
 
 Run `43119611661` then passed the complete Linux/Python 3.11 suite and actual
@@ -65,7 +65,27 @@ provider checks with a normal exit. Windows caught a one-unit RGB difference
 between the checked-in ICO and native Qt rendering. That comparison now allows
 one 8-bit RGB quantization unit while retaining exact alpha, all seven sizes
 and transparent/opaque boundary checks. No artwork or application behavior was
-changed; both platforms must pass the final rerun.
+changed.
+
+The final [live run 43120473704](https://github.com/Zanark/StonksSniper/actions/runs/43120473704)
+passed both platforms on exact source
+`9284b00bc9647f65c76bf81d96e2d79cef1cdbb6`, including normal Linux process exit
+and the actual Windows frozen diagnostic. That executable fetched 493 usable
+HDFCBANK observations, retained the missing-row warning, simulated all 27
+strategies and exported the experiment. The final actual local full suite
+also passed 211 tests, plus Ruff lint/format and strict source mypy.
+
+Published [v0.2.0](https://github.com/Zanark/StonksSniper/releases/tag/v0.2.0)
+as a separate prerelease at that exact tested source; v0.1.0 is unchanged.
+Downloaded all four published assets again and verified byte-for-byte equality
+with the qualified CI artifacts. The three manifest-listed checksums, clean
+source receipt, all 24 build inputs and 330-entry notices archive passed
+verification. LICENSE alone uses CRLF in the hosted checkout versus LF locally;
+that exact conversion matches the recorded input hash, and the bundled license
+matches the receipt byte for byte. Input hashes describe build-checkout bytes,
+not universal cross-checkout line endings or bit-for-bit reproducible binaries.
+The executable is unsigned; hosted success does not override this machine's
+Application Control restriction or qualify clean-machine/DPI/human acceptance.
 
 Yahoo availability must not make every pull request nondeterministic. Live tests
 are opt-in, locally or through **Run workflow / live_provider** on trusted `main`:
