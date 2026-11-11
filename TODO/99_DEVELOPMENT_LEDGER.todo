@@ -20,6 +20,22 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-12: Reproduced HDFCBANK's missing raw close and all-NaN adjusted OHLC
+  on November 11. Three new regressions first failed, then passed after explicit,
+  dated exclusions preserved valid history without fabricating prices. Full
+  local suite, including actual NSE/BSE strategy runs: 211 passed; Ruff and mypy
+  passed. The native source diagnostic exercised worker, 27 rules and export.
+  Its initial animation-heavy redraw loop crashed at cleanup; the deterministic
+  diagnostic disables motion and drains events. Interactive stress remains open.
+- 2026-11-12: Began an isolated v0.2.0 executable build and pinned Windows/Linux
+  CI. Kept the user's existing environment/windows untouched. Qt Charts is
+  GPLv3/commercial, not LGPL: adopted GPLv3 for the distributed application and
+  included legal notices/source-access instructions. Broader acceptance is not
+  implied and v0.1.0 remains immutable.
+- 2026-11-12: The local standalone candidate built, but Windows Application Control
+  blocked its extracted Python DLL before startup. Closed only the identified
+  owned diagnostic error process. Did not weaken or bypass policy; publication
+  now depends on the hosted Windows frozen-runtime check, not source-test proxy.
 - 2026-11-12: GIF-only request: reveal glass after the circle forms, then shimmer.
   Kept square/morph clear and replaced the old final hold with a 1.2-second
   sweep plus 0.6-second still. A new regression rejected the previous GIF;

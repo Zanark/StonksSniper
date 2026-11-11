@@ -64,6 +64,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from stonks_sniper import __version__
 from stonks_sniper.engine import Assumptions, Result, simulate
 from stonks_sniper.glossary import TERMS, HelpBrowser, explain, search_terms, term_html, tooltip
 from stonks_sniper.lessons import LESSONS
@@ -1213,7 +1214,7 @@ class MainWindow(QMainWindow):
             return
         payload = {
             "schema": 1,
-            "application": "StonksSniper 0.1.0",
+            "application": f"StonksSniper {__version__}",
             "observations": asdict(self.data),
             "experiment": asdict(self.result),
             "replay_as_of": str(self.data.candles[self.replay.value() - 1].session),

@@ -1,11 +1,13 @@
 [build-system]
-requires = ["setuptools>=75"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "stonks-sniper"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Local Indian stock-pattern learning and real-data research"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
 requires-python = ">=3.11"
 dependencies = [
     "PySide6>=6.8,<7",
@@ -14,6 +16,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+packaging = ["pyinstaller>=6.16,<7"]
 dev = [
     "build>=1.2,<2",
     "pytest>=8,<10",
@@ -27,6 +30,9 @@ stonks-sniper = "stonks_sniper.app:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "stonks_sniper.__version__"}
 
 [tool.setuptools.package-data]
 stonks_sniper = ["assets/*.svg", "assets/*.txt", "assets/*.gif", "assets/*.ico"]

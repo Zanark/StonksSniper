@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+import math
 import re
 from datetime import date, datetime, timedelta
 from typing import Protocol
@@ -8,6 +10,7 @@ from zoneinfo import ZoneInfo
 from stonks_sniper.models import Candle, DataError, MarketData
 
 INDIA = ZoneInfo("Asia/Kolkata")
+LOGGER = logging.getLogger(__name__)
 
 
 class MarketDataProvider(Protocol):
@@ -66,6 +69,7 @@ class YahooDailyProvider:
             raise DataError(f"Provider exchange {provider_exchange!r} does not match {exchange}.")
         candles: list[Candle] = []
         excluded_current = False
+        missing_sessions: list[date] = []
         for timestamp, row in frame.iterrows():
             if timestamp.tzinfo is None:
                 raise DataError("Provider returned timezone-naive session timestamps.")
@@ -76,20 +80,35 @@ class YahooDailyProvider:
                 continue
             if not start <= session <= end:
                 raise DataError("Provider returned a session outside the requested range.")
+            prices = tuple(float(row[key]) for key in ("Open", "High", "Low", "Close"))
+            # A missing adjusted close can make yfinance's entire adjusted OHLC row NaN.
+            if all(math.isnan(value) for value in prices):
+                missing_sessions.append(session)
+                continue
             candles.append(
                 Candle(
                     session,
-                    float(row["Open"]),
-                    float(row["High"]),
-                    float(row["Low"]),
-                    float(row["Close"]),
+                    prices[0],
+                    prices[1],
+                    prices[2],
+                    prices[3],
                     float(row["Volume"]),
                 )
             )
+        missing_warning = ""
+        if missing_sessions:
+            missing_warning = (
+                f"Excluded {len(missing_sessions)} provider row(s) with missing OHLC prices: "
+                + ", ".join(str(session) for session in missing_sessions)
+                + ". Prices were not filled or replaced; history has gaps and strategies "
+                "use only the remaining observations."
+            )
+            LOGGER.warning("%s: %s", ticker_symbol, missing_warning)
         if not candles:
             raise DataError(
                 f"Yahoo returned no usable completed daily candles for {ticker_symbol} "
-                f"between {start} and {end}. Current-day observations are excluded."
+                f"between {start} and {end}. Current-day observations are excluded. "
+                + missing_warning
             )
         warnings = [
             "Unofficial Yahoo access: personal research only; availability/accuracy "
@@ -103,6 +122,8 @@ class YahooDailyProvider:
             warnings.append(
                 "The provider's current-day bar was excluded as potentially incomplete."
             )
+        if missing_warning:
+            warnings.append(missing_warning)
         if candles and (today - candles[-1].session).days > 7:
             warnings.append(
                 "Last observation is over seven calendar days old. Historical range, "

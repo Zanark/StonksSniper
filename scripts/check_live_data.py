@@ -26,7 +26,12 @@ def main() -> None:
     today = datetime.now(INDIA).date()
     provider = YahooDailyProvider()
     datasets = []
-    for symbol, exchange in (("RELIANCE", "NSE"), ("TCS", "NSE"), ("TCS", "BSE")):
+    for symbol, exchange in (
+        ("HDFCBANK", "NSE"),
+        ("RELIANCE", "NSE"),
+        ("TCS", "NSE"),
+        ("TCS", "BSE"),
+    ):
         data = provider.fetch(symbol, exchange, today - timedelta(days=730), today)
         datasets.append(data)
         results = [simulate(data, pattern) for pattern in PATTERNS]
@@ -42,6 +47,7 @@ def main() -> None:
                     "fetched_at": data.fetched_at.isoformat(),
                     "source": data.source,
                     "basis": data.price_basis,
+                    "warnings": data.warnings,
                     "pattern_runs": [
                         {
                             "pattern": result.pattern.key,

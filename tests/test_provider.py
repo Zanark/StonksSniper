@@ -14,7 +14,9 @@ from stonks_sniper.models import DataError
 from stonks_sniper.providers import INDIA, YahooDailyProvider
 
 
-def stub(monkeypatch, *, currency="INR", exchange="NSI", duplicate=False, invalid=False):
+def stub(
+    monkeypatch, *, currency="INR", exchange="NSI", duplicate=False, invalid=False, missing_rows=()
+):
     today = datetime.now(INDIA).date()
     sessions = [today - timedelta(days=2), today - timedelta(days=1), today]
     if duplicate:
@@ -28,7 +30,10 @@ def stub(monkeypatch, *, currency="INR", exchange="NSI", duplicate=False, invali
             "Volume": [1000] * 3,
         },
         index=pd.DatetimeIndex(sessions, tz="Asia/Kolkata"),
+        dtype=float,
     )
+    for row in missing_rows:
+        frame.loc[frame.index[row], ["Open", "High", "Low", "Close"]] = float("nan")
     calls = []
 
     def history(**kwargs):
@@ -100,3 +105,22 @@ def test_current_day_only_response_is_explicitly_unusable(monkeypatch):
     )
     with pytest.raises(DataError, match="RELIANCE.BO.*Current-day"):
         YahooDailyProvider().fetch("RELIANCE", "BSE", today - timedelta(days=730), today)
+
+
+@pytest.mark.parametrize("missing_row", [0, 1])
+def test_missing_adjusted_prices_are_excluded_with_dated_warning(monkeypatch, caplog, missing_row):
+    today, _ = stub(monkeypatch, missing_rows=(missing_row,))
+    data = YahooDailyProvider().fetch("HDFCBANK", "NSE", today - timedelta(days=5), today)
+    missing_session = today - timedelta(days=2 - missing_row)
+    assert len(data.candles) == 1
+    assert missing_session not in {bar.session for bar in data.candles}
+    warning = next(warning for warning in data.warnings if "missing OHLC" in warning)
+    assert str(missing_session) in warning
+    assert "not filled" in warning
+    assert warning in caplog.text
+
+
+def test_no_usable_prices_after_exclusions_is_still_an_error(monkeypatch):
+    today, _ = stub(monkeypatch, missing_rows=(0, 1))
+    with pytest.raises(DataError, match="HDFCBANK.NS.*missing OHLC"):
+        YahooDailyProvider().fetch("HDFCBANK", "NSE", today - timedelta(days=5), today)

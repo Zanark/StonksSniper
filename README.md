@@ -11,10 +11,10 @@
 <p align="center">
   <a href="docs/getting-started.md"><img src="docs/images/button-start.svg" width="260" alt="Run the latest source: Windows and Python setup"></a>
   <a href="docs/guide.md"><img src="docs/images/button-guide.svg" width="260" alt="Understand the tool: lessons, rules and real data"></a>
-  <a href="https://github.com/Zanark/StonksSniper/releases/tag/v0.1.0"><img src="docs/images/button-download.svg" width="260" alt="Download prototype v0.1.0: Python package, not an installer"></a>
+  <a href="https://github.com/Zanark/StonksSniper/releases/tag/v0.2.0"><img src="docs/images/button-download.svg" width="260" alt="Download Stonks Sniper v0.2.0: standalone Windows x64 executable"></a>
 </p>
 
-<p align="center"><sub>Current source shown below. The v0.1.0 download predates this design. <a href="docs/guide.md">Written guide / no-motion alternative</a> · <a href="src/stonks_sniper/assets/logo.svg">Still logo</a> · <a href="src/stonks_sniper/assets/logo.ico">Windows / browser icon</a></sub></p>
+<p align="center"><sub>Windows prototype: download the .exe; no Python or administrator install required. Unsigned; internet required for Yahoo history. <a href="docs/getting-started.md">Run instructions</a> · <a href="docs/guide.md">Written guide / no-motion alternative</a> · <a href="src/stonks_sniper/assets/logo.svg">Still logo</a> · <a href="src/stonks_sniper/assets/logo.ico">Windows / browser icon</a></sub></p>
 
 ## Pick a stock. Test an idea.
 
@@ -50,3 +50,5 @@
 <p align="center"><a href="docs/strategies.md">All 27 strategies, explained</a> · <a href="docs/guide.md">Rules, sources &amp; limits</a> · <a href="docs/images/gif-captures.json">GIF provenance</a> · <a href="docs/development.md">Build &amp; development</a> · <a href="TODO/00_INDEX.todo">Roadmap</a></p>
 
 <p align="center"><sub>Completed daily history, not live prices. 27 explained rules; baskets and AI are planned. For education and simulation, not investment advice.</sub></p>
+
+<p align="center"><sub>GPLv3 application, including GPLv3 Qt Charts. <a href="LICENSE">License</a> · <a href="packaging/THIRD_PARTY_NOTICES.md">Third-party notices</a> · <a href="packaging/SOURCES.md">Corresponding source</a></sub></p>

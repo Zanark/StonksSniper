@@ -1,7 +1,7 @@
 # SS-11 - Verified Windows packaging and acceptance
 Workstream ID: SS-11
 GitHub issue: https://github.com/Zanark/StonksSniper/issues/11
-Status: NOT_STARTED
+Status: IN_PROGRESS
 Milestone: M4
 Dependencies: SS-05, SS-07, SS-10
 
@@ -9,6 +9,8 @@ Dependencies: SS-05, SS-07, SS-10
 Deliver a repeatable native Windows package with honest runtime and acceptance evidence.
 
 ## Tasks
+- [x] Add Windows/Linux regression CI and an explicit live-provider test mode.
+- [ ] Build and publish the separately authorized v0.2.0 executable prototype.
 - [ ] Lock release dependencies and review redistribution/license notices.
 - [ ] Produce isolated installer/portable candidate and test a clean Windows profile.
 - [ ] Verify startup, Qt plugins, networking, Unicode paths, exports and recovery.
@@ -20,13 +22,28 @@ Deliver a repeatable native Windows package with honest runtime and acceptance e
 - No user instance is restarted or overwritten during development qualification.
 
 ## Completion evidence
-- Standalone Windows qualification has not started. The separately authorized
+- Standalone prototype packaging is in progress; broader M4 acceptance is open.
+  Source-native Windows diagnostics fetched actual HDFCBANK history, exercised
+  27 rules and exported the exact experiment without showing/controlling a user
+  window. The full local suite including opt-in live checks passed 211 tests.
+  An isolated pinned build environment leaves the existing .venv untouched.
+  Qt Charts requires GPLv3/commercial terms: this open prototype adopts GPLv3,
+  includes licenses and documents equivalent-access source/rebuild locations.
+- A local standalone candidate built, but this machine's Application Control
+  blocked its extracted Python DLL before initialization. No policy workaround
+  was attempted; hosted Windows packaged-runtime verification gates publication.
+  Local frozen/Unicode runtime qualification is not claimed.
+- The separately authorized
   v0.1.0 prototype Python wheel was built and launched from a separate installation
   target with existing dependencies; its logo and theme notice were verified.
   This is not a standalone executable, clean-machine dependency test, installer
   qualification or recorded human acceptance.
 
 ## Completion log
+- 2026-11-12: User authorized executable creation, a new prototype release, an
+  HDFCBANK fetch fix and GitHub Actions tests. Preserve frozen v0.1.0.
+  Added read-only Windows/Linux CI with pinned Actions, an explicit live mode
+  and actual frozen-runtime checks. Local source/live suite passed 211 tests.
 - 2026-11-11: Registered packaging and acceptance gates.
 - 2026-11-11: User authorized first-prototype commit, push and GitHub release.
   Built/smoke-tested the Python wheel without restarting any existing user app.

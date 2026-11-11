@@ -26,8 +26,18 @@ Fetch actual NSE/BSE history without tokens, hidden repairs or fabricated fallba
 - 500325.BO failed symbol/history resolution; RELIANCE.BO supplied only an excluded
   current-day bar. Neither request was silently substituted with another instrument.
 - Production data qualification belongs to SS-07/SS-14; human acceptance is not recorded.
+- 2026-11-12 HDFCBANK/NSE missing-price regression reproduced against actual Yahoo
+  data: raw close absent on November 11 made the adjusted OHLC row entirely NaN.
+  Excluding that unpriced row with a dated logged/exported warning preserves 493
+  usable observations through November 9 without filling or changing price basis.
+  Partial corruption and all-unusable datasets still fail. Three focused
+  regressions failed before the fix; full local suite including three live cases
+  passed 211 tests. Native source worker, all 27 rules and JSON export also passed.
 
 ## Completion log
+- 2026-11-12: Fixed the reported HDFCBANK failure; added explicit missing-price
+  warnings and opt-in real HDFCBANK/NSE, RELIANCE/NSE, TCS/BSE strategy checks.
+  HDFCBANK/BSE returned only one usable observation; not claimed all-rule qualified.
 - 2026-11-11: Implemented initial unofficial personal-research adapter, not an accuracy SLA.
 - 2026-11-11: Completed representative NSE/BSE live checks and provider error tests.
   Upstream availability, revisions and independent price accuracy remain unqualified.

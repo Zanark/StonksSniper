@@ -45,7 +45,7 @@
       "issue_number": 3,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4KIM",
       "baseline": {
-        "body_sha256": "a236459377210b5953ea4e7419ebfd1bcc090f0c6252f59058b3606fdece31ff",
+        "body_sha256": "9e4e69f8c69d45bc582703c58b01285933c37c9042337f67830c49ff8c2e902e",
         "title": "SS-03 - Free real daily-data vertical slice",
         "issue_state": "closed",
         "state_reason": "completed",
@@ -141,11 +141,11 @@
       "issue_number": 11,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4K_c",
       "baseline": {
-        "body_sha256": "af79eae08c2dd65a77d1c16c2c299e5ff7f9c7e5596271b7aadf659c90234c7c",
+        "body_sha256": "14b2a45e6bb2fa8698e34d10a24a8e417219d2950bc94e11410d4b860c11ca06",
         "title": "SS-11 - Verified Windows packaging and acceptance",
         "issue_state": "open",
         "state_reason": null,
-        "project_status": "Todo"
+        "project_status": "In Progress"
       }
     },
     "SS-12": {

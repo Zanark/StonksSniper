@@ -29,6 +29,110 @@ and records a screenshot locally; it does not publish market observations.
 The Windows offscreen plugin needs an explicitly loaded installed Segoe UI font.
 The normal Windows application uses the same style and font.
 
+## Tests and Windows executable: v0.2.0
+
+`.github/workflows/tests.yml` runs offline regression tests, Ruff lint/format and
+strict source mypy on Linux/Python 3.11 and Windows/Python 3.13. Actions are pinned
+to verified commit IDs and receive read-only repository permissions. Windows also
+builds the executable and runs its native-plugin diagnostic before retaining
+the candidate as an Actions artifact. These artifacts are not GitHub releases.
+
+Yahoo availability must not make every pull request nondeterministic. Live tests
+are opt-in, locally or through **Run workflow / live_provider** on trusted `main`:
+
+```powershell
+$env:STONKS_LIVE_TESTS = '1'
+& .\.venv\Scripts\python.exe -m pytest tests\test_live_provider.py -q
+Remove-Item Env:\STONKS_LIVE_TESTS
+```
+
+These actually download HDFCBANK/NSE, RELIANCE/NSE and TCS/BSE and simulate every
+registered strategy. The manual workflow also fetches real HDFCBANK history
+through the frozen executable's native worker and exercises all rules/export.
+No failed request is replaced with fixtures or another ticker.
+
+### Isolated Windows x64 build
+
+Build with Python 3.13.14 on Windows x64. Keep existing application environments
+and windows untouched. The published dependency baseline is pinned in
+`packaging\windows-requirements.txt`; use a new build environment:
+
+```powershell
+& .\.venv\Scripts\python.exe -m venv build\windows-0.2.0\venv
+& .\build\windows-0.2.0\venv\Scripts\python.exe -m pip install -e '.[packaging]' -r packaging\windows-requirements.txt
+& .\build\windows-0.2.0\venv\Scripts\python.exe scripts\build_windows.py
+```
+
+Output: `C:\devdesk\homedesk\StonksSniper\dist\windows-v0.2.0`.
+The builder refuses an existing output directory; use `--output` with a fresh
+candidate path for another build. It creates a single-file, windowed EXE with
+the glass ICO, package assets, Qt plugins/chart libraries, timezone/TLS data,
+license notices, exact dependency/input receipt and SHA-256 checksums.
+It collects named packages/assets, never the whole checkout or a user profile.
+No API tokens or market observations are included.
+
+The Windows build is GPL-3.0-only because **Qt Charts is GPLv3/commercial, not
+LGPL**. See [notices](../packaging/THIRD_PARTY_NOTICES.md) and
+[corresponding source](../packaging/SOURCES.md). This is not a commercial Qt build.
+
+### Exercise the actual EXE
+
+From an owned test shell, use a fresh report filename:
+
+```powershell
+$exe = 'C:\devdesk\homedesk\StonksSniper\dist\windows-v0.2.0\StonksSniper-0.2.0-windows-x64.exe'
+$report = Join-Path $env:TEMP 'stonks-frozen-smoke.json'
+$env:QT_QPA_PLATFORM = 'windows'
+$process = Start-Process -FilePath $exe -ArgumentList @('--smoke-test', "`"$report`"", '--live') -PassThru
+if (-not $process.WaitForExit(180000)) { Stop-Process -Id $process.Id; throw 'Diagnostic timed out' }
+if ($process.ExitCode -ne 0) { throw "Diagnostic failed: $($process.ExitCode)" }
+Get-Content -LiteralPath $report
+```
+
+Without `--live`, the diagnostic checks assets, native initialization and lessons
+without making market-data requests. With it, it uses an isolated Yahoo cache,
+the normal fetch worker, all 27 strategy/UI paths and the real JSON-export slot.
+It writes a report, owned-window screenshot and exact experiment beside the
+report; these private test outputs are not release assets. The diagnostic window
+is never shown onscreen and its animations are deliberately off. That is not
+human visual acceptance or qualification of interactive animation behavior.
+No user-owned window, process or environment is driven, restarted or upgraded.
+
+### HDFCBANK regression evidence
+
+Reproduced the reported request over 2024-11-12 through 2026-11-12: Yahoo supplied
+494 adjusted rows, with all four adjusted prices `NaN` on November 11.
+An unadjusted request confirmed that day's raw close and adjusted close were
+missing. Excluding only completely missing adjusted OHLC rows leaves **493**
+usable HDFCBANK/NSE observations through November 9 and emits a dated warning
+in logs, the Data panel and export. No interpolation, price-basis switch or
+weakened Candle validation was introduced. All-unusable and partially corrupt
+responses still fail.
+
+Three new missing-price regressions failed before the fix and passed afterward.
+The full local suite including the three opt-in live cases passed **211 tests**;
+Ruff lint/format and strict source mypy passed. The native Windows source
+diagnostic fetched HDFCBANK, exercised 27 rules and exported its exact inputs.
+An initial diagnostic rapidly queued animated chart redraws and crashed during
+cleanup; deterministic diagnostics now disable motion and drain events between
+rules. Interactive animation stress qualification remains open.
+
+The first live suite also exposed only one usable observation for HDFCBANK/BSE;
+that did not qualify an all-strategy run. The explicit representative BSE check
+is TCS/BSE (491 usable observations), not an undisclosed ticker fallback.
+Provider completeness, independent price reconciliation, clean-machine/DPI
+qualification, signing and human acceptance remain open under SS-07/SS-11.
+
+The local candidate EXE built successfully, with 329 third-party metadata/license
+entries in its notices archive. Its attempted standalone launch from an external
+Unicode folder was blocked before Python initialized: Windows Application Control
+refused the extracted `python313.dll`. The owned error process was closed; no
+policy was disabled, changed or bypassed. Therefore local frozen runtime,
+Unicode-path runtime and clean-machine qualification are **not verified**.
+The source-native live test above did pass. The release gate instead requires
+the requested hosted Windows workflow's frozen diagnostic to pass, using an
+ordinary pinned Python distribution and no host Python paths.
+
 ## Twenty-strategy expansion - 2026-11-12
 
 The current source has 27 usable rules, 27 authored lessons and 97 dictionary

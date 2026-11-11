@@ -55,7 +55,9 @@ SS-06 is IN_PROGRESS: 20 additional sourced daily strategies, ELI15 lessons and
 guides extend the current source to 27 rules and 97 dictionary entries.
 See docs/strategies.md for the complete 27-rule ELI15 reference, exact buy/sell/hold
 conditions, formulas, examples, warmups and sources; wider research is unfinished.
-SS-07 through SS-18 remain planned; no basket, AI or qualified-feed
+SS-11 is IN_PROGRESS for an explicitly authorized v0.2.0 Windows executable,
+missing-price regression and Windows/Linux CI. Broader acceptance remains open.
+SS-07 through SS-18 otherwise remain planned; no basket, AI or qualified-feed
 completion is implied. The user authorized first-prototype commit, push and
 release on 2026-11-11; publication does not complete the remaining roadmap.
 
