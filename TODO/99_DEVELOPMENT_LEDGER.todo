@@ -20,6 +20,12 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-12: Correct Qt test teardown did not eliminate Linux's finalization
+  abort; the second hosted run again passed all Windows/frozen live checks.
+  Verified an independent minimal PySide6 6.12/Python 3.11 singleton-refcount
+  reproduction, linked from development docs. Added a Python-3.11-only binding
+  upper bound instead of skipping tests, changing supported Python versions
+  or masking process failures. Hosted compatibility re-verification is pending.
 - 2026-11-12: First hosted live run passed Windows regressions, actual providers,
   standalone build and frozen native HDFCBANK/27-rule/export diagnostics. Linux
   passed 208 assertions but aborted during interpreter finalization; did not

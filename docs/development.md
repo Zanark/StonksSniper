@@ -43,8 +43,17 @@ interpreter finalization with `none_dealloc`. Qt tests now retain one
 session-owned QApplication and explicitly deliver deferred deletions after each
 test; `processEvents()` alone does not drain `deleteLater()` outside an event
 loop. The updated local suite passed all 211 tests, including actual downloads.
-The Linux rerun remains a release gate; an assertion-pass summary does not
-override a nonzero process exit.
+This corrected lifetime handling did **not** resolve Linux's abort. The second
+run again passed Windows, including the actual frozen diagnostic, but failed
+during Python 3.11 finalization. An
+[independent reduced reproduction](https://github.com/optiland/optiland/issues/1069)
+identifies PySide6 6.12 singleton-reference corruption on Python 3.11, with links
+to Qt's binding issue; [superqt applies the same compatibility bound](https://github.com/pyapp-kit/superqt/blob/main/pyproject.toml).
+Dependencies now select PySide6 below 6.12 only on Python
+3.11; Python 3.12+ and the pinned Windows build retain their existing versions.
+Revisit that temporary bound only after corrected wheels pass the complete suite
+with normal interpreter exit. The compatibility rerun remains a release gate;
+an assertion-pass summary does not override a nonzero process exit.
 
 Yahoo availability must not make every pull request nondeterministic. Live tests
 are opt-in, locally or through **Run workflow / live_provider** on trusted `main`:
