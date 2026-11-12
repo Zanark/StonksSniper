@@ -37,6 +37,45 @@ a fall of 20 tokens, even if you originally paid only 50.
 **Play days** reveals history in order without revealing future trades.
 The drawing window changes only what is shown, never the underlying experiment.
 
+## Simulate your own dates
+
+In the latest source, **Simulate** sits beside **Test idea**. Load a stock and
+choose an idea, starting money and trading costs, then click **Simulate** to open
+a separate window. Choose a **Start date** and **End date**, then
+**Start simulation**.
+
+The window reveals one trading day at a time: green circles mark buys, red
+squares mark sells, and the table lists the trades that have happened so far.
+Switch between **Stock price + trades** and **Your money** to watch the price
+and your cash-plus-stock value. **Pause**, **Next day** and the time slider let
+you inspect a moment; **Show final result** skips to the end. **Play** after the
+finish replays the same experiment from its first day.
+
+The final cards show how much money remains, the profit or loss in INR and its
+percentage of the starting money. For example, starting with INR 1,000 and ending
+with INR 1,100 means INR 100 profit, or 10%. This example illustrates the
+arithmetic; it is not a market result.
+
+Important boundaries:
+
+- Both dates are included, using only observations already loaded. Load a wider
+  date range in **Explore** first if you need other dates. Missing days are not filled.
+- Each run starts in cash. The idea warms up using days **inside** your selected
+  interval; nothing is bought before the start. Too-short, reversed or empty
+  intervals show an error instead of reusing an earlier result.
+- Buys and sells use the next available opening price, including your fee and
+  worse-price settings. A signal on the final day cannot trade without a next day.
+- Stock still owned at the end is valued at the final close, **not automatically
+  sold**. Its gain or loss is included in the total but is not cash earned yet;
+  hypothetical exit costs and a complete tax model are not included.
+- Changing dates clears the old run. Changes in the main window do not replace
+  the simulation's captured stock, idea, history or costs. Main-window
+  **Save results** still exports the main experiment, not this separate run.
+- Turning off **Animations** pauses simulation playback too; stepping and
+  skipping to the final result still work.
+
+This feature is in the latest source, **not** the already-published v0.2.0 EXE.
+
 ## Actual history, clear boundaries
 
 The initial connection uses free, unofficial Yahoo completed daily history:

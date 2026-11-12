@@ -14,18 +14,245 @@ from PIL import Image, ImageChops, ImageSequence
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
-from PySide6.QtCore import QCoreApplication, QThread  # noqa: E402
+from PySide6.QtCore import QCoreApplication, QDate, QThread  # noqa: E402
 from PySide6.QtGui import QBitmap, QImage, QMovie, QRegion  # noqa: E402
+from PySide6.QtTest import QTest  # noqa: E402
 from PySide6.QtWidgets import QApplication, QFileDialog  # noqa: E402
 from test_research import observations  # noqa: E402
 
-from stonks_sniper.app import MainWindow  # noqa: E402
-from stonks_sniper.engine import simulate  # noqa: E402
-from stonks_sniper.models import DataError  # noqa: E402
+from stonks_sniper.app import MainWindow, SimulationWindow, epoch  # noqa: E402
+from stonks_sniper.engine import Assumptions, simulate  # noqa: E402
+from stonks_sniper.models import Candle, DataError  # noqa: E402
 from stonks_sniper.patterns import PATTERNS  # noqa: E402
 from stonks_sniper.theme import application_icon  # noqa: E402
 
 pytestmark = pytest.mark.usefixtures("qt_events")
+
+
+@pytest.fixture
+def simulation_parent():
+    app = QApplication.instance() or QApplication([])
+    window = MainWindow()
+    window.motion.setChecked(False)
+    window.data_ready(observations())
+    try:
+        yield window
+    finally:
+        window.close()
+        window.deleteLater()
+        app.processEvents()
+
+
+def test_simulate_opens_separate_window_with_captured_idea_costs_and_history(simulation_parent):
+    parent = simulation_parent
+    parent.pattern.setCurrentIndex(2)
+    parent.capital.setValue(2500)
+    parent.fees.setValue(25)
+    parent.slippage.setValue(12)
+    parent.simulate_button.click()
+    window = parent.findChild(SimulationWindow)
+    assert window is not None and window.isVisible()
+    assert not window.isModal()
+    assert window.source_data is parent.data
+    assert window.pattern is PATTERNS[2]
+    assert window.assumptions == Assumptions(2500, 25, 12)
+    assert window.experiment is None
+    assert not window.play.isEnabled()
+    assert window.start.minimumDate() == QDate(2024, 1, 1)
+    assert window.end.maximumDate() == QDate(2024, 4, 9)
+    parent.pattern.setCurrentIndex(0)
+    parent.capital.setValue(100)
+    parent.data_ready(observations(50))
+    window.run_button.click()
+    assert window.experiment is not None
+    assert window.experiment.pattern is PATTERNS[2]
+    assert window.experiment.assumptions.initial_cash == 2500
+    assert len(window.experiment.equity) == 100
+
+
+def test_simulation_range_is_inclusive_starts_in_cash_and_never_reveals_future(
+    simulation_parent,
+):
+    parent = simulation_parent
+    original_result = parent.result
+    original_data = parent.data
+    parent.simulate_button.click()
+    window = parent.findChild(SimulationWindow)
+    window.start.setDate(QDate(2024, 1, 16))
+    window.end.setDate(QDate(2024, 3, 21))
+    window.run_button.click()
+    expected_data = replace(original_data, candles=original_data.candles[15:81])
+    expected = simulate(expected_data, PATTERNS[0])
+    assert window.data == expected_data
+    assert window.experiment == expected
+    assert window.replay.value() == 1
+    assert window.price_line.count() == window.equity_line.count() == 1
+    assert window.money.text() == "100,000.00"
+    assert window.trades.rowCount() == window.buy_marks.count() == window.sell_marks.count() == 0
+    assert not window.timer.isActive()
+    for count in (32, 50, 66, 20):
+        window.replay.setValue(count)
+        prefix = expected_data.candles[:count]
+        visible = [trade for trade in expected.trades if trade.fill_session <= prefix[-1].session]
+        assert window.price_line.count() == window.equity_line.count() == count
+        assert window.trades.rowCount() == len(visible)
+        assert window.buy_marks.count() + window.sell_marks.count() == len(visible)
+        for series in (window.price_line, window.buy_marks, window.sell_marks, window.equity_line):
+            assert all(point.x() <= epoch(prefix[-1].session) for point in series.points())
+        assert window.money.text() == f"{expected.equity[count - 1]:,.2f}"
+    assert parent.result is original_result and parent.data is original_data
+
+
+@pytest.mark.parametrize("final_price,expected", [(120, 200), (80, -200), (100, 0)])
+def test_simulation_displays_exact_gain_loss_and_marked_open_holdings(
+    simulation_parent, monkeypatch, final_price, expected
+):
+    parent = simulation_parent
+    data = observations(4)
+    data = replace(
+        data,
+        candles=tuple(
+            Candle(
+                bar.session,
+                100,
+                max(100, final_price),
+                min(100, final_price),
+                final_price if index == 3 else 100,
+                1000,
+            )
+            for index, bar in enumerate(data.candles)
+        ),
+    )
+    parent.pattern.setCurrentIndex(6)
+    parent.capital.setValue(1000)
+    parent.fees.setValue(0)
+    parent.slippage.setValue(0)
+    parent.data_ready(data)
+    monkeypatch.setattr("stonks_sniper.engine.targets", lambda *_: (None, True, True, False))
+    parent.simulate_button.click()
+    window = parent.findChild(SimulationWindow)
+    window.run_button.click()
+    window.finish.click()
+    assert window.money.text() == f"{1000 + expected:,.2f}"
+    assert window.gain.text() == f"INR {expected:+,.2f} ({expected / 10:+.2f}%)"
+    assert window.status.text().startswith("Finished")
+    assert "10.000000 adjusted units still owned" in window.status.text()
+    assert window.trades.rowCount() == window.buy_marks.count() == 1
+    assert window.sell_marks.count() == 0
+    assert not window.timer.isActive()
+
+
+def test_simulation_completed_sell_includes_both_sides_costs(simulation_parent, monkeypatch):
+    parent = simulation_parent
+    parent.pattern.setCurrentIndex(6)
+    parent.capital.setValue(1000)
+    parent.fees.setValue(100)
+    parent.slippage.setValue(100)
+    data = observations(4)
+    parent.data_ready(data)
+    monkeypatch.setattr("stonks_sniper.engine.targets", lambda *_: (None, True, False, True))
+    parent.simulate_button.click()
+    window = parent.findChild(SimulationWindow)
+    window.run_button.click()
+    window.finish.click()
+    units = 1000 / (data.candles[2].open * 1.01 * 1.01)
+    final_cash = units * data.candles[3].open * 0.99 * 0.99
+    profit = final_cash - 1000
+    assert window.money.text() == f"{final_cash:,.2f}"
+    assert window.gain.text() == f"INR {profit:+,.2f} ({profit / 10:+.2f}%)"
+    assert window.trades.rowCount() == 2
+    assert window.buy_marks.count() == window.sell_marks.count() == 1
+    assert "0.000000 adjusted units still owned" in window.status.text()
+
+
+def test_simulation_with_no_signals_keeps_cash_and_reports_zero(simulation_parent, monkeypatch):
+    parent = simulation_parent
+    monkeypatch.setattr("stonks_sniper.engine.targets", lambda bars, _: (None,) * len(bars))
+    parent.simulate_button.click()
+    window = parent.findChild(SimulationWindow)
+    window.run_button.click()
+    window.finish.click()
+    assert window.money.text() == "100,000.00"
+    assert window.gain.text() == "INR +0.00 (+0.00%)"
+    assert "No profit or loss" in window.status.text()
+    assert window.trades.rowCount() == window.buy_marks.count() == window.sell_marks.count() == 0
+
+
+@pytest.mark.parametrize(
+    "start,end,message",
+    [
+        (QDate(2024, 3, 1), QDate(2024, 2, 1), "Start date must be on or before"),
+        (QDate(2024, 2, 1), QDate(2024, 2, 10), "31 completed bars"),
+        (QDate(2024, 2, 1), QDate(2024, 2, 1), "31 completed bars"),
+    ],
+)
+def test_simulation_rejects_bad_dates_without_stale_results(
+    simulation_parent, start, end, message, caplog
+):
+    parent = simulation_parent
+    parent.simulate_button.click()
+    window = parent.findChild(SimulationWindow)
+    window.run_button.click()
+    window.finish.click()
+    window.start.setDate(start)
+    window.end.setDate(end)
+    assert window.experiment is None
+    assert window.money.text() == "--"
+    assert window.price_line.count() == window.trades.rowCount() == 0
+    window.run_button.click()
+    assert window.experiment is None
+    assert message in window.status.text() and message in caplog.text
+    assert not window.play.isEnabled() and not window.finish.isEnabled()
+
+
+def test_simulation_empty_calendar_interval_is_explicit(simulation_parent):
+    parent = simulation_parent
+    parent.data_ready(replace(observations(), candles=observations().candles[::2]))
+    parent.simulate_button.click()
+    window = parent.findChild(SimulationWindow)
+    window.start.setDate(QDate(2024, 1, 2))
+    window.end.setDate(QDate(2024, 1, 2))
+    window.run_button.click()
+    assert window.experiment is None
+    assert window.status.text().startswith("Simulation not run:")
+
+
+def test_simulation_timer_pause_step_restart_finish_and_parent_close(simulation_parent):
+    parent = simulation_parent
+    parent.simulate_button.click()
+    window = parent.findChild(SimulationWindow)
+    parent.motion.setChecked(True)
+    window.timer.setInterval(1)
+    window.run_button.click()
+    assert window.timer.isActive() and window.play.isChecked()
+    deadline = time.monotonic() + 3
+    while window.replay.value() == 1 and time.monotonic() < deadline:
+        QTest.qWait(10)
+    assert window.replay.value() > 1
+    window.play.click()
+    paused = window.replay.value()
+    QTest.qWait(15)
+    assert window.replay.value() == paused and not window.timer.isActive()
+    window.step.click()
+    assert window.replay.value() == paused + 1 and not window.timer.isActive()
+    window.replay.setValue(window.replay.maximum() - 1)
+    window.play.click()
+    deadline = time.monotonic() + 3
+    while window.timer.isActive() and time.monotonic() < deadline:
+        QTest.qWait(10)
+    assert window.replay.value() == window.replay.maximum()
+    assert window.status.text().startswith("Finished")
+    assert not window.timer.isActive() and not window.play.isChecked()
+    window.play.click()
+    assert window.replay.value() == 1 and window.timer.isActive()
+    parent.motion.setChecked(False)
+    assert not window.timer.isActive() and not window.play.isEnabled()
+    window.step.click()
+    assert window.replay.value() == 2
+    parent.motion.setChecked(True)
+    window.play.click()
+    parent.close()
+    assert not window.timer.isActive() and not window.isVisible()
 
 
 def test_readme_artwork_uses_requested_palette_with_candle_exception():

@@ -14,8 +14,8 @@ SPEC.loader.exec_module(tracking)
 
 def test_tracking_inventory_preserves_fields_and_excludes_navigation():
     streams = tracking.workstreams()
-    assert len(streams) == 19
-    assert len({stream["key"] for stream in streams}) == 19
+    assert len(streams) == 20
+    assert len({stream["key"] for stream in streams}) == 20
     assert all(stream["marker"] in stream["body"] for stream in streams)
     assert all("GitHub issue:" not in stream["body"] for stream in streams)
     assert all("99_" not in stream["path"].name for stream in streams)

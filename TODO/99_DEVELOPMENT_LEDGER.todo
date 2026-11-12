@@ -20,6 +20,21 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-12: Added Simulate beside Test idea with an independent date-range
+  window, animated price/buy/sell/money graphs, revealed trade log and final
+  INR/% P&L. Reused the engine after inclusive filtering; selected-range warmup,
+  fresh cash and marked unsold holdings are explicit. Captured settings survive
+  main edits; date changes invalidate output and owned timers stop on close.
+  Strict typing caught a QDialog.result method-name collision during development;
+  renamed the data attribute to experiment. Final suite: 220 passed, 3 opt-in
+  live tests skipped; lint/format/mypy/whitespace checks passed. The new twentieth
+  workstream initially broke the existing nineteen-item inventory assertion;
+  updated that expected inventory and reran the complete suite successfully.
+  Owned actual-HDFCBANK check exercised all 27 strategies on 444 observations,
+  retained provider warnings and completed timer-driven SMA replay. Inspected
+  source-native price/money views at 1160x768 and main controls at 1366x768.
+  Published v0.2.0 remains unchanged; normal Windows/DPI/human acceptance and
+  a new frozen executable are not implied by source-native verification.
 - 2026-11-12: Exact-source live run 43120473704 passed Linux and Windows on
   9284b00bc9647f65c76bf81d96e2d79cef1cdbb6. The actual native Windows EXE
   fetched 493 usable HDFCBANK bars, preserved its warning, simulated 27 rules

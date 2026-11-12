@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import sys
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from datetime import date, datetime, timedelta
 from html import escape
 from pathlib import Path
@@ -26,6 +26,7 @@ from PySide6.QtCore import (
     QEasingCurve,
     QMargins,
     QObject,
+    QPointF,
     QSize,
     Qt,
     QThread,
@@ -69,7 +70,7 @@ from stonks_sniper.engine import Assumptions, Result, simulate
 from stonks_sniper.glossary import TERMS, HelpBrowser, explain, search_terms, term_html, tooltip
 from stonks_sniper.lessons import LESSONS
 from stonks_sniper.models import Candle, DataError, MarketData
-from stonks_sniper.patterns import PATTERNS, ema, wilder_rsi
+from stonks_sniper.patterns import PATTERNS, Pattern, ema, wilder_rsi
 from stonks_sniper.providers import INDIA, MarketDataProvider, YahooDailyProvider
 from stonks_sniper.studies import study
 from stonks_sniper.theme import (
@@ -197,6 +198,21 @@ def lesson_html(index: int, *, complete: bool) -> str:
 
 def epoch(session: date) -> float:
     return datetime.combine(session, datetime.min.time(), tzinfo=INDIA).timestamp() * 1000
+
+
+def set_axis_range(
+    horizontal: QDateTimeAxis,
+    vertical: QValueAxis,
+    sessions: list[date],
+    low: float,
+    high: float,
+) -> None:
+    horizontal.setRange(
+        QDateTime.fromMSecsSinceEpoch(int(epoch(sessions[0]) - 43_200_000)),
+        QDateTime.fromMSecsSinceEpoch(int(epoch(sessions[-1]) + 43_200_000)),
+    )
+    margin = max((high - low) * 0.06, abs(high) * 0.01, 0.01)
+    vertical.setRange(low - margin, high + margin)
 
 
 class MainWindow(QMainWindow):
@@ -367,19 +383,31 @@ class MainWindow(QMainWindow):
         costs = QPushButton("Trading costs")
         costs.setToolTip(tooltip("fee"))
         costs.clicked.connect(self.cost_dialog.show)
-        options.addWidget(costs)
+        actions = QHBoxLayout()
+        actions.addWidget(label("Practice only. No real orders."))
+        actions.addStretch()
+        actions.addWidget(costs)
         self.run_button = QPushButton("3  Test idea")
         self.run_button.setObjectName("primary")
         self.run_button.setToolTip(tooltip("simulation"))
         self.run_button.setEnabled(False)
         self.run_button.clicked.connect(self.run_experiment)
-        options.addWidget(self.run_button)
+        actions.addWidget(self.run_button)
+        self.simulate_button = QPushButton("Simulate")
+        self.simulate_button.setEnabled(False)
+        self.simulate_button.setToolTip(
+            "Load a stock, then watch the selected idea trade over your chosen dates "
+            "in a separate window."
+        )
+        self.simulate_button.clicked.connect(self.open_simulation)
+        actions.addWidget(self.simulate_button)
         self.export = QPushButton("Save results")
         self.export.setToolTip(tooltip("json"))
         self.export.setEnabled(False)
         self.export.clicked.connect(self.export_run)
-        options.addWidget(self.export)
+        actions.addWidget(self.export)
         control_layout.addLayout(options)
+        control_layout.addLayout(actions)
         layout.addWidget(control_card)
         self.provenance = label("Start here: load a stock, pick an idea, then see what happened.")
         self.provenance.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
@@ -646,6 +674,8 @@ class MainWindow(QMainWindow):
     @Slot()
     def motion_changed(self) -> None:
         self.stop_playback()
+        for window in self.findChildren(SimulationWindow):
+            window.set_motion(self.motion.isChecked())
         if self.fetch_thread is not None:
             self.loading_movie.setPaused(not self.motion.isChecked())
         self.play.setEnabled(self.motion.isChecked() and self.result is not None)
@@ -712,6 +742,7 @@ class MainWindow(QMainWindow):
         self.result = None
         self.export.setEnabled(False)
         self.run_button.setEnabled(False)
+        self.simulate_button.setEnabled(False)
         self.replay.setEnabled(False)
         self.redraw()
         self.fetch.setEnabled(False)
@@ -783,6 +814,7 @@ class MainWindow(QMainWindow):
         self.replay.blockSignals(False)
         self.replay.setEnabled(True)
         self.run_button.setEnabled(True)
+        self.simulate_button.setEnabled(True)
         self.run_experiment()
 
     @Slot(str)
@@ -826,6 +858,20 @@ class MainWindow(QMainWindow):
         self._animate_next = True
         self.redraw()
 
+    @Slot()
+    def open_simulation(self) -> None:
+        if self.data is None:
+            return
+        self.stop_playback()
+        window = SimulationWindow(
+            self.data,
+            PATTERNS[self.pattern.currentIndex()],
+            Assumptions(self.capital.value(), self.fees.value(), self.slippage.value()),
+            motion=self.motion.isChecked(),
+            parent=self,
+        )
+        window.show()
+
     def reset_chart(self, view: QChartView, title: str) -> QChart:
         chart = view.chart()
         chart.setAnimationOptions(QChart.AnimationOption.NoAnimation)
@@ -841,7 +887,10 @@ class MainWindow(QMainWindow):
         chart.setTitle(title)
         return chart
 
-    def axes(self, chart: QChart, sessions: list[date], low: float, high: float) -> None:
+    @staticmethod
+    def axes(
+        chart: QChart, sessions: list[date], low: float, high: float
+    ) -> tuple[QDateTimeAxis, QValueAxis]:
         horizontal = QDateTimeAxis()
         horizontal.setFormat("dd MMM yy")
         horizontal.setTickCount(4)
@@ -849,10 +898,6 @@ class MainWindow(QMainWindow):
         horizontal.setLabelsFont(QFont("Segoe UI", 9))
         horizontal.setGridLineVisible(False)
         horizontal.setLineVisible(False)
-        horizontal.setRange(
-            QDateTime.fromMSecsSinceEpoch(int(epoch(sessions[0]) - 43_200_000)),
-            QDateTime.fromMSecsSinceEpoch(int(epoch(sessions[-1]) + 43_200_000)),
-        )
         chart.addAxis(horizontal, Qt.AlignmentFlag.AlignBottom)
         vertical = QValueAxis()
         vertical.setLabelsColor(QColor(MUTED))
@@ -861,12 +906,12 @@ class MainWindow(QMainWindow):
         vertical.setLineVisible(False)
         vertical.setTickCount(5)
         vertical.setLabelFormat("%.1f")
-        margin = max((high - low) * 0.06, abs(high) * 0.01, 0.01)
-        vertical.setRange(low - margin, high + margin)
+        set_axis_range(horizontal, vertical, sessions, low, high)
         chart.addAxis(vertical, Qt.AlignmentFlag.AlignLeft)
         for series in chart.series():
             series.attachAxis(horizontal)
             series.attachAxis(vertical)
+        return horizontal, vertical
 
     @Slot()
     def redraw(self) -> None:
@@ -1240,6 +1285,331 @@ class MainWindow(QMainWindow):
             )
             event.ignore()
             return
+        for window in self.findChildren(SimulationWindow):
+            window.close()
+        super().closeEvent(event)
+
+
+class SimulationWindow(QDialog):
+    def __init__(
+        self,
+        data: MarketData,
+        pattern: Pattern,
+        assumptions: Assumptions,
+        *,
+        motion: bool,
+        parent: MainWindow,
+    ) -> None:
+        super().__init__(parent)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
+        self.setWindowTitle(f"Stonks Sniper | Simulate {data.symbol}")
+        self.setWindowIcon(application_icon())
+        self.resize(1160, 820)
+        self.setMinimumSize(980, 700)
+        self.source_data = data
+        self.pattern = pattern
+        self.assumptions = assumptions
+        self.data: MarketData | None = None
+        self.experiment: Result | None = None
+        self.motion = motion
+        self.timer = QTimer(self)
+        self.timer.setInterval(240)
+        self.timer.timeout.connect(self.advance)
+
+        layout = QVBoxLayout(self)
+        layout.addWidget(label("Watch your idea buy and sell", "section"))
+        snapshot = label(
+            f"{data.symbol} / {data.exchange} | {LESSONS[pattern.key].title} | "
+            f"Starting money INR {assumptions.initial_cash:,.2f} | "
+            f"Fee {assumptions.fee_bps:g} and worse price {assumptions.slippage_bps:g} "
+            "per INR 10,000 traded"
+        )
+        snapshot.setTextFormat(Qt.TextFormat.PlainText)
+        snapshot.setWordWrap(True)
+        layout.addWidget(snapshot)
+        dates = QHBoxLayout()
+        self.start = QDateEdit()
+        self.end = QDateEdit()
+        first, last = data.candles[0].session, data.candles[-1].session
+        for name, field, initial in (
+            ("Start date", self.start, first),
+            ("End date", self.end, last),
+        ):
+            field.setCalendarPopup(True)
+            field.setDisplayFormat("yyyy-MM-dd")
+            field.setDateRange(
+                QDate(first.year, first.month, first.day),
+                QDate(last.year, last.month, last.day),
+            )
+            field.setDate(QDate(initial.year, initial.month, initial.day))
+            field.setAccessibleName(name)
+            dates.addWidget(label(name))
+            dates.addWidget(field)
+        self.run_button = QPushButton("Start simulation")
+        self.run_button.setObjectName("primary")
+        self.run_button.clicked.connect(self.start_simulation)
+        dates.addWidget(self.run_button)
+        dates.addStretch()
+        layout.addLayout(dates)
+        note = label(
+            f"Uses loaded daily history only ({first} to {last}); both dates are included. "
+            f"This idea needs {pattern.minimum_bars} trading days inside your range to get ready, "
+            "then trades at the next available opening price. Load a wider history in Explore "
+            "to choose other dates. This window keeps its own stock, idea and cost settings."
+        )
+        note.setWordWrap(True)
+        layout.addWidget(note)
+        if data.warnings:
+            warnings = label("Data warnings: " + " ".join(data.warnings))
+            warnings.setTextFormat(Qt.TextFormat.PlainText)
+            warnings.setWordWrap(True)
+            layout.addWidget(warnings)
+
+        metrics = QHBoxLayout()
+        for title, attribute in (("Money now (INR)", "money"), ("Profit / loss", "gain")):
+            frame, contents = card()
+            contents.addWidget(label(title))
+            value = label("--", "metric")
+            contents.addWidget(value)
+            setattr(self, attribute, value)
+            metrics.addWidget(frame, 1)
+        self.money: QLabel
+        self.gain: QLabel
+        layout.addLayout(metrics)
+        self.status = label("Choose dates, then Start simulation.")
+        self.status.setTextFormat(Qt.TextFormat.PlainText)
+        self.status.setWordWrap(True)
+        layout.addWidget(self.status)
+
+        self.price_chart = chart_view()
+        self.equity_chart = chart_view()
+        self.price_chart.chart().setTitle("Stock price and simulated buys / sells (adjusted INR)")
+        self.equity_chart.chart().setTitle("Your practice money (INR)")
+        self.price_line = QLineSeries()
+        self.price_line.setName("Closing price")
+        self.price_line.setPen(QPen(QColor(ACCENT), 2))
+        self.price_chart.chart().addSeries(self.price_line)
+        self.buy_marks = QScatterSeries()
+        self.sell_marks = QScatterSeries()
+        for series, name, color, shape in (
+            (
+                self.buy_marks,
+                "Buy (circle)",
+                GREEN,
+                QScatterSeries.MarkerShape.MarkerShapeCircle,
+            ),
+            (
+                self.sell_marks,
+                "Sell (square)",
+                ROSE,
+                QScatterSeries.MarkerShape.MarkerShapeRectangle,
+            ),
+        ):
+            series.setName(name)
+            series.setColor(QColor(color))
+            series.setBorderColor(QColor(BASE))
+            series.setMarkerShape(shape)
+            series.setMarkerSize(11)
+            self.price_chart.chart().addSeries(series)
+        self.equity_line = QLineSeries()
+        self.equity_line.setName("Cash + stock still owned, after trading costs")
+        self.equity_line.setPen(QPen(QColor(ACCENT), 2))
+        self.equity_chart.chart().addSeries(self.equity_line)
+        self.price_axes = MainWindow.axes(self.price_chart.chart(), [first], 0, 1)
+        self.equity_axes = MainWindow.axes(self.equity_chart.chart(), [first], 0, 1)
+        charts = QTabWidget()
+        charts.addTab(self.price_chart, "Stock price + trades")
+        charts.addTab(self.equity_chart, "Your money")
+        self.trades = QTableWidget(0, 6)
+        self.trades.setHorizontalHeaderLabels(
+            ["Trade day", "Action", "Price INR", "Adjusted units", "Fee INR", "Cash INR"]
+        )
+        self.trades.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.trades.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.trades.setMinimumHeight(110)
+        self.trades.setAlternatingRowColors(True)
+        self.trades.setShowGrid(False)
+        split = QSplitter(Qt.Orientation.Vertical)
+        split.addWidget(charts)
+        split.addWidget(self.trades)
+        split.setSizes([360, 150])
+        split.setCollapsible(0, False)
+        split.setCollapsible(1, False)
+        layout.addWidget(split, 1)
+        replay = QHBoxLayout()
+        self.play = QPushButton("Play")
+        self.play.setCheckable(True)
+        self.play.toggled.connect(self.toggle_playback)
+        replay.addWidget(self.play)
+        self.step = QPushButton("Next day")
+        self.step.clicked.connect(self.step_once)
+        replay.addWidget(self.step)
+        self.replay = QSlider(Qt.Orientation.Horizontal)
+        self.replay.valueChanged.connect(self.redraw)
+        self.replay.sliderPressed.connect(self.stop_playback)
+        replay.addWidget(self.replay, 1)
+        self.finish = QPushButton("Show final result")
+        self.finish.clicked.connect(self.show_final)
+        replay.addWidget(self.finish)
+        layout.addLayout(replay)
+        accounting = label(
+            "Practice trades only. Profit / loss includes trading costs and stock still owned, "
+            "valued at the latest revealed close. End-of-range holdings are not forcibly sold; "
+            "their gain or loss is not cash earned yet. No complete tax model."
+        )
+        accounting.setWordWrap(True)
+        layout.addWidget(accounting)
+        self.start.dateChanged.connect(self.clear_run)
+        self.end.dateChanged.connect(self.clear_run)
+        self.clear_run()
+
+    @Slot()
+    def clear_run(self) -> None:
+        self.stop_playback()
+        self.data = None
+        self.experiment = None
+        for series in (self.price_line, self.buy_marks, self.sell_marks, self.equity_line):
+            series.clear()
+        self.trades.setRowCount(0)
+        self.money.setText("--")
+        self.gain.setText("--")
+        self.status.setText("Choose dates, then Start simulation.")
+        self.replay.setEnabled(False)
+        self.play.setEnabled(False)
+        self.step.setEnabled(False)
+        self.finish.setEnabled(False)
+
+    @Slot()
+    def start_simulation(self) -> None:
+        self.clear_run()
+        first, last = self.start.date(), self.end.date()
+        start = date(first.year(), first.month(), first.day())
+        end = date(last.year(), last.month(), last.day())
+        try:
+            if start > end:
+                raise ValueError("Start date must be on or before end date.")
+            data = replace(
+                self.source_data,
+                candles=tuple(
+                    bar for bar in self.source_data.candles if start <= bar.session <= end
+                ),
+            )
+            result = simulate(data, self.pattern, self.assumptions)
+        except ValueError as error:
+            LOGGER.warning("Date-range simulation not run: %s", error)
+            self.status.setText(f"Simulation not run: {error}")
+            return
+        self.data, self.experiment = data, result
+        self.replay.blockSignals(True)
+        self.replay.setRange(1, len(data.candles))
+        self.replay.setValue(1)
+        self.replay.blockSignals(False)
+        self.replay.setEnabled(True)
+        self.play.setEnabled(self.motion)
+        self.finish.setEnabled(True)
+        self.redraw()
+        if self.motion:
+            self.play.setChecked(True)
+
+    @Slot()
+    def stop_playback(self) -> None:
+        self.timer.stop()
+        self.play.setChecked(False)
+
+    @Slot(bool)
+    def set_motion(self, enabled: bool) -> None:
+        self.motion = enabled
+        self.stop_playback()
+        self.play.setEnabled(enabled and self.experiment is not None)
+
+    @Slot(bool)
+    def toggle_playback(self, playing: bool) -> None:
+        self.play.setText("Pause" if playing else "Play")
+        if not playing:
+            self.timer.stop()
+        elif self.experiment is not None and self.motion:
+            if self.replay.value() == self.replay.maximum():
+                self.replay.setValue(1)
+            self.timer.start()
+        else:
+            self.stop_playback()
+
+    @Slot()
+    def step_once(self) -> None:
+        self.stop_playback()
+        self.advance()
+
+    @Slot()
+    def show_final(self) -> None:
+        self.stop_playback()
+        self.replay.setValue(self.replay.maximum())
+
+    @Slot()
+    def advance(self) -> None:
+        self.replay.setValue(min(self.replay.value() + 1, self.replay.maximum()))
+
+    @Slot()
+    def redraw(self) -> None:
+        if self.data is None or self.experiment is None:
+            return
+        count = self.replay.value()
+        bars = self.data.candles[:count]
+        sessions = [bar.session for bar in bars]
+        trades = [trade for trade in self.experiment.trades if trade.fill_session <= sessions[-1]]
+        self.price_line.replace([QPointF(epoch(bar.session), bar.close) for bar in bars])
+        for side, series in (("BUY", self.buy_marks), ("SELL", self.sell_marks)):
+            series.replace(
+                [
+                    QPointF(epoch(trade.fill_session), trade.price)
+                    for trade in trades
+                    if trade.side == side
+                ]
+            )
+        prices = [bar.close for bar in bars] + [trade.price for trade in trades]
+        set_axis_range(*self.price_axes, sessions, min(prices), max(prices))
+        values = self.experiment.equity[:count]
+        self.equity_line.replace(
+            [QPointF(epoch(day), value) for day, value in zip(sessions, values, strict=True)]
+        )
+        capital = self.assumptions.initial_cash
+        set_axis_range(
+            *self.equity_axes, sessions, min(min(values), capital), max(max(values), capital)
+        )
+        gain = values[-1] - capital
+        percent = gain / capital * 100
+        self.money.setText(f"{values[-1]:,.2f}")
+        outcome = "Profit" if gain > 0 else "Loss" if gain < 0 else "No profit or loss"
+        self.gain.setText(f"INR {gain:+,.2f} ({percent:+.2f}%)")
+        self.gain.setStyleSheet(f"color: {GREEN if gain >= 0 else ROSE};")
+        units = trades[-1].units if trades and trades[-1].side == "BUY" else 0
+        finished = count == len(self.data.candles)
+        self.status.setText(
+            f"{'Finished' if finished else 'As of'} "
+            f"{sessions[-1]} | Day {count} / {len(self.data.candles)} | "
+            f"{outcome}: INR {gain:+,.2f} ({percent:+.2f}%) | "
+            f"{len(trades)} trades | {units:.6f} adjusted units still owned"
+        )
+        self.trades.setRowCount(len(trades))
+        for row, trade in enumerate(trades):
+            for column, text in enumerate(
+                (
+                    str(trade.fill_session),
+                    trade.side,
+                    f"{trade.price:.4f}",
+                    f"{trade.units:.6f}",
+                    f"{trade.fee:.2f}",
+                    f"{trade.cash_after:.2f}",
+                )
+            ):
+                self.trades.setItem(row, column, QTableWidgetItem(text))
+        if trades:
+            self.trades.scrollToBottom()
+        self.step.setEnabled(not finished)
+        if finished:
+            self.stop_playback()
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        self.stop_playback()
         super().closeEvent(event)
 
 

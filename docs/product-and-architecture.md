@@ -105,6 +105,15 @@ observations/results; failure remains an explicit failure rather than relabellin
 an earlier dataset as newly fetched. Replay hides future candles, fills and
 summary values. Export intentionally records the full run and its replay cursor.
 
+`SimulationWindow` is a separate, non-modal date-range view opened beside
+**Test idea**. It captures the current immutable dataset, strategy and cost
+assumptions, filters observations inclusively before calling the same engine,
+and owns its playback timer and persistent chart series. No full-history
+position or cash balance carries into the selected interval. Its charts, fill
+ledger and P&L reveal only the current prefix. Main-window edits do not mutate
+an open simulation; date edits invalidate it. Closing either the simulation or
+its parent stops the owned timer. Main-window export retains its existing scope.
+
 ## Simulation semantics
 
 - Warmup uses the selected range's first observations; there is no hidden

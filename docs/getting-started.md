@@ -20,8 +20,9 @@ accompany the release.
 
 ## Source: Windows and Python 3.11+
 
-The latest source includes the static glass header, animated logo asset, square-cornered interface
-and stock-download GIF. No API token is needed for the initial Yahoo connection.
+The latest source also includes the separate **Simulate** date-range window;
+the published v0.2.0 EXE predates that feature. No API token is needed for the
+initial Yahoo connection.
 
 ```powershell
 git clone https://github.com/Zanark/StonksSniper.git C:\devdesk\homedesk\StonksSniper
@@ -45,8 +46,12 @@ On later launches:
 3. After changing an idea or cost, click **Test idea**.
 4. **Play days** replays history. **Save results** exports the complete experiment,
    including the exact prices, rather than only the day currently visible.
+5. In the latest source, **Simulate** opens a separate window: choose dates inside
+   the loaded history, then **Start simulation** to watch buys/sells and the money
+   chart. The final result shows profit/loss in INR and percent.
+   [Date boundaries, warmup and unsold stock](guide.md#simulate-your-own-dates).
 
-**Animations** pauses the loading GIF, chart transitions and replay.
+**Animations** pauses the loading GIF, chart transitions and both kinds of replay.
 The application header is always static.
 The README GIFs are separate files: GitHub does not expose an in-README pause
 switch. Open the linked written guide if you prefer no motion.

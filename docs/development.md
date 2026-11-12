@@ -29,6 +29,34 @@ and records a screenshot locally; it does not publish market observations.
 The Windows offscreen plugin needs an explicitly loaded installed Segoe UI font.
 The normal Windows application uses the same style and font.
 
+## Separate date-range simulation
+
+The source-only **Simulate** window reuses the existing engine without changing
+strategy rules or accounting. It filters the loaded observations before running:
+inclusive dates, fresh cash, in-range warmup and no pre-start holdings. Persistent
+price/trade/money series reveal only the current prefix. Each window captures its
+own dataset/settings and owns its timer; parent close and reduced motion stop it.
+
+Twelve new desktop regression cases cover launch and independence, inclusive
+intervals, future-data hiding, independently calculated gain/loss/flat and
+cash-only outcomes, completed-sale costs, invalid/empty ranges, actual timer
+playback, pause, step, finish, restart and close. Final full offline verification:
+**220 passed, 3 opt-in live tests skipped**, normal process exit; Ruff lint/format,
+strict source mypy and Git whitespace checks passed. The new twentieth
+workstream also required updating the existing tracking inventory regression.
+
+An owned offscreen check fetched actual HDFCBANK/NSE history: 493 observations
+with the dated missing-row warning retained. All 27 strategies ran through the
+new window on 444 observations from 2025-01-10 to 2026-10-27. Verified prefix and
+final graphs/ledger, plus timer-driven completion for SMA. Inspected native
+price/money views at 1160x768 and main controls at 1366x768 without controlling
+a user-owned window.
+
+These are source-native checks, not a qualification of the already-published
+v0.2.0 executable, normal Windows/DPI interaction or human acceptance. That
+release is unchanged and does not contain this feature. Final holdings remain
+marked, not automatically sold; see [the guide](guide.md#simulate-your-own-dates).
+
 ## Tests and Windows executable: v0.2.0
 
 `.github/workflows/tests.yml` runs offline regression tests, Ruff lint/format and

@@ -21,6 +21,11 @@
 ![Native app replaying actual RELIANCE stock history with practice trades](docs/images/explore.gif)
 *Actual history, revealed day by day. No made-up market data.*
 
+**New in source:** **Simulate**, beside **Test idea**, opens a separate date-range
+window with playing buy/sell markers, a trade log, money chart and final
+profit/loss in INR and percent. [How it works](docs/guide.md#simulate-your-own-dates).
+The published v0.2.0 EXE does not include this newer feature.
+
 ## Understand before you test.
 
 ![Explain pattern opening simple lessons with toy-shop and everyday examples](docs/images/learn.gif)

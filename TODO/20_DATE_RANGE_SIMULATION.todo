@@ -1,0 +1,56 @@
+# SS-20 - Separate date-range simulation and animated trades
+Workstream ID: SS-20
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/20
+Status: DONE
+Milestone: M1.2
+Dependencies: SS-03, SS-04, SS-05
+
+## Purpose
+Let a learner choose dates for the selected stock and idea, watch simulated
+buys/sells and charts in a separate window, and see final INR/percentage P&L.
+
+## Tasks
+- [x] Add Simulate beside Test idea and open an independent non-modal window.
+- [x] Capture the actual loaded history, strategy, starting money and costs.
+- [x] Validate inclusive date bounds and run the existing causal accounting engine.
+- [x] Animate price/trade/money prefixes with pause, stepping, restart and final result.
+- [x] Show final INR and percentage gain/loss, including labelled marked holdings.
+- [x] Stop owned timers on close and honor the main Animations switch.
+- [x] Document warmup, loaded-data bounds, costs, holdings and release distinction.
+- [x] Complete final regressions and document remaining delivery boundaries.
+
+## Acceptance criteria
+- Only actual loaded observations feed the application; no fabricated data or hidden fetch.
+- Start/end are inclusive and bounded by loaded history; bad ranges fail explicitly.
+- Warmup is inside the chosen interval, with initial cash and no pre-start position.
+- Signals execute next available open; final signals cannot execute beyond the range.
+- No future price, trade, equity or P&L appears during playback.
+- Final monetary/percentage P&L includes charged costs and marked unsold holdings,
+  without pretending marked returns are realized cash or charging invented final exits.
+- Main edits leave the captured simulation independent; date edits clear stale output.
+- Closing stops the window's timer; no user-owned process/window is driven or restarted.
+- Technical verification is distinct from human/DPI acceptance or a new frozen release.
+
+## Completion evidence
+- All 12 date-range desktop regression cases passed. Final full offline suite:
+  220 passed, 3 opt-in live tests skipped, with a normal process exit.
+  Ruff lint/format, strict source mypy and Git whitespace checks passed.
+- Owned offscreen actual-HDFCBANK check loaded 493 observations, retained the
+  dated missing-row warning and exercised all 27 strategies over 444 observations
+  from 2025-01-10 to 2026-10-27. Verified timer playback through the final SMA day.
+- Inspected actual source-native price/money simulation views at 1160x768 and
+  the main button layout at 1366x768. No user window was controlled.
+- Independently checked profitable, losing, flat, cash-only and completed-sale
+  results, including costs; invalid ranges cannot leave old results visible.
+- Published v0.2.0 is unchanged and does not contain this source-only feature.
+  Normal Windows/DPI interaction and human acceptance are not claimed verified.
+
+## Completion log
+- 2026-11-12: Implemented the requested date-range Simulate window using the
+  existing engine, without changing strategy formulas, execution or accounting.
+  Explicitly chose loaded-data bounds and in-range warmup; excluded all carry-in
+  positions. Added persistent series and owned replay lifecycle, documented
+  marked unsold holdings and preserved the published prototype.
+- 2026-11-12: Final full regressions passed after updating the tracking inventory
+  from 19 to 20 workstreams. Technical completion does not imply a new frozen
+  executable release or human acceptance.

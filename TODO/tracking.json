@@ -243,6 +243,18 @@
         "state_reason": "completed",
         "project_status": "Done"
       }
+    },
+    "SS-20": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/20",
+      "issue_number": 20,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH_E_U",
+      "baseline": {
+        "body_sha256": "c14b8d7d092d2fcb4d93f97fee355cd5a4374db02ac8e9d58d5e5314748fbe00",
+        "title": "SS-20 - Separate date-range simulation and animated trades",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ Excluded from feature issues: this index and the perpetual development ledger.
 
 M1: native single-stock daily-data learning and deterministic simulation slice.
 M1.1: ELI15-first explanations, DeepSeaFoam native design and screenshot gallery.
+M1.2: independent date-range simulations with animated trades and final P&L.
 M2: source qualification, broader catalogue and robust study/reproducibility.
 M3: portfolio baskets and controlled AI hypothesis experiments.
 M4: independently qualified optional data integrations and Windows distribution.
@@ -39,6 +40,7 @@ SS-16  16_OTHER_RETAIL_APIS.todo             M4 Groww, Paytm, m.Stock, Samco
 SS-17  17_VENDORS_AND_GLOBAL_APIS.todo       M4 licensed and cross-market vendors
 SS-18  18_PROVIDER_DISCOVERY.todo           M4 additional providers and discovery
 SS-19  19_ELI15_DEEPSEAFOAM.todo             M1.1 beginner-first design and dictionary
+SS-20  20_DATE_RANGE_SIMULATION.todo         M1.2 separate simulation window and P&L
 
 Provider investigations each retain named option tasks plus the common
 qualification contract in docs/data-providers.md. This register is extensible,
@@ -51,6 +53,8 @@ M1 (SS-01 through SS-05): technically complete with representative real-data
 checks and offscreen native inspection. Human acceptance is not recorded.
 M1.1 (SS-19): technically complete. Seven explained rules and 74 authored dictionary entries,
 not every possible strategy or an unlimited vocabulary.
+M1.2 (SS-20): technically complete in source. Separate date-range playback shows
+buy/sell markers, trade history and final INR/% P&L. Published v0.2.0 is unchanged.
 SS-06 is IN_PROGRESS: 20 additional sourced daily strategies, ELI15 lessons and
 guides extend the current source to 27 rules and 97 dictionary entries.
 See docs/strategies.md for the complete 27-rule ELI15 reference, exact buy/sell/hold
