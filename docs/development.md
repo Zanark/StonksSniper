@@ -31,7 +31,7 @@ The normal Windows application uses the same style and font.
 
 ## Separate date-range simulation
 
-The source-only **Simulate** window reuses the existing engine without changing
+The **Simulate** window, included in v0.3.0, reuses the existing engine without changing
 strategy rules or accounting. It filters the loaded observations before running:
 inclusive dates, fresh cash, in-range warmup and no pre-start holdings. Persistent
 price/trade/money series reveal only the current prefix. Each window captures its
@@ -52,10 +52,23 @@ final graphs/ledger, plus timer-driven completion for SMA. Inspected native
 price/money views at 1160x768 and main controls at 1366x768 without controlling
 a user-owned window.
 
-These are source-native checks, not a qualification of the already-published
+These November 12 checks were source-native, not a qualification of the
 v0.2.0 executable, normal Windows/DPI interaction or human acceptance. That
-release is unchanged and does not contain this feature. Final holdings remain
+release is unchanged and does not contain this feature. v0.3.0 has a separate
+release qualification described below. Final holdings remain
 marked, not automatically sold; see [the guide](guide.md#simulate-your-own-dates).
+
+## Windows executable: v0.3.0
+
+The November 21 request authorizes a new immutable prototype containing all
+changes through the date-range Simulate window. Version 0.3.0 retains the pinned
+v0.2.0 runtime/build dependencies. Its live frozen diagnostic additionally
+opens Simulate for all 27 strategies, selects dates, checks the initial hidden
+future prefix, reaches the final graph/ledger/P&L and closes each owned window.
+Release publication requires exact-source Windows/Linux CI and verified assets;
+candidate preparation alone is not a published release. Older tags/assets stay
+unchanged. Signing, local Application Control, normal DPI and human acceptance
+remain separate.
 
 ## Tests and Windows executable: v0.2.0
 
@@ -136,12 +149,12 @@ and windows untouched. The published dependency baseline is pinned in
 `packaging\windows-requirements.txt`; use a new build environment:
 
 ```powershell
-& .\.venv\Scripts\python.exe -m venv build\windows-0.2.0\venv
-& .\build\windows-0.2.0\venv\Scripts\python.exe -m pip install -e '.[packaging]' -r packaging\windows-requirements.txt
-& .\build\windows-0.2.0\venv\Scripts\python.exe scripts\build_windows.py
+& .\.venv\Scripts\python.exe -m venv build\windows-0.3.0\venv
+& .\build\windows-0.3.0\venv\Scripts\python.exe -m pip install -e '.[packaging]' -r packaging\windows-requirements.txt
+& .\build\windows-0.3.0\venv\Scripts\python.exe scripts\build_windows.py
 ```
 
-Output: `C:\devdesk\homedesk\StonksSniper\dist\windows-v0.2.0`.
+Output: `C:\devdesk\homedesk\StonksSniper\dist\windows-v0.3.0`.
 The builder refuses an existing output directory; use `--output` with a fresh
 candidate path for another build. It creates a single-file, windowed EXE with
 the glass ICO, package assets, Qt plugins/chart libraries, timezone/TLS data,
@@ -158,7 +171,7 @@ LGPL**. See [notices](../packaging/THIRD_PARTY_NOTICES.md) and
 From an owned test shell, use a fresh report filename:
 
 ```powershell
-$exe = 'C:\devdesk\homedesk\StonksSniper\dist\windows-v0.2.0\StonksSniper-0.2.0-windows-x64.exe'
+$exe = 'C:\devdesk\homedesk\StonksSniper\dist\windows-v0.3.0\StonksSniper-0.3.0-windows-x64.exe'
 $report = Join-Path $env:TEMP 'stonks-frozen-smoke.json'
 $env:QT_QPA_PLATFORM = 'windows'
 $process = Start-Process -FilePath $exe -ArgumentList @('--smoke-test', "`"$report`"", '--live') -PassThru

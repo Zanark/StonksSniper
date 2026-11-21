@@ -76,7 +76,7 @@ jobs:
           $env:PATH = "$env:SystemRoot\System32;$env:SystemRoot"
           if (Test-Path Env:\PYTHONPATH) { Remove-Item Env:\PYTHONPATH }
           if (Test-Path Env:\PYTHONHOME) { Remove-Item Env:\PYTHONHOME }
-          $exe = Resolve-Path 'dist\windows-v0.2.0\StonksSniper-0.2.0-windows-x64.exe'
+          $exe = Resolve-Path 'dist\windows-v0.3.0\StonksSniper-0.3.0-windows-x64.exe'
           $report = Join-Path $env:RUNNER_TEMP 'stonks-frozen-smoke.json'
           $arguments = @('--smoke-test', "`"$report`"")
           if ($env:LIVE_PROVIDER -eq 'true') { $arguments += '--live' }
@@ -89,7 +89,8 @@ jobs:
           }
           if ($env:LIVE_PROVIDER -eq 'true' -and (
             -not $result.network_tested -or -not $result.exported -or
-            $result.simulations.Count -ne $result.strategies
+            $result.simulations.Count -ne $result.strategies -or
+            $result.date_range_simulations.Count -ne $result.strategies
           )) { throw 'Packaged live simulations/export were not verified' }
           Get-Content -Raw -LiteralPath $report
       - name: Preserve packaged runtime evidence
@@ -105,6 +106,6 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: windows-prototype-${{ github.sha }}
-          path: dist/windows-v0.2.0/*
+          path: dist/windows-v0.3.0/*
           if-no-files-found: error
           retention-days: 14

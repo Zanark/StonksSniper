@@ -4,8 +4,8 @@
 
 ## Windows executable: no Python required
 
-Open the [v0.2.0 prototype release](https://github.com/Zanark/StonksSniper/releases/tag/v0.2.0).
-Download `StonksSniper-0.2.0-windows-x64.exe` and double-click it from a writable
+Open the [v0.3.0 prototype release](https://github.com/Zanark/StonksSniper/releases/tag/v0.3.0).
+Download `StonksSniper-0.3.0-windows-x64.exe` and double-click it from a writable
 folder. It is a standalone Windows x64 application, not an installer; no Python
 or administrator install is required. First launch extracts the bundled runtime
 to a temporary directory, so allow a little extra startup time.
@@ -20,8 +20,8 @@ accompany the release.
 
 ## Source: Windows and Python 3.11+
 
-The latest source also includes the separate **Simulate** date-range window;
-the published v0.2.0 EXE predates that feature. No API token is needed for the
+The v0.3.0 source and EXE include the separate **Simulate** date-range window;
+the older v0.2.0 EXE predates that feature. No API token is needed for the
 initial Yahoo connection.
 
 ```powershell
@@ -46,7 +46,7 @@ On later launches:
 3. After changing an idea or cost, click **Test idea**.
 4. **Play days** replays history. **Save results** exports the complete experiment,
    including the exact prices, rather than only the day currently visible.
-5. In the latest source, **Simulate** opens a separate window: choose dates inside
+5. **Simulate** opens a separate window: choose dates inside
    the loaded history, then **Start simulation** to watch buys/sells and the money
    chart. The final result shows profit/loss in INR and percent.
    [Date boundaries, warmup and unsold stock](guide.md#simulate-your-own-dates).

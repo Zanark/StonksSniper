@@ -11,7 +11,7 @@
 <p align="center">
   <a href="docs/getting-started.md"><img src="docs/images/button-start.svg" width="260" alt="Run the latest source: Windows and Python setup"></a>
   <a href="docs/guide.md"><img src="docs/images/button-guide.svg" width="260" alt="Understand the tool: lessons, rules and real data"></a>
-  <a href="https://github.com/Zanark/StonksSniper/releases/tag/v0.2.0"><img src="docs/images/button-download.svg" width="260" alt="Download Stonks Sniper v0.2.0: standalone Windows x64 executable"></a>
+  <a href="https://github.com/Zanark/StonksSniper/releases/tag/v0.3.0"><img src="docs/images/button-download.svg" width="260" alt="Download Stonks Sniper v0.3.0: standalone Windows x64 executable"></a>
 </p>
 
 <p align="center"><sub>Windows prototype: download the .exe; no Python or administrator install required. Unsigned; internet required for Yahoo history. <a href="docs/getting-started.md">Run instructions</a> · <a href="docs/guide.md">Written guide / no-motion alternative</a> · <a href="src/stonks_sniper/assets/logo.svg">Still logo</a> · <a href="src/stonks_sniper/assets/logo.ico">Windows / browser icon</a></sub></p>
@@ -21,10 +21,10 @@
 ![Native app replaying actual RELIANCE stock history with practice trades](docs/images/explore.gif)
 *Actual history, revealed day by day. No made-up market data.*
 
-**New in source:** **Simulate**, beside **Test idea**, opens a separate date-range
+**New in v0.3.0:** **Simulate**, beside **Test idea**, opens a separate date-range
 window with playing buy/sell markers, a trade log, money chart and final
 profit/loss in INR and percent. [How it works](docs/guide.md#simulate-your-own-dates).
-The published v0.2.0 EXE does not include this newer feature.
+The older v0.2.0 EXE does not include this feature.
 
 ## Understand before you test.
 

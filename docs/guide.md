@@ -39,7 +39,7 @@ The drawing window changes only what is shown, never the underlying experiment.
 
 ## Simulate your own dates
 
-In the latest source, **Simulate** sits beside **Test idea**. Load a stock and
+In v0.3.0 and the latest source, **Simulate** sits beside **Test idea**. Load a stock and
 choose an idea, starting money and trading costs, then click **Simulate** to open
 a separate window. Choose a **Start date** and **End date**, then
 **Start simulation**.
@@ -74,7 +74,7 @@ Important boundaries:
 - Turning off **Animations** pauses simulation playback too; stepping and
   skipping to the final result still work.
 
-This feature is in the latest source, **not** the already-published v0.2.0 EXE.
+This feature is in v0.3.0 and the latest source, **not** the older v0.2.0 EXE.
 
 ## Actual history, clear boundaries
 

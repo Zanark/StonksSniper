@@ -49,6 +49,10 @@ Deliver a repeatable native Windows package with honest runtime and acceptance e
   qualification or recorded human acceptance.
 
 ## Completion log
+- 2026-11-21: User authorized publishing all latest changes. Preparing separate
+  v0.3.0 including SS-20, retaining dependency pins and previous releases.
+  Extended the actual frozen live diagnostic to check date-range windows for
+  every strategy; exact-source CI and publication are pending.
 - 2026-11-12: Published and downloaded/hash-verified v0.2.0 after exact-source
   Windows/Linux live CI passed. Tag remains at the built source, not a later
   documentation commit. Keep this workstream open for its broader acceptance.

@@ -11,12 +11,12 @@ from datetime import datetime
 from pathlib import Path
 from unittest.mock import patch
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QCoreApplication, QDate, QEvent, Qt
 from PySide6.QtGui import QMovie
 from PySide6.QtWidgets import QApplication, QFileDialog
 
 from stonks_sniper import __version__
-from stonks_sniper.app import MainWindow, lesson_html, main
+from stonks_sniper.app import MainWindow, SimulationWindow, lesson_html, main
 from stonks_sniper.glossary import TERMS
 from stonks_sniper.lessons import LESSONS
 from stonks_sniper.patterns import PATTERNS
@@ -74,6 +74,7 @@ def smoke_test(report: Path, *, live: bool) -> None:
             if window.data is None:
                 raise RuntimeError(window.provenance.text())
             results = []
+            date_range_results = []
             for index, pattern in enumerate(PATTERNS):
                 window.pattern.setCurrentIndex(index)
                 window.run_experiment()
@@ -83,6 +84,45 @@ def smoke_test(report: Path, *, live: bool) -> None:
                 ):
                     raise RuntimeError(f"The packaged simulation failed: {pattern.key}")
                 results.append({"strategy": pattern.key, "trades": len(window.result.trades)})
+                window.simulate_button.click()
+                simulation = window.findChildren(SimulationWindow)[-1]
+                first = window.data.candles[40].session
+                last = window.data.candles[-10].session
+                simulation.start.setDate(QDate(first.year, first.month, first.day))
+                simulation.end.setDate(QDate(last.year, last.month, last.day))
+                simulation.run_button.click()
+                if simulation.experiment is None or simulation.data is None:
+                    raise RuntimeError(f"Packaged date-range simulation failed: {pattern.key}")
+                if (
+                    simulation.data.candles[0].session != first
+                    or simulation.data.candles[-1].session != last
+                    or simulation.price_line.count() != 1
+                    or simulation.trades.rowCount() != 0
+                ):
+                    raise RuntimeError(f"Packaged simulation range/prefix failed: {pattern.key}")
+                simulation.finish.click()
+                if (
+                    simulation.price_line.count() != len(simulation.data.candles)
+                    or simulation.trades.rowCount() != len(simulation.experiment.trades)
+                    or simulation.timer.isActive()
+                    or not math.isfinite(simulation.experiment.equity[-1])
+                    or not simulation.status.text().startswith("Finished")
+                ):
+                    raise RuntimeError(f"Packaged simulation final result failed: {pattern.key}")
+                date_range_results.append(
+                    {
+                        "strategy": pattern.key,
+                        "first": str(first),
+                        "last": str(last),
+                        "bars": len(simulation.data.candles),
+                        "trades": len(simulation.experiment.trades),
+                        "money": simulation.money.text(),
+                        "profit_loss": simulation.gain.text(),
+                    }
+                )
+                simulation.close()
+                QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+                app.processEvents()
             exported = report.with_suffix(".experiment.json")
             if exported.exists():
                 raise FileExistsError(f"Refusing to overwrite an experiment: {exported}")
@@ -98,6 +138,7 @@ def smoke_test(report: Path, *, live: bool) -> None:
                 last_session=str(window.data.candles[-1].session),
                 warnings=window.data.warnings,
                 simulations=results,
+                date_range_simulations=date_range_results,
                 exported=True,
             )
         if not window.grab().save(str(report.with_suffix(".png"))):

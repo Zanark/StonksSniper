@@ -1,4 +1,4 @@
-# Windows x64 runtime and packaging versions used for the v0.2.0 prototype.
+# Windows x64 runtime and packaging versions retained for the v0.3.0 prototype.
 altgraph==0.17.5
 beautifulsoup4==4.15.0
 certifi==2026.10.23
