@@ -29,6 +29,46 @@ and records a screenshot locally; it does not publish market observations.
 The Windows offscreen plugin needs an explicitly loaded installed Segoe UI font.
 The normal Windows application uses the same style and font.
 
+## Intelligent Investor companion and closed-market study
+
+The latest source adds separate technical/book learning sections, original
+notes mapped to 20 main chapters, a current fundamental workbook and arithmetic
+exercises. [Coverage, formulas and source receipts](intelligent-investor.md).
+The published v0.3.0 remains unchanged and does not contain this companion.
+
+November 21 verification: **269 offline tests passed, 4 live cases skipped**,
+normal exit; Ruff lint/format, strict mypy and Git whitespace checks passed.
+The new cases cover independent valuation/margin/net-net arithmetic, missing
+or invalid facts, sector applicability, currency/unit/provenance handling,
+weekend/holiday/after-hours history and native book/worker/export behavior.
+An initial native crash exposed release of worker ownership before thread-local
+cleanup finished; waiting for the finished thread before dropping references
+fixed it. Both success/failure and close-during-fetch cases then passed.
+
+Actual Saturday ICICIBANK history/fundamental requests succeeded. An owned
+source-native 1366x768 diagnostic exercised **both real UI fetch workers**,
+loaded **496** observations through **2026-11-20**, ran all 27 technical
+strategies and exported an actual current fundamental worksheet. Inspected
+the chapter and workbook views. ICICIBANK was classified as financial-sector,
+with industrial screens disabled and missing facts preserved, not fabricated.
+The committed opt-in ICICIBANK test independently passed every strategy.
+An actual Yahoo status read at 20:11 IST explicitly returned `CLOSED`.
+Upstream yfinance/pandas deprecation warnings remain visible, not mistaken
+for failed fetching. No dependency changes, user-window control or new release.
+
+Run the ICICIBANK network regression explicitly:
+
+```powershell
+$env:STONKS_LIVE_TESTS = "1"
+& .\.venv\Scripts\python.exe -m pytest -q tests\test_live_provider.py -k ICICIBANK
+Remove-Item Env:\STONKS_LIVE_TESTS
+```
+
+Snapshot fetch timestamps are not financial-statement publication dates.
+The workbook never feeds current fundamentals into historical backtests.
+Other sectors, complete earnings/dividend histories, audited reconciliation,
+normal Windows/DPI interaction and human acceptance are not implied.
+
 ## Separate date-range simulation
 
 The **Simulate** window, included in v0.3.0, reuses the existing engine without changing

@@ -28,8 +28,24 @@ The older v0.2.0 EXE does not include this feature.
 
 ## Understand before you test.
 
+**Latest source: read alongside The Intelligent Investor.** In **Learn the patterns**,
+choose **Internet technical strategies** or **The Intelligent Investor**.
+The book companion adds original ELI15 notes mapped to 20 main chapters,
+a sourced Indian-stock fundamental workbook, defensive/enterprising evidence
+checks, valuation/net-net/margin calculations and portfolio exercises.
+Missing fundamentals stay unknown; these are not 20 new daily trading signals.
+[Coverage, practicals and sources](docs/intelligent-investor.md).
+**This companion is not yet in the v0.3.0 download.**
+
 ![Explain pattern opening simple lessons with toy-shop and everyday examples](docs/images/learn.gif)
-*What it buys, what it sells, what can fail — with everyday examples.*
+*The existing technical lessons: what buys, what sells and what can fail.
+This older capture does not show the new book section.*
+
+**Study on weekends too.** Loading history does not require an open market:
+the app uses actual prior completed sessions and shows their date. Today's
+candle is excluded even after close; weekends and holidays are not filled.
+An actual Saturday ICICIBANK check returned 496 observations through the prior
+Friday. Yahoo availability is still required; [data boundaries](docs/guide.md#actual-history-clear-boundaries).
 
 ## Every unfamiliar word has a way in.
 

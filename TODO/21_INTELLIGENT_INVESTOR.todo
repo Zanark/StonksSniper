@@ -1,0 +1,60 @@
+# SS-21 - Intelligent Investor study companion and closed-market research
+Workstream ID: SS-21
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/21
+Status: DONE
+Milestone: M2
+Dependencies: SS-03, SS-05, SS-06
+
+## Purpose
+Separate internet technical strategies from a source-linked, original book
+companion and help learners apply fundamental concepts to Indian shares.
+Make completed-session history usable and understandable on closed-market days.
+
+## Tasks
+- [x] Research editions, chapter coverage, historical thresholds and limitations.
+- [x] Add distinct technical and book learning sections with ELI15 explanations.
+- [x] Add transparent Indian-stock fundamental worksheets and optional real snapshots.
+- [x] Distinguish missing evidence, unsupported sectors and current/historical data.
+- [x] Verify weekend/holiday fetching, latest-session labels and explicit failures.
+- [x] Verify calculations, desktop behavior and actual provider access.
+- [x] Update source documentation and register this workstream for synchronization.
+
+## Acceptance criteria
+- Existing 27 price strategies and date-range simulations retain their behavior.
+- Original summaries cover the 20 main chapters, with sources and edition boundaries;
+  no claim of reproducing every example, appendix or later commentary.
+- Calculations expose inputs, provenance, units, formulas and uncertainty.
+- Missing facts never pass a screen. Industrial balance-sheet tests are not
+  presented as bank, insurer or utility eligibility tests.
+- Current fundamentals are never silently used in historical backtests.
+- Weekend/holiday requests use actual available completed observations without
+  fabricated sessions, forward filling or a requirement for an open market.
+- Technical verification is separate from human approval and executable publication.
+
+## Completion evidence
+- Full offline suite: 269 passed, 4 opt-in live tests skipped, normal exit.
+  Ruff lint/format, strict mypy and Git whitespace checks passed.
+- Actual Saturday ICICIBANK/NSE history returned 496 observations through
+  2026-11-20. Separate real current-fundamental request succeeded.
+- Owned native UI diagnostic exercised both real provider workers, all 27
+  technical strategies, book classification/calculation and HTML export.
+  Chapter/workbook layout inspected at 1366x768 without user-window control.
+- Committed ICICIBANK live-provider regression independently passed all strategies.
+- Twenty main chapters have original ELI15 notes, practical tasks and source links;
+  documentation enumerates historical/local adaptations and research access limits.
+  Missing facts remain Unknown; banks/insurers/utilities are not industrial-rated.
+- No historical-fundamental backtest, new EXE release, normal-DPI acceptance
+  or exhaustive reproduction of all book editions/commentary is claimed.
+
+## Completion log
+- 2026-11-21: Started public-source research and inspected existing learning,
+  provider, replay and test contracts. Distinguished investing principles from
+  daily buy/sell timing rules and latest fundamentals from point-in-time evidence.
+- 2026-11-21: Completed source-native companion, pure workbook/scenario arithmetic
+  and explicit as-of/weekend disclosures. Fixed a native worker-finalization
+  crash by completing native thread cleanup before releasing Python ownership.
+  Added regression coverage and actual ICICIBANK closed-market/native checks;
+  Yahoo explicitly reported marketState CLOSED. Rejected unsupported numeric
+  magnitudes and scenario overflow rather than displaying infinite results.
+  Issue #21 and its existing Project item were read back closed-completed/Done.
+  Published v0.3.0 is intentionally unchanged.

@@ -41,6 +41,7 @@ SS-17  17_VENDORS_AND_GLOBAL_APIS.todo       M4 licensed and cross-market vendor
 SS-18  18_PROVIDER_DISCOVERY.todo           M4 additional providers and discovery
 SS-19  19_ELI15_DEEPSEAFOAM.todo             M1.1 beginner-first design and dictionary
 SS-20  20_DATE_RANGE_SIMULATION.todo         M1.2 separate simulation window and P&L
+SS-21  21_INTELLIGENT_INVESTOR.todo          M2 book companion and closed-market study
 
 Provider investigations each retain named option tasks plus the common
 qualification contract in docs/data-providers.md. This register is extensible,
@@ -59,6 +60,12 @@ SS-06 is IN_PROGRESS: 20 additional sourced daily strategies, ELI15 lessons and
 guides extend the current source to 27 rules and 97 dictionary entries.
 See docs/strategies.md for the complete 27-rule ELI15 reference, exact buy/sell/hold
 conditions, formulas, examples, warmups and sources; wider research is unfinished.
+SS-21 is DONE in the latest source: separate Intelligent Investor reading notes
+mapped to 20 main chapters, current Indian-stock fundamental worksheets and
+explicit closed-market history support. Actual Saturday ICICIBANK history,
+both native fetch workers and all 27 technical rules passed. Issue #21 and
+its Project item were verified closed-completed/Done. This companion is not
+in the unchanged v0.3.0 EXE; see docs/intelligent-investor.md for bounded coverage.
 SS-11 is IN_PROGRESS: v0.3.0 Windows executable is published with Simulate,
 the missing-price fix and actual Windows/Linux/frozen live checks passed.
 Release: https://github.com/Zanark/StonksSniper/releases/tag/v0.3.0

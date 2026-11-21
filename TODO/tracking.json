@@ -255,6 +255,18 @@
         "state_reason": "completed",
         "project_status": "Done"
       }
+    },
+    "SS-21": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/21",
+      "issue_number": 21,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhKuMdg",
+      "baseline": {
+        "body_sha256": "4085f888e67b3c29603bffbe59be9624141556df8bd027787601e74b513d6073",
+        "title": "SS-21 - Intelligent Investor study companion and closed-market research",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
     }
   }
 }

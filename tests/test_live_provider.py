@@ -19,7 +19,8 @@ pytestmark = pytest.mark.skipif(
 
 
 @pytest.mark.parametrize(
-    ("symbol", "exchange"), [("HDFCBANK", "NSE"), ("RELIANCE", "NSE"), ("TCS", "BSE")]
+    ("symbol", "exchange"),
+    [("HDFCBANK", "NSE"), ("RELIANCE", "NSE"), ("TCS", "BSE"), ("ICICIBANK", "NSE")],
 )
 def test_actual_history_runs_every_strategy(symbol, exchange, tmp_path):
     yf.set_tz_cache_location(str(tmp_path / "yfinance-cache"))

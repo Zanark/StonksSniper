@@ -22,6 +22,22 @@ can focus the explanation, press Tab to highlight a link and Return to open it.
 Search accepts names or abbreviations and reports missing explanations rather
 than inventing them.
 
+## Read alongside The Intelligent Investor
+
+In the **latest source**, **Learn the patterns** contains separate
+**Internet technical strategies** and **The Intelligent Investor** sections.
+The book section has ELI15 notes mapped to all 20 main chapters, with original
+examples, Indian research tasks, source links and explicit limitations.
+Open its **Fundamental workbook** to fetch an actual current reference or enter
+dated annual-report figures, inspect valuation/net-net/margin calculations
+and defensive/enterprising industrial evidence checks, then save an HTML worksheet.
+The third tab explains inflation, allocation and equal-money purchases.
+
+Unknown facts do not pass; bank/insurer/utility industrial screens are disabled.
+Current financial statements never enter historical **Simulate**.
+[Full chapter map, formulas, sources and walkthrough](intelligent-investor.md).
+The published **v0.3.0 EXE does not contain this new companion**.
+
 ## Read the charts
 
 **Stock price** shows what happened to the price. A candle is one day's four
@@ -81,6 +97,15 @@ This feature is in v0.3.0 and the latest source, **not** the older v0.2.0 EXE.
 The initial connection uses free, unofficial Yahoo completed daily history:
 **not live prices**. No API token is required. Unavailable data produces an
 explicit error, never made-up observations.
+
+**Weekends, holidays and after-hours study work the same way.** The exchange
+does not need to be open. Set **To** to today for the available prior history,
+then read **Latest completed** and the **Data** panel's fetch time. An older
+end date intentionally stops the history earlier. Closed days are not inserted
+or forward-filled. Today's candle remains excluded even after the close,
+because the adapter does not independently certify its finality. No calendar
+or last-observation-age check proves that Yahoo has supplied every session.
+An actual Saturday ICICIBANK request was successful; this is not an availability guarantee.
 
 Older prices are rescaled for changes to shares and payments to owners. These
 research quantities are not literal historical share purchases. Later downloads

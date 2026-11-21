@@ -20,6 +20,25 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-21: Added separate internet-technical and Intelligent Investor learning
+  sections: original ELI15 notes mapped to 20 main chapters, source links, current
+  fundamental reference fetching, manual dated evidence and HTML worksheet export.
+  Pure arithmetic covers three-year EPS, historical industrial evidence checks,
+  net-net claims, price-ratio bound, assumed margin, dividends and portfolio exercises.
+  No invented complete fundamental history or current-fundamental historical backtest.
+  Banks/insurers/utilities are not rated by industrial balance-sheet tests.
+  Existing history provider already allowed closed-market requests; clarified
+  actual-session dates and retained conservative current-day exclusion.
+  Actual Saturday ICICIBANK returned 496 observations through 2026-11-20.
+  Both real native UI workers, all 27 strategies and worksheet export passed;
+  inspected source-native reading/workbook views at 1366x768. The committed
+  opt-in ICICIBANK network regression independently passed all strategies.
+  Full offline suite: 269 passed, 4 skipped, normal exit; lint/format/mypy passed.
+  Corrected a native worker-finalization crash by awaiting completed native
+  thread cleanup before dropping Python references; lifecycle cases pass.
+  SS-21/#21 and Project item PVTI_lAHOAe2wCs4BrLTxzhKuMdg were read back
+  closed-completed/Done. Published v0.3.0 remains unchanged; no new EXE or
+  normal Windows/DPI/human acceptance is claimed.
 - 2026-11-21: Published separate v0.3.0 with all latest application changes,
   including Simulate, at exact clean source 6ece40ef50f71959fa7889993f267d0248bdf0f6.
   Local 220 offline cases passed, 3 opt-in live cases skipped; separate actual

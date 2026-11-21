@@ -116,6 +116,9 @@ class YahooDailyProvider:
             "Adjusted research units, not historical tradable share prices. Dividends are not "
             "credited again; adjustments can revise past observations.",
             "Daily data only; current-day candles are excluded. This is not a live quote.",
+            f"Latest available completed session in this request: {candles[-1].session}. "
+            "Fetching does not require an open market; weekends/holidays are not filled. "
+            "Even after market close, today's candle remains excluded.",
             "No holiday-calendar completeness or cross-provider reconciliation yet.",
         ]
         if excluded_current:

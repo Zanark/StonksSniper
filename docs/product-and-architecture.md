@@ -100,6 +100,15 @@ validation and freshness disclosure. `patterns.py` owns documented pure rules.
 `engine.py` owns costs, fills, equity and drawdown. `app.py` owns presentation and
 worker lifecycle. The engine has no network, UI or broker-order dependency.
 
+`book.py` adds a separate study UI; `graham.py` contains original chapter notes
+and pure fundamental/scenario arithmetic. `fundamentals.py` optionally supplies
+dated current Yahoo references, separately from adjusted historical candles.
+The workbook has no path into the historical simulation engine. Missing
+long histories and preferred claims remain unknown, and industrial checks
+require explicit sector classification. See the [companion contract](intelligent-investor.md).
+Its worker owns a separate request; parent closure waits for completion.
+Native worker thread cleanup completes before Python ownership is released.
+
 Changing the pattern or assumptions invalidates old results. Fetching clears old
 observations/results; failure remains an explicit failure rather than relabelling
 an earlier dataset as newly fetched. Replay hides future candles, fills and

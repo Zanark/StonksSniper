@@ -66,6 +66,7 @@ from PySide6.QtWidgets import (
 )
 
 from stonks_sniper import __version__
+from stonks_sniper.book import BookCompanion
 from stonks_sniper.engine import Assumptions, Result, simulate
 from stonks_sniper.glossary import TERMS, HelpBrowser, explain, search_terms, term_html, tooltip
 from stonks_sniper.lessons import LESSONS
@@ -319,7 +320,11 @@ class MainWindow(QMainWindow):
             field.setToolTip(tooltip("session"))
         self.fetch = QPushButton("1  Load stock")
         self.fetch.setObjectName("primary")
-        self.fetch.setToolTip(tooltip("history"))
+        self.fetch.setToolTip(
+            tooltip("history") + "<p>Also works on weekends and holidays when Yahoo is "
+            "available. Uses actual prior completed sessions, not invented closed-day prices. "
+            "Today's candle is always excluded, including after market close.</p>"
+        )
         self.fetch.clicked.connect(self.fetch_data)
         for name, widget, key in (
             ("Stock", self.symbol, "stock"),
@@ -559,7 +564,12 @@ class MainWindow(QMainWindow):
         self.lesson_tabs.addTab(self.lesson_text, "Explain it simply")
         self.lesson_tabs.addTab(self.technical_text, "Exact rules and source")
         library_layout.addWidget(self.lesson_tabs, 1)
-        self.tabs.addTab(catalogue, "Learn the patterns")
+        self.learning_sections = QTabWidget()
+        self.learning_sections.addTab(catalogue, "Internet technical strategies")
+        self.book = BookCompanion()
+        self.book.copy_stock.clicked.connect(self.copy_book_stock)
+        self.learning_sections.addTab(self.book, "The Intelligent Investor")
+        self.tabs.addTab(self.learning_sections, "Learn the patterns")
         roadmap = browser()
         roadmap.setHtml(
             "<h1>What's next?</h1><p>These features are planned. They do not work yet.</p>"
@@ -638,7 +648,12 @@ class MainWindow(QMainWindow):
     def open_pattern(self) -> None:
         self.lesson_list.setCurrentRow(self.pattern.currentIndex())
         self.lesson_tabs.setCurrentIndex(0)
+        self.learning_sections.setCurrentIndex(0)
         self.tabs.setCurrentIndex(1)
+
+    @Slot()
+    def copy_book_stock(self) -> None:
+        self.book.set_stock(self.symbol.text(), self.exchange.currentText())
 
     @Slot(str)
     def filter_glossary(self, query: str) -> None:
@@ -781,7 +796,8 @@ class MainWindow(QMainWindow):
         self.data = data
         self.provenance.setText(
             f"{data.symbol} / {data.exchange} / {data.currency}  |  "
-            f"{len(data.candles)} daily observations  |  Latest: {data.candles[-1].session}"
+            f"{len(data.candles)} daily observations  |  "
+            f"Latest completed: {data.candles[-1].session}"
             "  |  Yahoo (unofficial), not live quotes"
         )
         details = (
@@ -795,6 +811,10 @@ class MainWindow(QMainWindow):
             + "\n\nPRICES, EXPLAINED\n\n"
             "These are real daily observations from an unofficial Yahoo connection, not live "
             "quotes. Today's unfinished or current-day observation is always left out.\n\n"
+            "You can load history on weekends, holidays and after hours. The market does not "
+            "need to be open. The latest actual prior session is used within your requested "
+            "range; closed dates are not filled. Even after close, today's bar is conservatively "
+            "excluded. An old end date limits the returned history.\n\n"
             "Adjusted prices account for events such as a company splitting one share "
             "into several, or paying cash to shareholders. They are useful for comparing "
             "history, but are not the exact old cash prices of real shares. The test owns "
@@ -1279,7 +1299,7 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event: QCloseEvent) -> None:
         self.stop_playback()
-        if self.fetch_thread is not None:
+        if self.fetch_thread is not None or self.book.fetch_thread is not None:
             self.statusBar().showMessage(
                 "A bounded data request is running; close after it finishes."
             )

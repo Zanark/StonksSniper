@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from types import SimpleNamespace
 
 import pandas as pd
@@ -10,6 +10,7 @@ import pytest
 import yfinance as yf
 from yfinance.exceptions import YFException
 
+from stonks_sniper import providers
 from stonks_sniper.models import DataError
 from stonks_sniper.providers import INDIA, YahooDailyProvider
 
@@ -124,3 +125,60 @@ def test_no_usable_prices_after_exclusions_is_still_an_error(monkeypatch):
     today, _ = stub(monkeypatch, missing_rows=(0, 1))
     with pytest.raises(DataError, match="HDFCBANK.NS.*missing OHLC"):
         YahooDailyProvider().fetch("HDFCBANK", "NSE", today - timedelta(days=5), today)
+
+
+@pytest.mark.parametrize(
+    "now,sessions,expected",
+    [
+        ("2026-11-21T19:00:00", ["2026-11-19", "2026-11-20"], "2026-11-20"),
+        ("2026-11-22T10:00:00", ["2026-11-19", "2026-11-20"], "2026-11-20"),
+        ("2026-01-26T14:00:00", ["2026-01-22", "2026-01-23"], "2026-01-23"),
+        ("2026-11-20T20:00:00", ["2026-11-19", "2026-11-20"], "2026-11-19"),
+        # A supplied special Sunday session is kept; no weekday guessing/filtering.
+        ("2026-11-23T10:00:00", ["2026-11-20", "2026-11-22"], "2026-11-22"),
+    ],
+)
+def test_closed_market_requests_return_actual_completed_sessions(
+    monkeypatch, now, sessions, expected
+):
+    fixed = datetime.fromisoformat(now).replace(tzinfo=INDIA)
+
+    class Clock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return fixed
+
+    monkeypatch.setattr(providers, "datetime", Clock)
+    frame = pd.DataFrame(
+        {
+            "Open": [100, 101],
+            "High": [103, 104],
+            "Low": [99, 100],
+            "Close": [102, 103],
+            "Volume": [1000, 1001],
+        },
+        index=pd.DatetimeIndex(sessions, tz="Asia/Kolkata"),
+    )
+    calls = []
+
+    def history(**kwargs):
+        calls.append(kwargs)
+        return frame
+
+    monkeypatch.setattr(
+        yf,
+        "Ticker",
+        lambda _: SimpleNamespace(
+            history=history, history_metadata={"currency": "INR", "exchangeName": "NSI"}
+        ),
+    )
+    data = YahooDailyProvider().fetch(
+        "ICICIBANK", "NSE", fixed.date() - timedelta(days=10), fixed.date()
+    )
+    assert data.symbol == "ICICIBANK.NS"
+    assert data.candles[-1].session == date.fromisoformat(expected)
+    assert data.candles[-1].close == (103 if expected == sessions[-1] else 102)
+    assert {str(bar.session) for bar in data.candles}.issubset(sessions)
+    assert data.fetched_at == fixed
+    assert calls[0]["end"] == (fixed.date() + timedelta(days=1)).isoformat()
+    assert any("Fetching does not require an open market" in note for note in data.warnings)
