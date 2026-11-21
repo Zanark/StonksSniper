@@ -65,10 +65,20 @@ changes through the date-range Simulate window. Version 0.3.0 retains the pinned
 v0.2.0 runtime/build dependencies. Its live frozen diagnostic additionally
 opens Simulate for all 27 strategies, selects dates, checks the initial hidden
 future prefix, reaches the final graph/ledger/P&L and closes each owned window.
-Release publication requires exact-source Windows/Linux CI and verified assets;
-candidate preparation alone is not a published release. Older tags/assets stay
-unchanged. Signing, local Application Control, normal DPI and human acceptance
-remain separate.
+[Exact-source live CI 44911765905](https://github.com/Zanark/StonksSniper/actions/runs/44911765905)
+passed Windows and Linux on `6ece40ef50f71959fa7889993f267d0248bdf0f6`.
+The actual frozen Windows EXE fetched 496 HDFCBANK observations, exercised all
+27 strategies and all 27 selected-date simulation windows, and exported.
+Local offline tests passed 220 cases with 3 opt-in live cases skipped; separate
+actual HDFCBANK source-native checks, lint/format and strict mypy passed.
+
+Published [v0.3.0](https://github.com/Zanark/StonksSniper/releases/tag/v0.3.0)
+at that exact clean built source. All four uploaded assets were downloaded again
+and matched the qualified CI bytes. Verified all manifest hashes, all 24 source
+inputs (including the documented LICENSE CRLF checkout conversion) and the
+330-entry notices archive. The tag and public release metadata were read back.
+Older tags/assets stay unchanged. Signing, local Application Control, normal
+DPI and human acceptance remain separate.
 
 ## Tests and Windows executable: v0.2.0
 

@@ -11,6 +11,7 @@ Deliver a repeatable native Windows package with honest runtime and acceptance e
 ## Tasks
 - [x] Add Windows/Linux regression CI and an explicit live-provider test mode.
 - [x] Build and publish the separately authorized v0.2.0 executable prototype.
+- [x] Publish v0.3.0 with selected-date simulation after exact frozen live checks.
 - [ ] Lock release dependencies and review redistribution/license notices.
 - [ ] Produce isolated installer/portable candidate and test a clean Windows profile.
 - [ ] Verify startup, Qt plugins, networking, Unicode paths, exports and recovery.
@@ -22,6 +23,13 @@ Deliver a repeatable native Windows package with honest runtime and acceptance e
 - No user instance is restarted or overwritten during development qualification.
 
 ## Completion evidence
+- Published v0.3.0: https://github.com/Zanark/StonksSniper/releases/tag/v0.3.0
+  Exact clean built source: 6ece40ef50f71959fa7889993f267d0248bdf0f6.
+  Windows/Linux live CI 44911765905 passed; the actual Windows EXE fetched
+  496 HDFCBANK observations, exercised 27 strategies and 27 date-range windows,
+  and exported. Downloaded all four uploaded assets and matched qualified CI
+  bytes; checked checksums, all 24 source inputs and 330 notices entries.
+  Previous versions remain unchanged. Broader M4 acceptance stays open.
 - Published the separate v0.2.0 standalone prototype; broader M4 acceptance is open.
   Source-native Windows diagnostics fetched actual HDFCBANK history, exercised
   27 rules and exported the exact experiment without showing/controlling a user
@@ -52,7 +60,8 @@ Deliver a repeatable native Windows package with honest runtime and acceptance e
 - 2026-11-21: User authorized publishing all latest changes. Preparing separate
   v0.3.0 including SS-20, retaining dependency pins and previous releases.
   Extended the actual frozen live diagnostic to check date-range windows for
-  every strategy; exact-source CI and publication are pending.
+  every strategy. Exact-source CI passed and the release/tag/four assets were
+  published and read back; all uploaded asset bytes matched the CI originals.
 - 2026-11-12: Published and downloaded/hash-verified v0.2.0 after exact-source
   Windows/Linux live CI passed. Tag remains at the built source, not a later
   documentation commit. Keep this workstream open for its broader acceptance.

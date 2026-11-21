@@ -72,7 +72,7 @@ The pandas deprecation warnings printed by yfinance are separate from that error
 [v0.1.0 downloads](https://github.com/Zanark/StonksSniper/releases/tag/v0.1.0)
 include a Python wheel and source, **not a standalone Windows installer**.
 That frozen release predates the current branding, extra strategies and missing-price fix.
-Use v0.2.0 or the latest source instead.
+Use v0.3.0 or the latest source instead.
 Do not mix the released wheel with a different same-version build.
 
 ## Development and media tools

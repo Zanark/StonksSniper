@@ -42,7 +42,8 @@ buys/sells and charts in a separate window, and see final INR/percentage P&L.
   the main button layout at 1366x768. No user window was controlled.
 - Independently checked profitable, losing, flat, cash-only and completed-sale
   results, including costs; invalid ranges cannot leave old results visible.
-- Published v0.2.0 is unchanged and does not contain this source-only feature.
+- Published v0.3.0 includes this feature, verified in all 27 actual frozen
+  date-range windows by live CI 44911765905. v0.2.0 stays unchanged.
   Normal Windows/DPI interaction and human acceptance are not claimed verified.
 
 ## Completion log
@@ -54,3 +55,6 @@ buys/sells and charts in a separate window, and see final INR/percentage P&L.
 - 2026-11-12: Final full regressions passed after updating the tracking inventory
   from 19 to 20 workstreams. Technical completion does not imply a new frozen
   executable release or human acceptance.
+- 2026-11-21: Separately authorized v0.3.0 release published at clean source
+  6ece40ef50f71959fa7889993f267d0248bdf0f6 after Windows/Linux live CI and
+  frozen selected-range checks passed. Verified four uploaded assets.

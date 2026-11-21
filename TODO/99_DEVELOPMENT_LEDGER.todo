@@ -20,6 +20,16 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-21: Published separate v0.3.0 with all latest application changes,
+  including Simulate, at exact clean source 6ece40ef50f71959fa7889993f267d0248bdf0f6.
+  Local 220 offline cases passed, 3 opt-in live cases skipped; separate actual
+  HDFCBANK source-native check passed with 27 strategies/date-range windows.
+  Windows/Linux live CI 44911765905 passed, including the actual frozen EXE
+  fetching 496 HDFCBANK bars, checking all 27 selected-range windows and export.
+  All four uploaded assets were downloaded and compared to qualified CI bytes;
+  verified every checksum, all 24 input hashes and 330 notices entries.
+  Published tag/metadata were read back. Previous releases remain unchanged;
+  unsigned/local-policy/DPI/clean-profile/human limits remain explicit.
 - 2026-11-12: Added Simulate beside Test idea with an independent date-range
   window, animated price/buy/sell/money graphs, revealed trade log and final
   INR/% P&L. Reused the engine after inclusive filtering; selected-range warmup,

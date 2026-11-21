@@ -141,7 +141,7 @@
       "issue_number": 11,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4K_c",
       "baseline": {
-        "body_sha256": "0a2bfca5dbdf52a0951bf416bb0e836326b44d8d5e677fc39b7036fc47237640",
+        "body_sha256": "04e84038485faea306e26ce1a80f7c633ec0ee304b219b63570a0a5544c307f4",
         "title": "SS-11 - Verified Windows packaging and acceptance",
         "issue_state": "open",
         "state_reason": null,
@@ -249,7 +249,7 @@
       "issue_number": 20,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH_E_U",
       "baseline": {
-        "body_sha256": "c14b8d7d092d2fcb4d93f97fee355cd5a4374db02ac8e9d58d5e5314748fbe00",
+        "body_sha256": "4481f6d40976bd45f2eca9e8f35eefc97a18fcc1a825bfe2d82a23db5d4f9156",
         "title": "SS-20 - Separate date-range simulation and animated trades",
         "issue_state": "closed",
         "state_reason": "completed",
