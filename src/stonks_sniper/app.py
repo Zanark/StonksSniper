@@ -7,7 +7,6 @@ from dataclasses import asdict, replace
 from datetime import date, datetime, timedelta
 from html import escape
 from pathlib import Path
-from statistics import fmean, pstdev
 
 from PySide6.QtCharts import (
     QAreaSeries,
@@ -67,13 +66,19 @@ from PySide6.QtWidgets import (
 
 from stonks_sniper import __version__
 from stonks_sniper.book import BookCompanion
+from stonks_sniper.demonstrations import (
+    book_history_html,
+    decision_html,
+    monthly_purchases,
+    rule_guides,
+)
 from stonks_sniper.engine import Assumptions, Result, simulate
 from stonks_sniper.glossary import TERMS, HelpBrowser, explain, search_terms, term_html, tooltip
+from stonks_sniper.graham import BOOK_LESSONS
 from stonks_sniper.lessons import LESSONS
 from stonks_sniper.models import Candle, DataError, MarketData
-from stonks_sniper.patterns import PATTERNS, Pattern, ema, wilder_rsi
+from stonks_sniper.patterns import PATTERNS, Pattern
 from stonks_sniper.providers import INDIA, MarketDataProvider, YahooDailyProvider
-from stonks_sniper.studies import study
 from stonks_sniper.theme import (
     ACCENT,
     BASE,
@@ -563,11 +568,20 @@ class MainWindow(QMainWindow):
         self.technical_text = browser()
         self.lesson_tabs.addTab(self.lesson_text, "Explain it simply")
         self.lesson_tabs.addTab(self.technical_text, "Exact rules and source")
-        library_layout.addWidget(self.lesson_tabs, 1)
+        lesson_contents = QVBoxLayout()
+        self.lesson_demo = QPushButton("See a real-market demo")
+        self.lesson_demo.clicked.connect(self.open_lesson_demo)
+        lesson_contents.addWidget(self.lesson_demo)
+        lesson_contents.addWidget(
+            label("Apply this lesson to actual history. A demo may lose money or find no signal.")
+        )
+        lesson_contents.addWidget(self.lesson_tabs, 1)
+        library_layout.addLayout(lesson_contents, 1)
         self.learning_sections = QTabWidget()
         self.learning_sections.addTab(catalogue, "Internet technical strategies")
         self.book = BookCompanion()
         self.book.copy_stock.clicked.connect(self.copy_book_stock)
+        self.book.history_demo.connect(self.open_book_history_demo)
         self.learning_sections.addTab(self.book, "The Intelligent Investor")
         self.tabs.addTab(self.learning_sections, "Learn the patterns")
         roadmap = browser()
@@ -654,6 +668,21 @@ class MainWindow(QMainWindow):
     @Slot()
     def copy_book_stock(self) -> None:
         self.book.set_stock(self.symbol.text(), self.exchange.currentText())
+
+    @Slot()
+    def open_lesson_demo(self) -> None:
+        index = self.lesson_list.currentRow()
+        if index >= 0:
+            self.open_market_demo(pattern=PATTERNS[index])
+
+    @Slot(int)
+    def open_book_history_demo(self, chapter: int) -> None:
+        self.open_market_demo(chapter=chapter)
+
+    def open_market_demo(self, *, pattern: Pattern | None = None, chapter: int = 0) -> None:
+        self.stop_playback()
+        window = MarketDemoWindow(self, pattern=pattern, chapter=chapter)
+        window.show()
 
     @Slot(str)
     def filter_glossary(self, query: str) -> None:
@@ -1150,73 +1179,32 @@ class MainWindow(QMainWindow):
             chart.addSeries(line)
 
     def draw_rule(self, bars: tuple[Candle, ...], first: int) -> None:
-        pattern = PATTERNS[self.pattern.currentIndex()]
-        key = pattern.key
-        closes = [bar.close for bar in bars]
-        guides: list[tuple[str, list[float | None], str]] = []
-        if key == "sma":
-            for period, color in ((10, ACCENT), (30, WARM)):
-                average: list[float | None] = [
-                    fmean(closes[i - period + 1 : i + 1]) if i + 1 >= period else None
-                    for i in range(len(bars))
-                ]
-                guides.append((f"{period}-day average", average, color))
-        elif key in ("ema", "macd"):
-            fast, slow = ema(closes, 12), ema(closes, 26)
-            if key == "ema":
-                guides = [
-                    ("12-day weighted average", fast, ACCENT),
-                    ("26-day weighted average", slow, WARM),
-                ]
+        self.draw_rule_chart(
+            self.rule_chart, bars, first, PATTERNS[self.pattern.currentIndex()].key
+        )
+
+    @staticmethod
+    def draw_rule_chart(
+        view: QChartView,
+        bars: tuple[Candle, ...],
+        first: int,
+        key: str,
+        existing_axes: tuple[QDateTimeAxis, QValueAxis] | None = None,
+    ) -> None:
+        chart = view.chart()
+        chart.setTitle("The numbers behind the idea")
+
+        def apply_axes(low: float, high: float) -> None:
+            sessions = [bar.session for bar in bars[first:]]
+            if existing_axes is None:
+                MainWindow.axes(chart, sessions, low, high)
             else:
-                difference = [
-                    a - b
-                    for a, b in zip(fast, slow, strict=True)
-                    if a is not None and b is not None
-                ]
-                macd: list[float | None] = [None] * min(25, len(bars)) + difference
-                signal: list[float | None] = [None] * min(25, len(bars))
-                signal.extend(ema(difference, 9))
-                guides = [
-                    ("Fast minus slow (MACD)", macd, ACCENT),
-                    ("Smoothed difference", signal, WARM),
-                ]
-        elif key == "rsi":
-            guides = [
-                ("Recent gains vs losses (RSI)", wilder_rsi(closes), ACCENT),
-                ("Buy at 30 or below", [30.0] * len(bars), WARM),
-                ("Sell at 70 or above", [70.0] * len(bars), ROSE),
-            ]
-        elif key == "donchian":
-            top: list[float | None] = [
-                max(bar.high for bar in bars[i - 20 : i]) if i >= 20 else None
-                for i in range(len(bars))
-            ]
-            bottom: list[float | None] = [
-                min(bar.low for bar in bars[i - 20 : i]) if i >= 20 else None
-                for i in range(len(bars))
-            ]
-            guides = [
-                ("Close", list(closes), TEXT),
-                ("Old 20-day high", top, ACCENT),
-                ("Old 20-day low", bottom, WARM),
-            ]
-        elif key == "bollinger":
-            middle: list[float | None] = [
-                fmean(closes[i - 19 : i + 1]) if i >= 19 else None for i in range(len(bars))
-            ]
-            lower: list[float | None] = [
-                fmean(closes[i - 19 : i + 1]) - 2 * pstdev(closes[i - 19 : i + 1])
-                if i >= 19
-                else None
-                for i in range(len(bars))
-            ]
-            guides = [
-                ("Close", list(closes), TEXT),
-                ("20-day average (sell)", middle, WARM),
-                ("Lower band (buy below)", lower, ACCENT),
-            ]
-        elif key == "engulfing":
+                for series in chart.series():
+                    series.attachAxis(existing_axes[0])
+                    series.attachAxis(existing_axes[1])
+                set_axis_range(*existing_axes, sessions, low, high)
+
+        if key == "engulfing":
             candles = QCandlestickSeries()
             candles.setName("Compare neighbouring bodies, not the thin lines")
             candles.setIncreasingColor(QColor(ACCENT))
@@ -1225,46 +1213,38 @@ class MainWindow(QMainWindow):
                 candles.append(
                     QCandlestickSet(bar.open, bar.high, bar.low, bar.close, epoch(bar.session))
                 )
-            chart = self.rule_chart.chart()
             chart.addSeries(candles)
-            self.axes(
-                chart,
-                [bar.session for bar in bars[first:]],
+            apply_axes(
                 min(bar.low for bar in bars[first:]),
                 max(bar.high for bar in bars[first:]),
             )
             return
-        else:
-            colors = (ACCENT, WARM, ROSE, TEXT, MUTED)
-            guides = [
-                (name, values, colors[index % len(colors)])
-                for index, (name, values) in enumerate(study(bars, key).guides)
-            ]
-        chart = self.rule_chart.chart()
+        colors = (ACCENT, WARM, ROSE, TEXT, MUTED)
         all_values: list[float] = []
-        for name, values, color in guides:
+        for index, (name, values) in enumerate(rule_guides(bars, key)):
+            color = colors[index % len(colors)]
             dates: list[date] = []
             segment: list[float] = []
             for bar, value in zip(bars[first:], values[first:], strict=True):
                 if value is None:
                     if segment:
-                        self.add_line(chart, name, dates, segment, color)
+                        MainWindow.add_line(chart, name, dates, segment, color)
                         dates, segment = [], []
                 else:
                     dates.append(bar.session)
                     segment.append(value)
                     all_values.append(value)
             if segment:
-                self.add_line(chart, name, dates, segment, color)
+                MainWindow.add_line(chart, name, dates, segment, color)
         if all_values:
-            self.axes(
-                chart,
-                [bar.session for bar in bars[first:]],
+            apply_axes(
                 0 if key == "rsi" else min(all_values),
                 100 if key == "rsi" else max(all_values),
             )
         else:
             chart.setTitle("Move forward in time: this idea needs more finished days.")
+            if existing_axes is not None:
+                apply_axes(0, 1)
 
     @Slot()
     def export_run(self) -> None:
@@ -1299,7 +1279,11 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event: QCloseEvent) -> None:
         self.stop_playback()
-        if self.fetch_thread is not None or self.book.fetch_thread is not None:
+        if (
+            self.fetch_thread is not None
+            or any(book.fetch_thread is not None for book in self.findChildren(BookCompanion))
+            or any(demo.fetch_thread is not None for demo in self.findChildren(MarketDemoWindow))
+        ):
             self.statusBar().showMessage(
                 "A bounded data request is running; close after it finishes."
             )
@@ -1319,6 +1303,7 @@ class SimulationWindow(QDialog):
         *,
         motion: bool,
         parent: MainWindow,
+        learning: bool = False,
     ) -> None:
         super().__init__(parent)
         self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
@@ -1332,6 +1317,7 @@ class SimulationWindow(QDialog):
         self.data: MarketData | None = None
         self.experiment: Result | None = None
         self.motion = motion
+        self.learning = learning
         self.timer = QTimer(self)
         self.timer.setInterval(240)
         self.timer.timeout.connect(self.advance)
@@ -1435,11 +1421,31 @@ class SimulationWindow(QDialog):
         self.equity_line.setName("Cash + stock still owned, after trading costs")
         self.equity_line.setPen(QPen(QColor(ACCENT), 2))
         self.equity_chart.chart().addSeries(self.equity_line)
+        self.benchmark_line = QLineSeries()
+        self.benchmark_line.setName("Buy once & hold, same start/costs")
+        benchmark_pen = QPen(QColor(WARM), 2)
+        benchmark_pen.setStyle(Qt.PenStyle.DashLine)
+        self.benchmark_line.setPen(benchmark_pen)
+        self.equity_chart.chart().addSeries(self.benchmark_line)
         self.price_axes = MainWindow.axes(self.price_chart.chart(), [first], 0, 1)
         self.equity_axes = MainWindow.axes(self.equity_chart.chart(), [first], 0, 1)
         charts = QTabWidget()
         charts.addTab(self.price_chart, "Stock price + trades")
         charts.addTab(self.equity_chart, "Your money")
+        self.rule_chart: QChartView | None = None
+        self.rule_text: HelpBrowser | None = None
+        self.rule_axes: tuple[QDateTimeAxis, QValueAxis] | None = None
+        if learning:
+            self.setWindowTitle(f"Stonks Sniper | Real-market lesson | {data.symbol}")
+            self.rule_chart = chart_view()
+            self.rule_axes = MainWindow.axes(self.rule_chart.chart(), [first], 0, 1)
+            self.rule_text = browser()
+            rule_split = QSplitter(Qt.Orientation.Horizontal)
+            rule_split.addWidget(self.rule_chart)
+            rule_split.addWidget(self.rule_text)
+            rule_split.setSizes([650, 400])
+            charts.addTab(rule_split, "Why this decision?")
+            charts.setCurrentWidget(rule_split)
         self.trades = QTableWidget(0, 6)
         self.trades.setHorizontalHeaderLabels(
             ["Trade day", "Action", "Price INR", "Adjusted units", "Fee INR", "Cash INR"]
@@ -1464,6 +1470,14 @@ class SimulationWindow(QDialog):
         self.step = QPushButton("Next day")
         self.step.clicked.connect(self.step_once)
         replay.addWidget(self.step)
+        self.next_signal = QPushButton("Next signal")
+        self.next_signal.clicked.connect(self.jump_signal)
+        self.next_signal.setVisible(learning)
+        replay.addWidget(self.next_signal)
+        self.next_trade = QPushButton("Next trade")
+        self.next_trade.clicked.connect(self.jump_trade)
+        self.next_trade.setVisible(learning)
+        replay.addWidget(self.next_trade)
         self.replay = QSlider(Qt.Orientation.Horizontal)
         self.replay.valueChanged.connect(self.redraw)
         self.replay.sliderPressed.connect(self.stop_playback)
@@ -1488,8 +1502,18 @@ class SimulationWindow(QDialog):
         self.stop_playback()
         self.data = None
         self.experiment = None
-        for series in (self.price_line, self.buy_marks, self.sell_marks, self.equity_line):
+        for series in (
+            self.price_line,
+            self.buy_marks,
+            self.sell_marks,
+            self.equity_line,
+            self.benchmark_line,
+        ):
             series.clear()
+        if self.rule_chart is not None:
+            self.clear_rule_chart()
+        if self.rule_text is not None:
+            self.rule_text.setPlainText("Start a demo to inspect the revealed rule measurements.")
         self.trades.setRowCount(0)
         self.money.setText("--")
         self.gain.setText("--")
@@ -1498,6 +1522,8 @@ class SimulationWindow(QDialog):
         self.play.setEnabled(False)
         self.step.setEnabled(False)
         self.finish.setEnabled(False)
+        self.next_signal.setEnabled(False)
+        self.next_trade.setEnabled(False)
 
     @Slot()
     def start_simulation(self) -> None:
@@ -1522,11 +1548,13 @@ class SimulationWindow(QDialog):
         self.data, self.experiment = data, result
         self.replay.blockSignals(True)
         self.replay.setRange(1, len(data.candles))
-        self.replay.setValue(1)
+        self.replay.setValue(self.pattern.minimum_bars if self.learning else 1)
         self.replay.blockSignals(False)
         self.replay.setEnabled(True)
         self.play.setEnabled(self.motion)
         self.finish.setEnabled(True)
+        self.next_signal.setEnabled(True)
+        self.next_trade.setEnabled(True)
         self.redraw()
         if self.motion:
             self.play.setChecked(True)
@@ -1565,6 +1593,38 @@ class SimulationWindow(QDialog):
         self.replay.setValue(self.replay.maximum())
 
     @Slot()
+    def jump_signal(self) -> None:
+        self.stop_playback()
+        if self.experiment is None:
+            return
+        for index in range(self.replay.value(), len(self.experiment.targets)):
+            target = self.experiment.targets[index]
+            if target is not None and target != self.experiment.targets[index - 1]:
+                self.replay.setValue(index + 1)
+                return
+        self.status.setText("No later target change in this range. No winning example substituted.")
+
+    @Slot()
+    def jump_trade(self) -> None:
+        self.stop_playback()
+        if self.experiment is None or self.data is None:
+            return
+        last = self.data.candles[self.replay.value() - 1].session
+        trade = next((t for t in self.experiment.trades if t.fill_session > last), None)
+        if trade is None:
+            self.status.setText("No later trade in this range. Cash/no-signal outcomes are valid.")
+            return
+        index = next(
+            i for i, bar in enumerate(self.data.candles) if bar.session == trade.fill_session
+        )
+        self.replay.setValue(index + 1)
+
+    def clear_rule_chart(self) -> None:
+        if self.rule_chart is not None:
+            chart = self.rule_chart.chart()
+            chart.removeAllSeries()
+
+    @Slot()
     def advance(self) -> None:
         self.replay.setValue(min(self.replay.value() + 1, self.replay.maximum()))
 
@@ -1592,9 +1652,22 @@ class SimulationWindow(QDialog):
             [QPointF(epoch(day), value) for day, value in zip(sessions, values, strict=True)]
         )
         capital = self.assumptions.initial_cash
-        set_axis_range(
-            *self.equity_axes, sessions, min(min(values), capital), max(max(values), capital)
+        comparison = self.experiment.benchmark[:count]
+        self.benchmark_line.replace(
+            [QPointF(epoch(day), value) for day, value in zip(sessions, comparison, strict=True)]
         )
+        set_axis_range(
+            *self.equity_axes,
+            sessions,
+            min(min(values), min(comparison), capital),
+            max(max(values), max(comparison), capital),
+        )
+        if self.rule_chart is not None and self.rule_text is not None:
+            self.clear_rule_chart()
+            MainWindow.draw_rule_chart(
+                self.rule_chart, bars, max(0, count - 90), self.pattern.key, self.rule_axes
+            )
+            self.rule_text.setHtml(decision_html(self.data, self.experiment, count))
         gain = values[-1] - capital
         percent = gain / capital * 100
         self.money.setText(f"{values[-1]:,.2f}")
@@ -1631,6 +1704,244 @@ class SimulationWindow(QDialog):
     def closeEvent(self, event: QCloseEvent) -> None:
         self.stop_playback()
         super().closeEvent(event)
+
+
+class MarketDemoWindow(QDialog):
+    """Capture a lesson request without changing the learner's Explore experiment."""
+
+    def __init__(
+        self, parent: MainWindow, *, pattern: Pattern | None = None, chapter: int = 0
+    ) -> None:
+        super().__init__(parent)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
+        self.main_window = parent
+        self.pattern = pattern
+        self.chapter = chapter
+        self.loaded = parent.data
+        self.assumptions = Assumptions(
+            parent.capital.value(), parent.fees.value(), parent.slippage.value()
+        )
+        self.fetch_thread: QThread | None = None
+        self.worker: FetchWorker | None = None
+        self.setWindowTitle("Stonks Sniper | Choose a real-market example")
+        self.resize(650, 400)
+        layout = QVBoxLayout(self)
+        title = LESSONS[pattern.key].title if pattern else BOOK_LESSONS[chapter - 1].title
+        heading = label(title, "section")
+        heading.setTextFormat(Qt.TextFormat.PlainText)
+        layout.addWidget(heading)
+        note = label(
+            "Choose a stock and interval, not a winning result. Uses actual Yahoo daily "
+            "observations, including when the market is closed. No synthetic fallback. "
+            "A technical demo can lose money, underperform holding, or produce no trades. "
+            "Current-day bars are excluded. Your Explore experiment is not changed."
+        )
+        note.setWordWrap(True)
+        layout.addWidget(note)
+        form = QFormLayout()
+        self.symbol = QLineEdit(parent.symbol.text())
+        self.exchange = QComboBox()
+        self.exchange.addItems(["NSE", "BSE"])
+        self.exchange.setCurrentText(parent.exchange.currentText())
+        self.start = QDateEdit(parent.start.date())
+        self.end = QDateEdit(parent.end.date())
+        for field in (self.start, self.end):
+            field.setCalendarPopup(True)
+            field.setDisplayFormat("yyyy-MM-dd")
+        for name, widget in (
+            ("Stock", self.symbol),
+            ("Exchange", self.exchange),
+            ("From", self.start),
+            ("Through", self.end),
+        ):
+            form.addRow(name, widget)
+        layout.addLayout(form)
+        if pattern:
+            costs = label(
+                f"Captured practice capital INR {self.assumptions.initial_cash:,.2f}; "
+                f"fees {self.assumptions.fee_bps:g} bps; "
+                f"slippage {self.assumptions.slippage_bps:g} bps. Change these in Explore "
+                "before opening another demo."
+            )
+            costs.setWordWrap(True)
+            layout.addWidget(costs)
+        self.fetch = QPushButton("Fetch real history and open demo")
+        self.fetch.clicked.connect(self.fetch_data)
+        layout.addWidget(self.fetch)
+        loaded_text = (
+            f"Use captured Explore history: {self.loaded.symbol}, "
+            f"{self.loaded.candles[0].session} to {self.loaded.candles[-1].session}"
+            if self.loaded is not None
+            else "Load real history first, or fetch above"
+        )
+        self.use_loaded = QPushButton(loaded_text)
+        self.use_loaded.setEnabled(self.loaded is not None)
+        self.use_loaded.setToolTip(
+            "Uses the captured dataset and its own dates, NOT the request fields above."
+        )
+        self.use_loaded.clicked.connect(self.open_loaded)
+        layout.addWidget(self.use_loaded)
+        self.status = label("No request made. No price data has been invented.")
+        self.status.setTextFormat(Qt.TextFormat.PlainText)
+        self.status.setWordWrap(True)
+        layout.addWidget(self.status)
+
+    @Slot()
+    def open_loaded(self) -> None:
+        if self.loaded is not None:
+            self.open_data(self.loaded)
+
+    @Slot()
+    def fetch_data(self) -> None:
+        if self.fetch_thread is not None:
+            return
+        self.status.setText("Fetching the requested actual history...")
+        self.set_controls(False)
+        self.fetch_thread = QThread(self)
+        self.worker = FetchWorker(
+            self.main_window.provider,
+            self.symbol.text(),
+            self.exchange.currentText(),
+            date.fromisoformat(self.start.date().toString(Qt.DateFormat.ISODate)),
+            date.fromisoformat(self.end.date().toString(Qt.DateFormat.ISODate)),
+        )
+        self.worker.moveToThread(self.fetch_thread)
+        self.fetch_thread.started.connect(self.worker.run)
+        self.worker.succeeded.connect(self.open_data)
+        self.worker.failed.connect(self.fetch_failed)
+        self.worker.finished.connect(self.fetch_thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.fetch_thread.finished.connect(self.fetch_finished)
+        self.fetch_thread.finished.connect(self.fetch_thread.deleteLater)
+        self.fetch_thread.start()
+
+    def set_controls(self, enabled: bool) -> None:
+        for widget in (self.symbol, self.exchange, self.start, self.end, self.fetch):
+            widget.setEnabled(enabled)
+        self.use_loaded.setEnabled(enabled and self.loaded is not None)
+
+    @Slot(str)
+    def fetch_failed(self, message: str) -> None:
+        self.status.setText(f"DATA UNAVAILABLE: {message}. No substitute data used.")
+
+    @Slot()
+    def fetch_finished(self) -> None:
+        if self.fetch_thread is not None:
+            self.fetch_thread.wait()
+        self.fetch_thread = None
+        self.worker = None
+        self.set_controls(True)
+
+    @Slot(object)
+    def open_data(self, data: MarketData) -> None:
+        window: QDialog
+        if self.pattern is not None:
+            if len(data.candles) < self.pattern.minimum_bars + 1:
+                self.status.setText(
+                    f"Demo unavailable: {self.pattern.name} needs "
+                    f"{self.pattern.minimum_bars + 1} completed observations. "
+                    "Choose a wider interval; no other stock or result was substituted."
+                )
+                return
+            window = SimulationWindow(
+                data,
+                self.pattern,
+                self.assumptions,
+                motion=self.main_window.motion.isChecked(),
+                parent=self.main_window,
+                learning=True,
+            )
+            window.start_simulation()
+        else:
+            window = BookHistoryDemo(data, self.chapter, parent=self.main_window)
+        window.show()
+        self.status.setText(
+            f"Opened {data.symbol}: {len(data.candles)} actual observations, "
+            f"{data.candles[0].session} to {data.candles[-1].session}. "
+            f"Fetched {data.fetched_at.isoformat()}; {data.source}."
+        )
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        if self.fetch_thread is not None:
+            self.status.setText("A bounded request is running. Close after it finishes.")
+            event.ignore()
+            return
+        super().closeEvent(event)
+
+
+class BookHistoryDemo(QDialog):
+    def __init__(self, data: MarketData, chapter: int, *, parent: MainWindow) -> None:
+        super().__init__(parent)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
+        self.setWindowTitle(f"Stonks Sniper | Chapter {chapter} real-history exercise")
+        self.resize(1120, 760)
+        self.data = data
+        self.chapter = chapter
+        layout = QVBoxLayout(self)
+        heading = label(f"{data.symbol} | {BOOK_LESSONS[chapter - 1].title}", "section")
+        heading.setTextFormat(Qt.TextFormat.PlainText)
+        heading.setWordWrap(True)
+        layout.addWidget(heading)
+        self.amount = MainWindow.spin(1000, 1, 1e9)
+        self.inflation = MainWindow.spin(6, -99, 100)
+        controls = QHBoxLayout()
+        if chapter == 5:
+            controls.addWidget(label("Add INR per observed month (no costs)"))
+            controls.addWidget(self.amount)
+        if chapter == 2:
+            controls.addWidget(label("Assumed annual inflation % (NOT measured CPI)"))
+            controls.addWidget(self.inflation)
+        controls.addStretch()
+        layout.addLayout(controls)
+        split = QSplitter(Qt.Orientation.Horizontal)
+        self.price_chart = chart_view()
+        self.price_line = QLineSeries()
+        self.price_line.setName("Actual adjusted closing price")
+        self.price_line.setPen(QPen(QColor(ACCENT), 2))
+        self.price_chart.chart().addSeries(self.price_line)
+        self.purchases = QScatterSeries()
+        self.purchases.setName("Scheduled monthly adjusted-open purchases")
+        self.purchases.setColor(QColor(WARM))
+        self.purchases.setMarkerSize(10)
+        if chapter == 5:
+            self.price_chart.chart().addSeries(self.purchases)
+        else:
+            self.purchases.setParent(self)
+        self.price_axes = MainWindow.axes(self.price_chart.chart(), [data.candles[0].session], 0, 1)
+        self.explanation = browser()
+        split.addWidget(self.price_chart)
+        split.addWidget(self.explanation)
+        split.setSizes([650, 470])
+        layout.addWidget(split, 1)
+        replay = QHBoxLayout()
+        replay.addWidget(label("Reveal actual days"))
+        self.replay = QSlider(Qt.Orientation.Horizontal)
+        self.replay.setRange(1, len(data.candles))
+        self.replay.setValue(1)
+        self.replay.valueChanged.connect(self.redraw)
+        replay.addWidget(self.replay, 1)
+        self.finish = QPushButton("Show whole interval")
+        self.finish.clicked.connect(lambda: self.replay.setValue(self.replay.maximum()))
+        replay.addWidget(self.finish)
+        layout.addLayout(replay)
+        self.amount.valueChanged.connect(self.redraw)
+        self.inflation.valueChanged.connect(self.redraw)
+        self.redraw()
+
+    @Slot()
+    def redraw(self) -> None:
+        count = self.replay.value()
+        bars = self.data.candles[:count]
+        self.price_line.replace([QPointF(epoch(bar.session), bar.close) for bar in bars])
+        selected = monthly_purchases(bars) if self.chapter == 5 else ()
+        self.purchases.replace([QPointF(epoch(bar.session), bar.open) for bar in selected])
+        prices = [bar.close for bar in bars] + [bar.open for bar in selected]
+        set_axis_range(*self.price_axes, [bar.session for bar in bars], min(prices), max(prices))
+        self.explanation.setHtml(
+            book_history_html(
+                self.data, count, self.chapter, self.amount.value(), self.inflation.value()
+            )
+        )
 
 
 def main() -> None:

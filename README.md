@@ -37,6 +37,18 @@ Missing fundamentals stay unknown; these are not 20 new daily trading signals.
 [Coverage, practicals and sources](docs/intelligent-investor.md).
 **This companion is not yet in the v0.3.0 download.**
 
+**Latest source: see the idea on actual market history.** Every technical lesson
+has **See a real-market demo**: pick a stock/history, inspect the rule's actual
+measurements, jump to signals or trades, and compare simulated money with holding.
+Applicable book chapters offer bounded history exercises or a separate current-company
+worksheet. No winning interval is silently selected; losses/no signals remain visible.
+
+**For agents and humans:** the [detailed simulation skill](.github/skills/stonks-sniper-lab/SKILL.md)
+teaches the headless JSON lab: real history, hypothetical capital, all 27 built-ins,
+safe custom-rule hypotheses, reproducible receipts and evidence-based explanations.
+It is a teaching/research workflow, not an LLM built into the app or a profit promise.
+These demos and lab are **not in the unchanged v0.3.0 EXE**.
+
 ![Explain pattern opening simple lessons with toy-shop and everyday examples](docs/images/learn.gif)
 *The existing technical lessons: what buys, what sells and what can fail.
 This older capture does not show the new book section.*

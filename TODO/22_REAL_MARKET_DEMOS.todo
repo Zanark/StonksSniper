@@ -1,0 +1,47 @@
+# SS-22 - Real-market learning demonstrations
+Workstream ID: SS-22
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/22
+Status: DONE
+Milestone: M2
+Dependencies: SS-03, SS-05, SS-06, SS-20, SS-21
+
+## Purpose
+Let humans inspect an algorithm applying to actual observed market prices while
+learning it, without selecting only winners or implying guaranteed profitability.
+
+## Tasks
+- [x] Add an independent real-history picker from each of 27 technical lessons.
+- [x] Reuse causal simulation, costs and captured stock/strategy assumptions.
+- [x] Show revealed indicator values, decision/fill distinction and next-event navigation.
+- [x] Add bounded book history exercises and isolated real-company worksheets.
+- [x] Verify all lesson routes, causal views, failures and actual network/native use.
+- [x] Document applicability, limitations and completion evidence.
+
+## Acceptance criteria
+- Every implemented technical rule has a learning demo with actual history,
+  graphical rule measurements, dated decisions/trades and marked profit/loss.
+- No stock/interval is silently swapped for a winner; losing/no-signal outcomes persist.
+- Warmup, next-open execution, missing sessions, costs and adjusted units remain explicit.
+- Existing Explore studies and original workbook inputs are not overwritten.
+- Applicable book exercises separate actual prices, current facts and assumptions;
+  unsupported/qualitative concepts do not gain fabricated trading signals.
+- Owned requests and playback close safely without user-window control.
+
+## Completion evidence
+- Full offline suite: 322 passed, 4 opt-in live cases skipped, normal exit.
+  Ruff lint/format, strict mypy and Git whitespace checks passed.
+- Actual ICICIBANK snapshot: 496 observations, 2024-11-21 through 2026-11-20.
+  Owned native checks exercised all 27 learning lessons, four book history
+  exercises and a real current-company fetch/calculation with bank guards.
+- Inspected actual rule/explanation, equal-money and company worksheet views
+  at 1366x768. Final rule replay uses two persistent axes without stale labels.
+- Causal-prefix, independent-state, event-navigation, failure and lifecycle
+  regressions pass. Technical acceptance is not human approval or a profit proof.
+- Published v0.3.0 remains unchanged and does not contain these source additions.
+
+## Completion log
+- 2026-11-21: Traced existing lessons, studies and replay. Reused rule guides and
+  execution rather than introducing a competing set of trading formulas.
+- 2026-11-21: Completed source-native demonstrations and guide. Preserved
+  losing/no-signal outcomes; no winner search, user-window control or new EXE.
+  Corrected overlapping replay-axis labels by retaining the rule chart's axes.

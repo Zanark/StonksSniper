@@ -29,6 +29,38 @@ and records a screenshot locally; it does not publish market observations.
 The Windows offscreen plugin needs an explicitly loaded installed Segoe UI font.
 The normal Windows application uses the same style and font.
 
+## Real-market demos and headless agent lab
+
+Latest-source verification on November 21: **322 offline tests passed,
+4 opt-in live tests skipped**, normal exit; Ruff lint/format and strict mypy passed.
+New tests cover all 27 lesson routes/causal rule measurements, independent
+Explore/workbook state, event navigation, fetch failure/close guards, book
+history exercises, custom/reference signal equivalence and causal prefixes,
+JSON validation, costs/capital/date slicing, receipts and refusal to overwrite.
+
+Actual closed-market ICICIBANK fetched through the new headless command:
+**496 observations, 2024-11-21 through 2026-11-20**. Ran all 27 built-ins on
+the same saved input/costs and hypothetical INR 100,000, plus both shipped custom
+examples; custom SMA/Donchian targets, fills and equity matched their built-ins.
+The test interval produced **15 positive and 12 negative** strategy returns;
+no losing example was replaced. These counts are not efficacy or selection advice.
+
+Owned source-native checks also exercised all 27 learning demos, four book
+history exercises and an actual current ICICIBANK reference-worker request,
+automatic worksheet calculation and financial-sector guards. Inspected actual
+rule/explanation, monthly-purchase and workbook views at 1366x768. Persistent
+rule axes avoid stale overlapping labels during replay; no user window was driven.
+
+The [skill](../.github/skills/stonks-sniper-lab/SKILL.md) was discovered enabled
+by Copilot CLI as a repository skill. The local canonical skills directory was
+also registered with `copilot skill add`; discovery from outside this checkout
+verified the same enabled skill as a custom source, not a stale personal copy.
+Other hosts still require their own discovery or explicit Markdown loading.
+The documented actual custom-rule command
+also returned a saved JSON receipt. These are source-native checks, not a new
+frozen EXE qualification, normal-DPI/human acceptance or profitability proof.
+The existing v0.3.0 EXE remains unchanged. [Interface and contracts](agent-lab.md).
+
 ## Intelligent Investor companion and closed-market study
 
 The latest source adds separate technical/book learning sections, original

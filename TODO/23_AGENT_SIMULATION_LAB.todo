@@ -1,0 +1,52 @@
+# SS-23 - Agent-accessible simulation lab and teaching skill
+Workstream ID: SS-23
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/23
+Status: DONE
+Milestone: M2
+Dependencies: SS-03, SS-04, SS-06, SS-21
+
+## Purpose
+Enable agents and humans to fetch real observations, test hypothetical capital,
+explain algorithms and evaluate new hypotheses through a reusable detailed skill
+and a headless, provenance-preserving interface.
+
+## Tasks
+- [x] Add JSON catalogue, actual history fetch and recorded-input simulation commands.
+- [x] Reuse the common next-open accounting engine for built-in/custom targets.
+- [x] Add bounded declarative custom rules without eval/code execution.
+- [x] Write a detailed repository skill, exact commands and usable custom examples.
+- [x] Verify independent arithmetic, causality, error paths and actual provider execution.
+- [x] Document results, operating instructions and boundaries.
+
+## Acceptance criteria
+- Supplied capital, fees, dates and rules are captured exactly with marked INR/% results.
+- Full observations, targets, fills, curves, provenance, custom rule and input hashes persist.
+- Outputs refuse overwrite; invalid data/rules fail explicitly without substitute prices.
+- Custom rules reject future offsets/code, unsupported features and ambiguous entry/exit.
+- Skill teaches losses, uncertainty, drawdown, holdouts, learning explanations and limits;
+  it does not promise profits, fabricate owner mastery or authorize orders.
+- Other agents can read the skill and invoke the headless interface without a GUI.
+
+## Completion evidence
+- Full offline suite: 322 passed, 4 opt-in live cases skipped, normal exit;
+  Ruff lint/format, strict mypy and Git whitespace checks passed.
+- Actual headless ICICIBANK fetch returned 496 observations through 2026-11-20.
+  All 27 built-ins ran on the same captured data and hypothetical INR 100,000;
+  15 returned a marked profit and 12 a loss. Neither result category was hidden.
+- Both shipped custom examples matched corresponding built-in targets, fills
+  and equity. The documented actual custom-rule command returned a saved receipt.
+- Detailed skill was discovered enabled as a project skill and, after registering
+  the canonical directory, as a custom skill from outside this checkout.
+  Its current-fundamental Python example also ran on the saved actual bank snapshot.
+- Invalid/ambiguous inputs and provider failures return explicit errors; immutable
+  outputs preserve actual observations, costs, rules, decisions/fills and hashes.
+- No embedded LLM, orders, automatic optimisation, new EXE, human learning
+  acceptance or independent profitability proof is implied.
+
+## Completion log
+- 2026-11-21: User requested agent/human operation, hypothetical capital,
+  agent-authored algorithms and LLM-assisted explanations. Added a versioned
+  repository skill and bounded data-only rule language, not an arbitrary plugin runner.
+- 2026-11-21: Completed the shared-engine headless interface, skill/examples,
+  actual built-in/custom experiments and validation. No dependency installation
+  or global duplicate skill copy; other agent hosts can load the same Markdown.

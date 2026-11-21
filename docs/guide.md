@@ -38,6 +38,44 @@ Current financial statements never enter historical **Simulate**.
 [Full chapter map, formulas, sources and walkthrough](intelligent-investor.md).
 The published **v0.3.0 EXE does not contain this new companion**.
 
+## Watch a lesson on actual market history
+
+In the latest source, select any of the **27** technical lessons under
+**Learn the patterns -> Internet technical strategies**, then click
+**See a real-market demo**. Choose a ticker/exchange and dates to fetch, or
+explicitly use the captured Explore dataset (whose own dates are shown).
+The selected lesson, capital/costs and history are captured independently;
+changing Explore does not change this demo.
+
+The demo opens at its first ready decision. **Why this decision?** pairs the
+graph with actual indicator values, the buy/sell conditions, current target,
+any fill today, and its earlier decision date. **Next signal** finds the next
+target change; **Next trade** finds a later actual simulated fill. These inspect
+recorded history, not live opportunities. Play/step/slider reveal only the
+current prefix. **Your money** includes the same-start, same-cost holding reference.
+Dates can be changed and restarted; short ranges fail explicitly.
+
+There is no search for a profitable example: losses, no later signal/trade,
+and underperforming the reference remain visible. Demonstrating a rule on
+real data does not establish a reliable future trading edge.
+
+Book chapters **2, 3, 5 and 8** have actual-history exercises: assumed inflation,
+market offers/drawdown and scheduled equal-money purchases. Inflation is a
+clearly labelled user assumption, not fetched CPI. Monthly purchases use the
+first observed opening in each month, including the first partial month,
+without fees/taxes; fractional adjusted units and returns on contributed money
+are explained, not presented as annualised portfolio returns.
+
+Chapters **7, 11, 12, 13, 14, 15 and 20** open separate current-company worksheets.
+Choose a company and **Fetch latest reference** to calculate available facts;
+the original workbook is untouched. Missing evidence and sector restrictions
+remain. Other chapters explain why qualitative research or unavailable data
+cannot honestly be turned into an automated demonstration.
+
+These features are source-only, not in the unchanged v0.3.0 EXE.
+For headless use, custom algorithms and LLM-assisted explanations, see the
+[agent lab](agent-lab.md) and its detailed reusable skill.
+
 ## Read the charts
 
 **Stock price** shows what happened to the price. A candle is one day's four

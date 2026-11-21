@@ -129,11 +129,11 @@
       "issue_number": 10,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhH4K40",
       "baseline": {
-        "body_sha256": "1906c5c18fae8e339dd7746b71eb9202520dce8f9e961e29e24b6b6c73f4f258",
+        "body_sha256": "59ef1e5e61074bdce030aa95c1ee3a76993283bc9bfdc713611e0b61ef902c74",
         "title": "SS-10 - Local snapshots and reproducible studies",
         "issue_state": "open",
         "state_reason": null,
-        "project_status": "Todo"
+        "project_status": "In Progress"
       }
     },
     "SS-11": {
@@ -263,6 +263,30 @@
       "baseline": {
         "body_sha256": "4085f888e67b3c29603bffbe59be9624141556df8bd027787601e74b513d6073",
         "title": "SS-21 - Intelligent Investor study companion and closed-market research",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
+    },
+    "SS-22": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/22",
+      "issue_number": 22,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhKvSsE",
+      "baseline": {
+        "body_sha256": "f0eaabbd1a0dee2aa89c521d56d50fc1db786c20eabb540dc83eab878ebcf836",
+        "title": "SS-22 - Real-market learning demonstrations",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
+    },
+    "SS-23": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/23",
+      "issue_number": 23,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhKvS5E",
+      "baseline": {
+        "body_sha256": "d823044ffdc1b9dfcc1883591dbc8eace97355b8ba59f0290369bfcf654febcf",
+        "title": "SS-23 - Agent-accessible simulation lab and teaching skill",
         "issue_state": "closed",
         "state_reason": "completed",
         "project_status": "Done"

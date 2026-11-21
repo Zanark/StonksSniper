@@ -59,12 +59,33 @@ DEFAULT_ASSUMPTIONS = Assumptions()
 def simulate(
     data: MarketData, pattern: Pattern, assumptions: Assumptions = DEFAULT_ASSUMPTIONS
 ) -> Result:
+    return simulate_targets(data, pattern, targets(data.candles, pattern), assumptions)
+
+
+def simulate_targets(
+    data: MarketData,
+    pattern: Pattern,
+    desired: tuple[bool | None, ...],
+    assumptions: Assumptions = DEFAULT_ASSUMPTIONS,
+) -> Result:
+    """Execute explicit research targets; callers must establish signal causality."""
+    if type(pattern.minimum_bars) is not int or pattern.minimum_bars < 1:
+        raise ValueError("Declared warmup must be a positive whole number of observations.")
     if len(data.candles) < pattern.minimum_bars + 1:
         raise ValueError(
             f"{pattern.name} needs at least {pattern.minimum_bars + 1} completed bars "
             "including one next-session execution bar."
         )
-    desired = targets(data.candles, pattern)
+    if (
+        not isinstance(desired, tuple)
+        or len(desired) != len(data.candles)
+        or any(value is not None and type(value) is not bool for value in desired)
+    ):
+        raise ValueError(
+            "Targets must contain exactly one bool or None per observation, as an immutable tuple."
+        )
+    if any(value is not None for value in desired[: pattern.minimum_bars - 1]):
+        raise ValueError("Targets cannot trade before the declared warmup.")
     cash = assumptions.initial_cash
     units = 0.0
     fee_rate = assumptions.fee_bps / 10_000

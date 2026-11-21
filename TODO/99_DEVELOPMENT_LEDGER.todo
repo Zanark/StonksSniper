@@ -20,6 +20,31 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-21: Completed SS-22 real-market learning demos and SS-23 agent lab.
+  All 27 technical lessons launch independent actual-history studies with
+  prefix-only measurements, next signal/trade navigation and holding comparison.
+  Book chapters 2/3/5/8 have bounded actual-history exercises; selected fundamental
+  chapters open an independent current-company worksheet. No fictional timing rule.
+  Headless catalogue/fetch/simulate commands reuse the same next-open accounting,
+  given capital/costs, immutable JSON observations/results and input/rule hashes.
+  Bounded declarative custom rules reject code, future offsets and overlapping
+  entry/exit. Two shipped examples match built-in SMA/Donchian signals/accounting.
+  Actual headless ICICIBANK returned 496 observations through 2026-11-20.
+  Same-input INR 100,000 experiments produced 15 positive and 12 negative
+  built-in returns; all were retained. Native checks covered every technical
+  demo, four book exercises and actual current-reference calculation/bank guards.
+  Inspected actual-data 1366x768 rule, monthly-purchase and workbook views;
+  fixed overlapping replay labels using persistent axes and inspected again.
+  Full offline suite: 322 passed, 4 opt-in live cases skipped, normal exit;
+  Ruff lint/format, strict mypy, whitespace and changed-guide local links passed.
+  Versioned detailed skill and runnable examples are enabled in project discovery;
+  registering the canonical directory also verified discovery outside this repo.
+  Its current-fundamental example ran with the saved actual bank snapshot.
+  SS-10 now records only the delivered headless persistence slice, not full storage.
+  SS-22/#22 and SS-23/#23 were read back closed-completed/Project Done;
+  SS-10/#10 retained its original item and was verified open/In Progress.
+  No embedded LLM, orders, optimisation, profit guarantee, owner acceptance,
+  user-window interference or change to the published v0.3.0 EXE.
 - 2026-11-21: Added separate internet-technical and Intelligent Investor learning
   sections: original ELI15 notes mapped to 20 main chapters, source links, current
   fundamental reference fetching, manual dated evidence and HTML worksheet export.

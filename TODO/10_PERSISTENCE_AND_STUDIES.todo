@@ -1,7 +1,7 @@
 # SS-10 - Local snapshots and reproducible studies
 Workstream ID: SS-10
 GitHub issue: https://github.com/Zanark/StonksSniper/issues/10
-Status: NOT_STARTED
+Status: IN_PROGRESS
 Milestone: M2
 Dependencies: SS-03, SS-04
 
@@ -9,6 +9,7 @@ Dependencies: SS-03, SS-04
 Preserve the exact inputs and assumptions needed to revisit a study without stale-data ambiguity.
 
 ## Tasks
+- [x] Add immutable JSON history snapshots and validated headless re-simulation (SS-23).
 - [ ] Define local SQLite metadata and permitted immutable observation snapshots.
 - [ ] Record retrieval/version/hash, revisions, source terms and adjustment basis.
 - [ ] Import/replay saved studies with schema validation and explicit historical labels.
@@ -20,7 +21,13 @@ Preserve the exact inputs and assumptions needed to revisit a study without stal
 - Raw market datasets and credentials stay outside public Git.
 
 ## Completion evidence
-- Not started. M1 manual JSON export is not a full persistence/import system.
+- SS-23 adds strict JSON history import, captured-input re-simulation, hashes,
+  version/assumption/rule evidence and refusal to overwrite outputs.
+  Its custom/reference equivalence and validation cases pass.
+- SQLite metadata, GUI study import/annotations, revision management, backup
+  recovery and profile migrations remain unimplemented; this is a bounded slice.
 
 ## Completion log
 - 2026-11-11: Registered local study storage and revision accounting.
+- 2026-11-21: Shared SS-23 delivered reproducible headless snapshots, not the
+  complete study-storage product. Retained the remaining tasks and stable issue.

@@ -42,6 +42,8 @@ SS-18  18_PROVIDER_DISCOVERY.todo           M4 additional providers and discover
 SS-19  19_ELI15_DEEPSEAFOAM.todo             M1.1 beginner-first design and dictionary
 SS-20  20_DATE_RANGE_SIMULATION.todo         M1.2 separate simulation window and P&L
 SS-21  21_INTELLIGENT_INVESTOR.todo          M2 book companion and closed-market study
+SS-22  22_REAL_MARKET_DEMOS.todo            M2 real-history algorithm learning demos
+SS-23  23_AGENT_SIMULATION_LAB.todo         M2 headless lab and reusable agent skill
 
 Provider investigations each retain named option tasks plus the common
 qualification contract in docs/data-providers.md. This register is extensible,
@@ -66,6 +68,14 @@ explicit closed-market history support. Actual Saturday ICICIBANK history,
 both native fetch workers and all 27 technical rules passed. Issue #21 and
 its Project item were verified closed-completed/Done. This companion is not
 in the unchanged v0.3.0 EXE; see docs/intelligent-investor.md for bounded coverage.
+SS-22 and SS-23 are technically DONE in the latest source: real-market learning
+demos for all 27 rules, bounded book practicals, headless JSON research commands,
+declarative custom rules and a detailed reusable agent skill.
+Actual ICICIBANK experiments retained both profits and losses; no efficacy,
+embedded LLM, complete AI research platform or new executable is claimed.
+Their issues #22/#23 and existing Project 14 items were verified completed/Done.
+SS-10 is IN_PROGRESS: immutable history import/re-simulation is delivered by
+SS-23; the broader GUI study store, revisions, annotations and recovery remain.
 SS-11 is IN_PROGRESS: v0.3.0 Windows executable is published with Simulate,
 the missing-price fix and actual Windows/Linux/frozen live checks passed.
 Release: https://github.com/Zanark/StonksSniper/releases/tag/v0.3.0

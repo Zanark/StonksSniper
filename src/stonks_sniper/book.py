@@ -4,9 +4,11 @@ import logging
 from html import escape
 
 from PySide6.QtCore import QDate, QObject, Qt, QThread, Signal, Slot
+from PySide6.QtGui import QCloseEvent
 from PySide6.QtWidgets import (
     QComboBox,
     QDateEdit,
+    QDialog,
     QFileDialog,
     QFormLayout,
     QHBoxLayout,
@@ -22,6 +24,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from stonks_sniper.demonstrations import HISTORY_CHAPTERS, REFERENCE_CHAPTERS
 from stonks_sniper.fundamentals import FundamentalSnapshot, YahooFundamentalsProvider
 from stonks_sniper.glossary import HelpBrowser
 from stonks_sniper.graham import (
@@ -84,6 +87,8 @@ class FundamentalWorker(QObject):
 
 
 class BookCompanion(QTabWidget):
+    history_demo = Signal(int)
+
     def __init__(self) -> None:
         super().__init__()
         self.provider = YahooFundamentalsProvider()
@@ -92,6 +97,7 @@ class BookCompanion(QTabWidget):
         self.snapshot: FundamentalSnapshot | None = None
         self.field_sources: dict[str, str] = {}
         self.report_html = ""
+        self.reference_demo = False
         reading = QWidget()
         reading_layout = QHBoxLayout(reading)
         self.chapters = QListWidget()
@@ -103,7 +109,15 @@ class BookCompanion(QTabWidget):
         self.chapter_text = HelpBrowser()
         self.chapters.currentRowChanged.connect(self.chapter_selected)
         reading_layout.addWidget(self.chapters)
-        reading_layout.addWidget(self.chapter_text, 1)
+        chapter_contents = QVBoxLayout()
+        self.demo_note = QLabel()
+        self.demo_note.setWordWrap(True)
+        chapter_contents.addWidget(self.demo_note)
+        self.demo_button = QPushButton()
+        self.demo_button.clicked.connect(self.open_chapter_demo)
+        chapter_contents.addWidget(self.demo_button)
+        chapter_contents.addWidget(self.chapter_text, 1)
+        reading_layout.addLayout(chapter_contents, 1)
         self.addTab(reading, "Read alongside the book")
         workbook = QWidget()
         layout = QVBoxLayout(workbook)
@@ -198,6 +212,34 @@ class BookCompanion(QTabWidget):
     def chapter_selected(self, index: int) -> None:
         if 0 <= index < len(BOOK_LESSONS):
             self.chapter_text.setHtml(book_html(index))
+            chapter = BOOK_LESSONS[index].chapter
+            available = chapter in HISTORY_CHAPTERS | REFERENCE_CHAPTERS
+            self.demo_button.setEnabled(available)
+            self.demo_button.setText(
+                "See a real-history demo"
+                if chapter in HISTORY_CHAPTERS
+                else "See a real-company worksheet demo"
+                if chapter in REFERENCE_CHAPTERS
+                else "No automated market demo for this concept"
+            )
+            self.demo_note.setText(
+                "Explore actual price history, with chapter-specific calculations and limits."
+                if chapter in HISTORY_CHAPTERS
+                else "Fetch current company facts in a separate worksheet. Missing evidence stays "
+                "Unknown; this is not historical validation, a timing signal or a buy rating."
+                if chapter in REFERENCE_CHAPTERS
+                else "This chapter needs qualitative research or data this tool does not supply. "
+                "Use its practical reading task below; no trading signal has been invented."
+            )
+
+    @Slot()
+    def open_chapter_demo(self) -> None:
+        chapter = BOOK_LESSONS[self.chapters.currentRow()].chapter
+        if chapter in HISTORY_CHAPTERS:
+            self.history_demo.emit(chapter)
+        elif chapter in REFERENCE_CHAPTERS:
+            window = ReferenceDemo(self, chapter)
+            window.show()
 
     @Slot()
     def invalidate(self) -> None:
@@ -294,6 +336,8 @@ class BookCompanion(QTabWidget):
         )
         self.provenance.setToolTip("\n".join(snapshot.warnings))
         self.invalidate()
+        if self.reference_demo:
+            self.calculate_results()
 
     @Slot(str)
     def reference_failed(self, message: str) -> None:
@@ -500,3 +544,38 @@ class BookCompanion(QTabWidget):
             self.exercise_result.setText(f"Cannot calculate exercise: {error}")
             return
         self.exercise_result.setText(text)
+
+
+class ReferenceDemo(QDialog):
+    def __init__(self, parent: BookCompanion, chapter: int) -> None:
+        super().__init__(parent)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
+        self.setWindowTitle(f"Stonks Sniper | Chapter {chapter} real-company demo")
+        self.resize(1120, 800)
+        layout = QVBoxLayout(self)
+        note = QLabel(
+            f"Chapter {chapter}: {BOOK_LESSONS[chapter - 1].title}. "
+            "Choose a company, then Fetch latest reference to calculate the available "
+            "current facts. This separate worksheet leaves your original inputs untouched. "
+            "Unknown histories/claims remain Unknown; banks are not industrial-screened. "
+            "Review classification and report/share dates. These are current examples, "
+            "not historical signals, investment recommendations or proof of profit."
+        )
+        note.setWordWrap(True)
+        layout.addWidget(note)
+        self.workbook = BookCompanion()
+        self.workbook.reference_demo = True
+        self.workbook.set_stock(parent.stock.text(), parent.exchange.currentText())
+        self.workbook.copy_stock.hide()
+        self.workbook.setTabVisible(0, False)
+        self.workbook.setTabVisible(2, False)
+        layout.addWidget(self.workbook)
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        if self.workbook.fetch_thread is not None:
+            self.workbook.provenance.setText(
+                "A bounded request is running; close after it finishes."
+            )
+            event.ignore()
+            return
+        super().closeEvent(event)

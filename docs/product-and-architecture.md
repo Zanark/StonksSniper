@@ -73,11 +73,35 @@ exchange/provider qualification beyond this slice.
 3. Portfolio baskets with shared cash, allocations, correlated assets, rebalancing,
    costs and instrument/date alignment. Use "basket", not a claimed smallcase
    service integration.
-4. Declarative strategy composition and AI hypothesis generation, with schema
-   validation, provenance, fixed holdouts, walk-forward tests and data-snooping
-   controls. No generated Python execution or model-reported performance.
-5. Persistence, study notebooks, comparison reports, accessibility and independently
+4. Extend the now-implemented bounded declarative lab composition with broader
+   features, fixed holdout/walk-forward automation and data-snooping controls.
+   The reusable skill guides an external agent; there is no embedded LLM,
+   automatic optimiser or generated Python execution.
+5. Richer persistence, study notebooks, comparison reports, accessibility and independently
    verified Windows packaging.
+
+## Learning demonstrations and agent interface (latest source)
+
+`demonstrations.py` shares causal rule measurements between Explore and learning
+demos; it also implements bounded actual-price book exercises. The existing
+simulation window gains an optional learning view, event navigation and a
+holding comparison. An independent request picker captures lesson/history/costs.
+Requests use the existing provider contract and guarded worker lifecycle.
+Separate current-company demo worksheets preserve the original user's inputs.
+
+`lab.py` exposes headless JSON catalogue/fetch/simulate commands. Captured
+observations and simulation receipts retain input identity, warnings, execution,
+all targets/fills/curves and custom rule/hash. Imported provenance is not authenticated.
+`custom_rules.py` parses bounded data-only comparison trees, computes only causal
+features and rejects ambiguous entry/exit. `engine.simulate_targets` shares
+next-open accounting; built-in `simulate` delegates to it without changing formulas.
+This explicit API validates shape/warmup, not arbitrary caller causality.
+
+The repository skill in `.github\skills\stonks-sniper-lab` lets external agents
+teach, propose testable rules and use the same tool. It is not a running agent,
+broker bot or embedded financial adviser. GUI dropdowns still list built-ins;
+custom JSON is currently a headless research interface. Full workflow/limitations:
+[agent lab](agent-lab.md).
 
 ## Boundaries and data flow
 

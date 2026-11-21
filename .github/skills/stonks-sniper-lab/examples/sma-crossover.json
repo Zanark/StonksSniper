@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "name": "Research hypothesis: 10/30 SMA trend",
+  "entry": {"left": "sma:10", "op": ">", "right": "sma:30"},
+  "exit": {"left": "sma:10", "op": "<=", "right": "sma:30"}
+}

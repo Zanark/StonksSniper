@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "name": "Research hypothesis: prior 20-session range breakout",
+  "entry": {"left": "close", "op": ">", "right": "prior_high:20"},
+  "exit": {"left": "close", "op": "<", "right": "prior_low:20"}
+}
