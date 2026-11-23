@@ -315,6 +315,18 @@
         "state_reason": "completed",
         "project_status": "Done"
       }
+    },
+    "SS-26": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/26",
+      "issue_number": 26,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhLG0Po",
+      "baseline": {
+        "body_sha256": "20cd141bec5be495b7c66af9646320263f07641a2caba775573927009fb74b4b",
+        "title": "SS-26 - Current README walkthroughs with visible pointer and click effects",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "In Progress"
+      }
     }
   }
 }

@@ -20,6 +20,19 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-23: SS-26 refreshes five README product GIFs and adds six tours for
+  Simulate, real-market demos, book practicals, Market tools, paper orders and
+  manual labs. Actual native Qt clicks/keys/drags, visible pointer/rings and
+  word-paced captions use an owned offscreen app/cache, never a user window.
+  Normal ICICIBANK worker returned 494 completed bars, 2024-11-25..2026-11-20.
+  All eleven GIFs decode with matching timing/hashes at 1366x844, total
+  5,844,000 bytes; contact sheets/native-size feature and click details inspected.
+  Full offline gate 361 passed/4 skipped, Ruff lint/format and strict mypy passed.
+  Native popup activation and expected empty-workbook refusal corrected in the
+  harness; parent-owned cache cleanup now follows worker-process exit.
+  Visible-platform capture fails before constructing any application window.
+  Logo/meme, product runtime and immutable v1.0.0 assets unchanged.
+  Publication/tracking completion is recorded separately after remote read-back.
 - 2026-11-23: Published v1.0.0 as latest stable at exact source 883c941, after live
   CI 45155983942 passed Windows/Linux, actual NSE/BSE and frozen Windows checks.
   Frozen HDFCBANK fetched 494 bars and exercised 27 normal/27 date-range routes.

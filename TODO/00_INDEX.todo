@@ -46,6 +46,7 @@ SS-22  22_REAL_MARKET_DEMOS.todo            M2 real-history algorithm learning d
 SS-23  23_AGENT_SIMULATION_LAB.todo         M2 headless lab and reusable agent skill
 SS-24  24_MARKET_TOOLS.todo                 M2 Kite-inspired beginner practice desk
 SS-25  25_FIRST_PUBLIC_RELEASE.todo         M4 first public release v1.0.0
+SS-26  26_POINTER_WALKTHROUGHS.todo         M2 current pointer-led README walkthroughs
 
 Provider investigations each retain named option tasks plus the common
 qualification contract in docs/data-providers.md. This register is extensible,

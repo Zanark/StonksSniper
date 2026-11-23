@@ -1,56 +1,751 @@
 {
-  "captured_at": "2026-11-12T00:51:20.051980+05:30",
+  "captured_at": "2026-11-23T17:07:59.175356+05:30",
+  "application_version": "1.0.0",
+  "source_commit": "d063ae87869ca917a5bf96b6e1bd69cbb213f20b",
+  "source_dirty": true,
+  "capture_script_sha256": "b6575b029d6df7c53ee2c8433188b9a25f6c8f026f5fa7839f86d6d8d5ccbfc7",
   "source": "Yahoo Finance via yfinance (unofficial)",
-  "symbol": "RELIANCE.NS",
+  "symbol": "ICICIBANK.NS",
   "exchange": "NSE",
   "currency": "INR",
-  "fetched_at": "2026-11-12T00:51:13.747409+05:30",
-  "first_observation": "2024-11-12",
-  "last_observation": "2026-11-09",
-  "observations": 493,
-  "requested_end": "2026-11-09",
+  "fetched_at": "2026-11-23T17:07:30.062339+05:30",
+  "first_observation": "2024-11-25",
+  "last_observation": "2026-11-20",
+  "observations": 494,
+  "requested_end": "2026-11-23",
   "provider_warnings": [
     "Unofficial Yahoo access: personal research only; availability/accuracy not guaranteed.",
     "Adjusted research units, not historical tradable share prices. Dividends are not credited again; adjustments can revise past observations.",
     "Daily data only; current-day candles are excluded. This is not a live quote.",
-    "No holiday-calendar completeness or cross-provider reconciliation yet."
+    "Latest available completed session in this request: 2026-11-20. Fetching does not require an open market; weekends/holidays are not filled. Even after market close, today's candle remains excluded.",
+    "No holiday-calendar completeness or cross-provider reconciliation yet.",
+    "The provider's current-day bar was excluded as potentially incomplete."
   ],
   "price_basis": "Yahoo split/dividend-adjusted OHLC (auto_adjust=True); total-return research proxy",
   "platform": "offscreen",
   "width": 1366,
-  "height": 768,
-  "motion": "Deterministic native replay/navigation captures; transitions disabled.",
-  "branding": "Decorative illustration; never claimed as stock observations.",
+  "height": 844,
+  "motion": "Scripted native Qt clicks/keys/drags; accelerated, captioned history scrubbing.",
+  "pointer": "Rendered overlay and click ripples; no operating-system pointer control.",
+  "composition": "Owned dialogs centered over the owned main window; caption footer added.",
+  "isolation": "Offscreen owned QApplication and temporary process-local Yahoo cache.",
+  "branding": "Existing decorative logo/meme unchanged; not product walkthroughs.",
   "captures": [
     {
       "file": "explore.gif",
-      "frames": 25,
-      "duration_ms": 7880,
-      "action": "Actual native replay cursor advanced through the final 60 completed sessions."
+      "frames": 82,
+      "encoded_frames": 81,
+      "duration_ms": 30060,
+      "bytes": 822467,
+      "sha256": "ce7ca89197c2daa85b292ffe749a6d452f2ab874da9ffb4ecbb0aa4522908a18",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Enter ICICIBANK; NSE and the dates are visible.",
+          "position": [
+            247,
+            151
+          ]
+        },
+        {
+          "kind": "keyboard",
+          "caption": "1. Enter ICICIBANK; NSE and the dates are visible.",
+          "text": "ICICIBANK"
+        },
+        {
+          "kind": "click",
+          "caption": "2. Use INR 10,000 of hypothetical starting capital.",
+          "position": [
+            1248,
+            194
+          ]
+        },
+        {
+          "kind": "keyboard",
+          "caption": "2. Use INR 10,000 of hypothetical starting capital.",
+          "text": "10000"
+        },
+        {
+          "kind": "click",
+          "caption": "3. Load actual completed history; no substitute prices.",
+          "position": [
+            1257,
+            151
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Choose the EMA idea; this is not a winning-rule search.",
+          "position": [
+            527,
+            194
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Choose the EMA idea; this is not a winning-rule search.",
+          "position": [
+            433,
+            153
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "5. Test the chosen idea on the actual loaded history.",
+          "position": [
+            1092,
+            236
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "6. Switch the stock-price view to candlesticks.",
+          "position": [
+            965,
+            428
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "6. Switch the stock-price view to candlesticks.",
+          "position": [
+            783,
+            455
+          ]
+        },
+        {
+          "kind": "drag",
+          "caption": "7. Drag back to inspect an earlier day.",
+          "from": 494,
+          "requested": 434,
+          "actual": 434
+        }
+      ]
     },
     {
       "file": "money.gif",
-      "frames": 25,
-      "duration_ms": 7880,
-      "action": "Actual native replay cursor advanced through the final 60 completed sessions."
+      "frames": 39,
+      "encoded_frames": 39,
+      "duration_ms": 12720,
+      "bytes": 525850,
+      "sha256": "a0221bec49969aff4a25aeff156f9de9d79345be2ddc65b5f903d09b5a3c2092",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Open Your money: rule versus holding.",
+          "position": [
+            186,
+            471
+          ]
+        },
+        {
+          "kind": "drag",
+          "caption": "2. Reveal later observations and actual simulated P&L.",
+          "from": 434,
+          "requested": 494,
+          "actual": 494
+        },
+        {
+          "kind": "click",
+          "caption": "3. Inspect drawdown, not just the final profit.",
+          "position": [
+            314,
+            471
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Same starting point and costs; losses stay visible.",
+          "position": [
+            186,
+            471
+          ]
+        }
+      ]
     },
     {
       "file": "rule.gif",
-      "frames": 25,
-      "duration_ms": 7880,
-      "action": "Actual native replay cursor advanced through the final 60 completed sessions."
+      "frames": 42,
+      "encoded_frames": 39,
+      "duration_ms": 11210,
+      "bytes": 809569,
+      "sha256": "8e2a3d6e7479902c3182452a158becbc6e43a3c0c1bab55c9615c81ca341fcf3",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Open See the rule for actual indicator measurements.",
+          "position": [
+            441,
+            471
+          ]
+        },
+        {
+          "kind": "drag",
+          "caption": "2. Inspect only the measurements revealed by this day.",
+          "from": 494,
+          "requested": 439,
+          "actual": 439
+        },
+        {
+          "kind": "drag",
+          "caption": "3. Scrub forward; rule decisions are not earlier fills.",
+          "from": 439,
+          "requested": 494,
+          "actual": 494
+        }
+      ]
     },
     {
       "file": "learn.gif",
-      "frames": 3,
-      "duration_ms": 7800,
-      "action": "Explain pattern opens three authored native lessons."
+      "frames": 36,
+      "encoded_frames": 36,
+      "duration_ms": 14750,
+      "bytes": 396597,
+      "sha256": "f995b0467877d317b717914a551fd8bb535605cf91e4b6b8baeb6b266afe4693",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Explain pattern opens the selected native lesson.",
+          "position": [
+            1005,
+            194
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "2. Choose SMA: meaning, household example and failure modes.",
+          "position": [
+            153,
+            191
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "3. Read the actual formula and its source.",
+          "position": [
+            523,
+            242
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Choose Donchian; each idea has its own exact rule.",
+          "position": [
+            153,
+            332
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "5. Return to the beginner explanation.",
+          "position": [
+            366,
+            242
+          ]
+        }
+      ]
+    },
+    {
+      "file": "real-market-demo.gif",
+      "frames": 45,
+      "encoded_frames": 45,
+      "duration_ms": 21600,
+      "bytes": 444190,
+      "sha256": "a6d7b367e74d96d1e3f0c21c625cc15204843534524ea6f11f3bc6c62a83abae",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Click See a real-market demo.",
+          "position": [
+            820,
+            177
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "2. Use the explicitly dated captured Explore dataset.",
+          "position": [
+            682,
+            533
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "3. Next signal reveals the next recorded target change.",
+          "position": [
+            207,
+            717
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Next trade shows a later simulated fill, not a live opportunity.",
+          "position": [
+            306,
+            717
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "5. Compare this lesson with holding; no profitable interval was picked.",
+          "position": [
+            229,
+            321
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "6. Show the complete marked result, including unsold stock.",
+          "position": [
+            1291,
+            717
+          ]
+        }
+      ]
+    },
+    {
+      "file": "simulate.gif",
+      "frames": 69,
+      "encoded_frames": 69,
+      "duration_ms": 25510,
+      "bytes": 718250,
+      "sha256": "69cf271263671a3ba921938c485a234315bb08e56628a4c4d2e510b990a9008f",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Return to Explore; Simulate is beside Test idea.",
+          "position": [
+            65,
+            89
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "2. Open the independent Simulate window.",
+          "position": [
+            1184,
+            236
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "3. Start/end dates are bounded by the actual loaded history.",
+          "position": [
+            124,
+            78
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Start simulation; warmup stays inside the chosen range.",
+          "position": [
+            421,
+            78
+          ]
+        },
+        {
+          "kind": "drag",
+          "caption": "5. Reveal the date range: buy/sell markers and trade rows appear causally.",
+          "from": 1,
+          "requested": 175,
+          "actual": 175
+        },
+        {
+          "kind": "click",
+          "caption": "6. Next day advances one actual observed session.",
+          "position": [
+            112,
+            717
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "7. View the money graph for the same simulation.",
+          "position": [
+            229,
+            321
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "8. Final profit/loss is shown in INR and percent, after modelled costs.",
+          "position": [
+            1291,
+            717
+          ]
+        }
+      ]
+    },
+    {
+      "file": "intelligent-investor.gif",
+      "frames": 66,
+      "encoded_frames": 66,
+      "duration_ms": 27010,
+      "bytes": 775669,
+      "sha256": "7ad6112cee34a8136b6427e8e686ee38e71559d65c5f0cff3cf567aaf1bf2b95",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Open Learn the patterns.",
+          "position": [
+            184,
+            89
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "2. Switch from technical strategies to the book.",
+          "position": [
+            312,
+            128
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "3. Chapter 5 explains defensive investing and equal-money purchases.",
+          "position": [
+            172,
+            440
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Open this chapter's real-history practical.",
+          "position": [
+            830,
+            236
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "5. Explicitly reuse the actual captured stock history.",
+          "position": [
+            682,
+            516
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "6. Inspect scheduled monthly purchases; not a buy recommendation.",
+          "position": [
+            1282,
+            739
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "7. Research current facts separately from historical simulations.",
+          "position": [
+            304,
+            167
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "8. Use Explore stock copies the identity, not invented company facts.",
+          "position": [
+            905,
+            236
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "9. An empty workbook refuses calculation; research evidence must come first.",
+          "position": [
+            246,
+            729
+          ]
+        }
+      ]
     },
     {
       "file": "dictionary.gif",
-      "frames": 3,
-      "duration_ms": 7800,
-      "action": "Dictionary opens three real authored definitions and everyday examples."
+      "frames": 41,
+      "encoded_frames": 32,
+      "duration_ms": 20780,
+      "bytes": 200387,
+      "sha256": "e11f22c4cb8054423e25ccf4b7520882014a42acab35393c7eed042ebc6982dd",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Open Dictionary; new terminal concepts are searchable too.",
+          "position": [
+            541,
+            89
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "2. Search drawdown: a fall from an earlier high.",
+          "position": [
+            682,
+            187
+          ]
+        },
+        {
+          "kind": "keyboard",
+          "caption": "2. Search drawdown: a fall from an earlier high.",
+          "text": "drawdown"
+        },
+        {
+          "kind": "click",
+          "caption": "3. Search slippage: the difference from an expected price.",
+          "position": [
+            682,
+            187
+          ]
+        },
+        {
+          "kind": "keyboard",
+          "caption": "3. Search slippage: the difference from an expected price.",
+          "text": "slippage"
+        },
+        {
+          "kind": "click",
+          "caption": "4. Search the new Market tools vocabulary.",
+          "position": [
+            682,
+            187
+          ]
+        },
+        {
+          "kind": "keyboard",
+          "caption": "4. Search the new Market tools vocabulary.",
+          "text": "watchlist"
+        }
+      ]
+    },
+    {
+      "file": "market-tools.gif",
+      "frames": 73,
+      "encoded_frames": 73,
+      "duration_ms": 31260,
+      "bytes": 469331,
+      "sha256": "db9a29c1f9c19cd86dcb2c39e2d8aadee1c29e310543963eb6f4d3d41d16a03c",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Open Market tools: real history, pretend money.",
+          "position": [
+            318,
+            89
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "2. Capture Explore history; this does not make a hidden network request.",
+          "position": [
+            114,
+            159
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "3. Watchlist shows only the revealed session, not a live quote.",
+          "position": [
+            125,
+            286
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Choose an observation to reveal, preserving every intervening paper day.",
+          "position": [
+            1045,
+            159
+          ]
+        },
+        {
+          "kind": "keyboard",
+          "caption": "4. Choose an observation to reveal, preserving every intervening paper day.",
+          "text": "230"
+        },
+        {
+          "kind": "click",
+          "caption": "5. Advance to observation 230; the local paper clock cannot rewind.",
+          "position": [
+            1163,
+            159
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "6. Open Charts for the currently revealed prefix.",
+          "position": [
+            125,
+            333
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "7. Choose Candles from the real chart controls.",
+          "position": [
+            561,
+            275
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "7. Choose Candles from the real chart controls.",
+          "position": [
+            594,
+            302
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "8. Add the shared SMA study; annotations are not trading signals.",
+          "position": [
+            780,
+            275
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "8. Add the shared SMA study; annotations are not trading signals.",
+          "position": [
+            724,
+            302
+          ]
+        }
+      ]
+    },
+    {
+      "file": "paper-orders.gif",
+      "frames": 50,
+      "encoded_frames": 50,
+      "duration_ms": 21090,
+      "bytes": 400331,
+      "sha256": "19822c814e548651ad677225729226fc04b61753ae39f6b6705c2aaebe81e31a",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Open Paper orders & holdings; no broker is connected.",
+          "position": [
+            125,
+            427
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "2. Queue a one-unit Buy; queued is NOT filled.",
+          "position": [
+            415,
+            408
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "3. Advance to the next observed opening; costs and holdings update.",
+          "position": [
+            904,
+            159
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Choose Sell to close the owned paper unit.",
+          "position": [
+            324,
+            367
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Choose Sell to close the owned paper unit.",
+          "position": [
+            357,
+            394
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "5. Queue the Sell after the revealed close.",
+          "position": [
+            415,
+            408
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "6. Advance again: inspect realised P&L, including both-side costs.",
+          "position": [
+            904,
+            159
+          ]
+        }
+      ]
+    },
+    {
+      "file": "manual-labs.gif",
+      "frames": 52,
+      "encoded_frames": 52,
+      "duration_ms": 22810,
+      "bytes": 281359,
+      "sha256": "534a791289272bda462fd1fbcd06ebc0c6a80e764ded4a37df5d2d8d9c843c9d",
+      "actions": [
+        {
+          "kind": "click",
+          "caption": "1. Open Risk & allocation: plan with explicitly hypothetical inputs.",
+          "position": [
+            125,
+            474
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "2. Set an illustrative 2% risk budget; not a guaranteed loss cap.",
+          "position": [
+            445,
+            319
+          ]
+        },
+        {
+          "kind": "keyboard",
+          "caption": "2. Set an illustrative 2% risk budget; not a guaranteed loss cap.",
+          "text": "2"
+        },
+        {
+          "kind": "click",
+          "caption": "3. Calculate cost-aware whole-unit sizing.",
+          "position": [
+            381,
+            582
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "4. Open Depth & options labs; neither panel is a live data feed.",
+          "position": [
+            125,
+            521
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "5. Compare a bought put's manual expiry arithmetic.",
+          "position": [
+            1163,
+            274
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "5. Compare a bought put's manual expiry arithmetic.",
+          "position": [
+            669,
+            301
+          ]
+        },
+        {
+          "kind": "click",
+          "caption": "6. Read expiry outcomes and premium risk, not a trade signal.",
+          "position": [
+            1054,
+            491
+          ]
+        }
+      ]
     }
   ]
 }

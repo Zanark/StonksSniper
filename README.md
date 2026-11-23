@@ -29,14 +29,24 @@ Earlier v0.x downloads remain historical prereleases. This milestone is a
 public educational release, not a brokerage terminal or a claim that a strategy
 will make money. The EXE is unsigned; do not disable Windows security to run it.
 
+The walkthroughs below use actual ICICIBANK history. The visible pointer and
+click ripples are overlays; scripted clicks, typing and drags operate the real
+native controls. Replay is accelerated, not live trading.
+[Prefer no animation? Use the written guide.](docs/guide.md)
+
 ## Pick a stock. Test an idea.
 
-![Native app replaying actual RELIANCE stock history with practice trades](docs/images/explore.gif)
-*Actual history, revealed day by day. No made-up market data.*
+![Pointer entering ICICIBANK and practice capital, loading history, choosing EMA and candlesticks](docs/images/explore.gif)
+*Enter a stock and practice capital, load completed sessions, choose a rule,
+then click Test idea. No made-up market data.*
 
 **Simulate**, beside **Test idea**, opens a separate date-range
 window with playing buy/sell markers, a trade log, money chart and final
 profit/loss in INR and percent. [How it works](docs/guide.md#simulate-your-own-dates).
+
+![Pointer opening Simulate, adjusting dates and revealing trades and final INR and percentage results](docs/images/simulate.gif)
+*Your chosen dates, an independent simulation, a money graph and the final
+marked profit or loss. Unsold holdings are not silently forced sold.*
 
 ## Understand before you test.
 
@@ -48,9 +58,17 @@ Every tool distinguishes real observations from hypothetical inputs.
 [Practical route, exact behaviour and official research sources](docs/market-tools.md).
 **No broker login, live feed or real orders.**
 
-![Market tools showing actual ICICIBANK history with manually added study annotations](docs/images/market-tools.png)
-*The v1.0.0 practice desk: actual historical prices, clearly separate manual
-annotations and simulation-only tools.*
+![Pointer capturing Explore history into Market tools, revealing the watchlist and choosing candles and an SMA study](docs/images/market-tools.gif)
+*Capture the loaded history, advance the paper clock, inspect a historical
+watchlist and add a chart study. No hidden live quotes.*
+
+![Pointer queuing a paper buy and sell, then advancing observed days to see opening fills and holdings](docs/images/paper-orders.gif)
+*Queued is not filled: paper instructions wait for a later observed opening.
+Follow holdings, costs and realised profit or loss.*
+
+![Pointer changing a hypothetical risk budget and inspecting manual put-expiry scenarios](docs/images/manual-labs.gif)
+*Risk sizing and options-expiry arithmetic use explicitly manual assumptions,
+not downloaded depth, option prices or guaranteed loss limits.*
 
 **Read alongside The Intelligent Investor.** In **Learn the patterns**,
 choose **Internet technical strategies** or **The Intelligent Investor**.
@@ -60,11 +78,19 @@ checks, valuation/net-net/margin calculations and portfolio exercises.
 Missing fundamentals stay unknown; these are not 20 new daily trading signals.
 [Coverage, practicals and sources](docs/intelligent-investor.md).
 
+![Pointer selecting the Intelligent Investor section and chapter 5, opening actual-history monthly purchases and checking an empty workbook](docs/images/intelligent-investor.gif)
+*Read a chapter, open its bounded historical practical, then keep current-company
+research separate. An empty workbook refuses to invent evidence.*
+
 **See the idea on actual market history.** Every technical lesson
 has **See a real-market demo**: pick a stock/history, inspect the rule's actual
 measurements, jump to signals or trades, and compare simulated money with holding.
 Applicable book chapters offer bounded history exercises or a separate current-company
 worksheet. No winning interval is silently selected; losses/no signals remain visible.
+
+![Pointer opening a lesson's real-market demo, jumping to signals and trades and comparing its money chart](docs/images/real-market-demo.gif)
+*Follow a lesson into its own actual-history demo. A signal, a later simulated
+fill and a profitable result are three different things.*
 
 **For agents and humans:** the [detailed simulation skill](.github/skills/stonks-sniper-lab/SKILL.md)
 teaches the headless JSON lab: real history, hypothetical capital, all 27 built-ins,
@@ -73,9 +99,8 @@ It is a teaching/research workflow, not an LLM built into the app or a profit pr
 The desktop demos are in the EXE; run headless commands from the Python package
 or source checkout, not from the GUI-only Windows executable.
 
-![Explain pattern opening simple lessons with toy-shop and everyday examples](docs/images/learn.gif)
-*The existing technical lessons: what buys, what sells and what can fail.
-This older capture does not show the new book section.*
+![Pointer opening Explain pattern, selecting SMA and Donchian and switching between beginner notes and exact sourced rules](docs/images/learn.gif)
+*Technical lessons: what buys, what sells, the exact sourced rule and what can fail.*
 
 **Study on weekends too.** Loading history does not require an open market:
 the app uses actual prior completed sessions and shows their date. Today's
@@ -85,18 +110,18 @@ Friday. Yahoo availability is still required; [data boundaries](docs/guide.md#ac
 
 ## Every unfamiliar word has a way in.
 
-![Native dictionary navigating shares, falls from high and trading-price differences](docs/images/dictionary.gif)
-*Meaning + example. Hover, click or search.*
+![Pointer searching the native dictionary for drawdown, slippage and watchlist](docs/images/dictionary.gif)
+*Meaning + example, including the new Market tools vocabulary. Type to search.*
 
 ## Watch your practice money.
 
-![Native replay comparing a trading rule with buying once and waiting](docs/images/money.gif)
-*The rule versus buying once. Same prices. Same costs.*
+![Pointer opening Your money, scrubbing the historical comparison and inspecting drawdown](docs/images/money.gif)
+*The rule versus buying once. Same prices and costs. Inspect falls from a high too.*
 
 ## See why the rule acted.
 
-![Native chart replaying the actual measurements behind a buy and sell rule](docs/images/rule.gif)
-*No mystery score. See the measurements behind the decision.*
+![Pointer opening See the rule and dragging through actual EMA measurements](docs/images/rule.gif)
+*No mystery score. Scrub through the measurements behind the decision.*
 
 <p align="center">
   <img src="src/stonks_sniper/assets/stonks-meme.gif" width="240" alt="The supplied Stonks meme, also used while the app downloads stock history.">

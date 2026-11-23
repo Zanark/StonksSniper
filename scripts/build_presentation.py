@@ -3,22 +3,58 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import os
 import random
+import subprocess
 import sys
-from datetime import date, datetime, timedelta
+from collections.abc import Callable
+from datetime import date, datetime
 from html import escape
 from pathlib import Path
+from tempfile import TemporaryDirectory
+from time import monotonic
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PIL import Image  # noqa: E402
-from PySide6.QtCore import QCoreApplication, QDate, QEvent, QRectF, Qt  # noqa: E402
-from PySide6.QtGui import QFontDatabase, QImage, QPainter, QPainterPath  # noqa: E402
+from PySide6.QtCore import (  # noqa: E402
+    QCoreApplication,
+    QDate,
+    QEvent,
+    QPoint,
+    QPointF,
+    QRectF,
+    Qt,
+)
+from PySide6.QtGui import (  # noqa: E402
+    QColor,
+    QFont,
+    QFontDatabase,
+    QImage,
+    QMouseEvent,
+    QPainter,
+    QPainterPath,
+    QPen,
+    QPolygonF,
+)
 from PySide6.QtSvg import QSvgRenderer  # noqa: E402
-from PySide6.QtWidgets import QApplication  # noqa: E402
+from PySide6.QtTest import QTest  # noqa: E402
+from PySide6.QtWidgets import (  # noqa: E402
+    QAbstractSpinBox,
+    QApplication,
+    QComboBox,
+    QLineEdit,
+    QListWidget,
+    QPushButton,
+    QSlider,
+    QStyle,
+    QStyleOptionSlider,
+    QTabWidget,
+    QWidget,
+)
 
 from stonks_sniper import __version__  # noqa: E402
 
@@ -216,6 +252,7 @@ def save_gif(
     *,
     transparent: bool = False,
     palette_colors: tuple[str, ...] | None = None,
+    disposal: int = 2,
 ) -> None:
     if palette_colors is not None:
         palette = Image.new("P", (1, 1))
@@ -242,7 +279,7 @@ def save_gif(
         append_images=converted[1:],
         duration=durations,
         loop=0,
-        disposal=2,
+        disposal=disposal,
         optimize=False,
         **options,
     )
@@ -392,73 +429,586 @@ def build_brand() -> None:
     print("Built final-circle glass/shimmer GIF, static SVG/ICO and branded cover.")
 
 
-def build_gallery(app: QApplication, end: date | None) -> None:
-    from stonks_sniper.app import MainWindow
-    from stonks_sniper.providers import INDIA, YahooDailyProvider
+class Walkthrough:
+    """Owned Qt clicks and rendered pointer overlays, never system mouse automation."""
+
+    width, height, footer = 1366, 768, 76
+
+    def __init__(self, app: QApplication, main_window: QWidget, caption: str) -> None:
+        if app.platformName() != "offscreen":
+            raise RuntimeError("Walkthroughs require the isolated offscreen Qt platform.")
+        self.app, self.main_window = app, main_window
+        self.root = main_window
+        self.pointer = QPoint(36, 36)
+        self.caption = caption
+        self.frames: list[Image.Image] = []
+        self.durations: list[int] = []
+        self.actions: list[dict[str, object]] = []
+        self.bind(main_window)
+        self.record(1000)
+
+    def process(self) -> None:
+        QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+        self.app.processEvents()
+
+    def bind(self, root: QWidget, *, full: bool = True) -> None:
+        self.root = root
+        if full:
+            root.resize(self.width, self.height)
+        self.process()
+        if root.width() > self.width or root.height() > self.height:
+            raise RuntimeError("Native window exceeds the capture canvas.")
+        self.offset = QPoint((self.width - root.width()) // 2, (self.height - root.height()) // 2)
+
+    def record(self, duration: int = 100, ripple: float | None = None) -> None:
+        if len(self.frames) >= 180:
+            raise RuntimeError("Split this walkthrough; the per-clip frame budget is exhausted.")
+        self.process()
+        image = QImage(self.width, self.height + self.footer, QImage.Format.Format_RGB32)
+        image.fill(QColor(BACKGROUND))
+        painter = QPainter(image)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        if self.root is not self.main_window:
+            painter.drawPixmap(0, 0, self.main_window.grab())
+            painter.fillRect(0, 0, self.width, self.height, QColor(0, 0, 0, 100))
+        painter.drawPixmap(self.offset, self.root.grab())
+        origin = self.root.mapToGlobal(QPoint())
+        for popup in self.app.topLevelWidgets():
+            if popup.isVisible() and popup.windowType() == Qt.WindowType.Popup:
+                painter.drawPixmap(popup.mapToGlobal(QPoint()) - origin + self.offset, popup.grab())
+        if ripple is not None:
+            color = QColor(GREEN)
+            color.setAlpha(round(210 * (1 - ripple)))
+            painter.setPen(QPen(color, 3))
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            painter.drawEllipse(QPointF(self.pointer), 10 + ripple * 24, 10 + ripple * 24)
+        painter.translate(self.pointer)
+        painter.setPen(QPen(QColor(BACKGROUND), 2))
+        painter.setBrush(QColor(TEXT_PRIMARY))
+        painter.drawPolygon(
+            QPolygonF(
+                [
+                    QPointF(x, y)
+                    for x, y in (
+                        (0, 0),
+                        (0, 27),
+                        (7, 21),
+                        (12, 32),
+                        (18, 29),
+                        (13, 19),
+                        (24, 19),
+                    )
+                ]
+            )
+        )
+        painter.resetTransform()
+        painter.fillRect(0, self.height, self.width, self.footer, QColor(BACKGROUND))
+        painter.setPen(QColor(GREEN))
+        painter.drawLine(0, self.height, self.width, self.height)
+        painter.setFont(QFont("Segoe UI", 14))
+        painter.setPen(QColor(TEXT_PRIMARY))
+        painter.drawText(
+            QRectF(20, self.height + 6, self.width - 40, 32),
+            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter,
+            self.caption,
+        )
+        painter.setFont(QFont("Segoe UI", 10))
+        painter.setPen(QColor(TEXT_SECONDARY))
+        painter.drawText(
+            20,
+            self.height + 60,
+            "ACTUAL NATIVE UI  |  Scripted Qt clicks + pointer overlay  |  "
+            "Practice money, not orders",
+        )
+        painter.end()
+        self.frames.append(image_from_qt(image).convert("RGB"))
+        self.durations.append(duration)
+
+    def hold(self, duration: int = 1500) -> None:
+        self.durations[-1] += duration
+
+    def point(self, widget: QWidget, local: QPoint) -> QPoint:
+        return widget.mapToGlobal(local) - self.root.mapToGlobal(QPoint()) + self.offset
+
+    def move(self, destination: QPoint, caption: str) -> None:
+        self.caption = caption
+        start = self.pointer
+        for step in range(1, 5):
+            progress = step / 4
+            progress = progress * progress * (3 - 2 * progress)
+            self.pointer = QPoint(
+                round(start.x() + (destination.x() - start.x()) * progress),
+                round(start.y() + (destination.y() - start.y()) * progress),
+            )
+            self.record(60)
+
+    def click(self, widget: QWidget, caption: str, local: QPoint | None = None) -> None:
+        self.process()
+        if not widget.isVisible() or not widget.isEnabled():
+            raise RuntimeError(f"Cannot demonstrate a hidden/disabled control: {caption}")
+        local = local if local is not None else widget.rect().center()
+        destination = self.point(widget, local)
+        if not (0 <= destination.x() < self.width and 0 <= destination.y() < self.height):
+            raise RuntimeError(f"Click target lies outside the visible capture: {caption}")
+        self.move(destination, caption)
+        QTest.mousePress(widget, Qt.MouseButton.LeftButton, pos=local)
+        self.record(90, 0)
+        QTest.mouseRelease(widget, Qt.MouseButton.LeftButton, pos=local)
+        self.record(100, 0.4)
+        self.record(140, 1)
+        self.hold(max(1400, 220 * len(caption.split())))
+        self.actions.append(
+            {"kind": "click", "caption": caption, "position": [destination.x(), destination.y()]}
+        )
+
+    def tab(self, widget: QTabWidget, text: str, caption: str) -> None:
+        index = next(i for i in range(widget.count()) if widget.tabText(i) == text)
+        bar = widget.tabBar()
+        self.click(bar, caption, bar.tabRect(index).center())
+        if widget.currentIndex() != index:
+            raise RuntimeError(f"Tab click did not select {text}.")
+
+    def row(self, widget: QListWidget, index: int, caption: str) -> None:
+        item = widget.item(index)
+        if item is None:
+            raise RuntimeError(f"No native list row {index}.")
+        widget.scrollToItem(item)
+        self.process()
+        self.click(widget.viewport(), caption, widget.visualItemRect(item).center())
+        if widget.currentRow() != index:
+            raise RuntimeError("List click did not select the demonstrated row.")
+
+    def choose(self, widget: QComboBox, index: int, caption: str) -> None:
+        self.click(widget, caption)
+        # Native popups briefly suppress releases immediately after opening.
+        QTest.qWait(self.app.doubleClickInterval())
+        view = widget.view()
+        item = widget.model().index(index, widget.modelColumn(), widget.rootModelIndex())
+        view.scrollTo(item)
+        self.process()
+        self.click(view.viewport(), caption, view.visualRect(item).center())
+        if widget.currentIndex() != index:
+            raise RuntimeError("Dropdown click did not select the demonstrated value.")
+
+    def enter(self, widget: QLineEdit | QAbstractSpinBox, text: str, caption: str) -> None:
+        editor = widget if isinstance(widget, QLineEdit) else widget.findChild(QLineEdit)
+        if editor is None:
+            raise RuntimeError("Input control has no native editor.")
+        self.click(editor, caption)
+        QTest.keyClick(editor, Qt.Key.Key_A, Qt.KeyboardModifier.ControlModifier)
+        for start in range(0, len(text), 3):
+            QTest.keyClicks(editor, text[start : start + 3])
+            self.record(130)
+        QTest.keyClick(editor, Qt.Key.Key_Return)
+        self.record(150)
+        self.hold(700)
+        self.actions.append({"kind": "keyboard", "caption": caption, "text": text})
+
+    def drag(self, slider: QSlider, target: int, caption: str, *, steps: int = 12) -> None:
+        option = QStyleOptionSlider()
+        slider.initStyleOption(option)
+
+        def handle(value: int) -> QPoint:
+            option.sliderPosition = value
+            return (
+                slider.style()
+                .subControlRect(
+                    QStyle.ComplexControl.CC_Slider,
+                    option,
+                    QStyle.SubControl.SC_SliderHandle,
+                    slider,
+                )
+                .center()
+            )
+
+        before = slider.value()
+        start, end = handle(before), handle(target)
+        self.move(self.point(slider, start), caption)
+        QTest.mousePress(slider, Qt.MouseButton.LeftButton, pos=start)
+        for step in range(1, steps + 1):
+            local = start + (end - start) * (step / steps)
+            event = QMouseEvent(
+                QEvent.Type.MouseMove,
+                QPointF(local),
+                QPointF(slider.mapToGlobal(local)),
+                Qt.MouseButton.NoButton,
+                Qt.MouseButton.LeftButton,
+                Qt.KeyboardModifier.NoModifier,
+            )
+            QApplication.sendEvent(slider, event)
+            self.pointer = self.point(slider, local)
+            self.record(120, 0.3)
+        QTest.mouseRelease(slider, Qt.MouseButton.LeftButton, pos=end)
+        self.record(150)
+        self.hold(1100)
+        if abs(slider.value() - target) > 2:
+            raise RuntimeError(f"Native slider did not reach requested observation {target}.")
+        self.actions.append(
+            {
+                "kind": "drag",
+                "caption": caption,
+                "from": before,
+                "requested": target,
+                "actual": slider.value(),
+            }
+        )
+
+    def wait(self, ready: Callable[[], bool], *, timeout: float = 120) -> None:
+        deadline = monotonic() + timeout
+        while not ready():
+            if monotonic() > deadline:
+                raise TimeoutError("The actual provider request did not finish in time.")
+            QTest.qWait(30)
+        self.record(300)
+        self.hold()
+
+    def finish(self, output: Path, filename: str) -> dict[str, object]:
+        self.hold(1800)
+        output.mkdir(parents=True, exist_ok=True)
+        path = output / filename
+        save_gif(self.frames, path, self.durations, disposal=1)
+        if path.stat().st_size >= 10_000_000:
+            raise RuntimeError(f"Split this walkthrough; {filename} exceeds the 10 MB budget.")
+        with Image.open(path) as encoded:
+            encoded_frames = encoded.n_frames
+        result = {
+            "file": filename,
+            "frames": len(self.frames),
+            "encoded_frames": encoded_frames,
+            "duration_ms": sum(self.durations),
+            "bytes": path.stat().st_size,
+            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            "actions": self.actions,
+        }
+        self.frames.clear()
+        self.durations.clear()
+        print(
+            f"Captured {filename}: {result['frames']} frames, {result['bytes']} bytes.", flush=True
+        )
+        return result
+
+
+def build_gallery(app: QApplication, end: date | None, output: Path = IMAGES) -> None:
+    if app.platformName() != "offscreen":
+        raise RuntimeError("Gallery capture must be offscreen before creating any windows.")
+
+    from stonks_sniper.app import BookHistoryDemo, MainWindow, MarketDemoWindow, SimulationWindow
+    from stonks_sniper.providers import INDIA
     from stonks_sniper.theme import configure_application
+
+    def button(parent: QWidget, text: str) -> QPushButton:
+        matches = [b for b in parent.findChildren(QPushButton) if b.text() == text]
+        if len(matches) != 1:
+            raise RuntimeError(f"Expected one native button: {text}")
+        return matches[0]
+
+    def dialog(kind):
+        matches = [w for w in window.findChildren(kind) if w.isVisible()]
+        if len(matches) != 1:
+            raise RuntimeError(f"Expected one owned {kind.__name__} window.")
+        return matches[0]
 
     today = datetime.now(INDIA).date()
     requested_end = end or today
-    data = YahooDailyProvider().fetch("RELIANCE", "NSE", today - timedelta(days=730), requested_end)
     configure_application(app)
     window = MainWindow()
     window.motion.setChecked(False)
-    window.resize(1366, 768)
-    window.end.setDate(QDate(requested_end))
-    window.data_ready(data)
+    window.resize(Walkthrough.width, Walkthrough.height)
+    window.end.setDate(QDate(requested_end.year, requested_end.month, requested_end.day))
     window.show()
     captures = []
-
-    def frame() -> Image.Image:
-        QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
-        app.processEvents()
-        if (window.width(), window.height()) != (1366, 768):
-            raise RuntimeError("Native layout exceeded the advertised capture dimensions.")
-        return image_from_qt(window.grab().toImage())
-
-    def capture(name: str, frames: list[Image.Image], durations: list[int], action: str) -> None:
-        save_gif(frames, IMAGES / name, durations)
-        captures.append(
-            {"file": name, "frames": len(frames), "duration_ms": sum(durations), "action": action}
-        )
-
     try:
-        for chart, name in ((0, "explore.gif"), (1, "money.gif"), (3, "rule.gif")):
-            window.chart_tabs.setCurrentIndex(chart)
-            window.price_style.setCurrentIndex(1 if chart == 0 else 0)
-            count = len(data.candles)
-            positions = [round(count - 60 + i * 60 / 24) for i in range(25)]
-            frames = []
-            for position in positions:
-                window.replay.setValue(position)
-                frames.append(frame())
-            capture(
-                name,
-                frames,
-                [1800] + [160] * 23 + [2400],
-                "Actual native replay cursor advanced through the final 60 completed sessions.",
-            )
-        window.replay.setValue(len(data.candles))
-        frames = []
-        for index in (0, 2, 3):
-            window.pattern.setCurrentIndex(index)
-            window.pattern_help.click()
-            frames.append(frame())
-        capture(
-            "learn.gif", frames, [2600] * 3, "Explain pattern opens three authored native lessons."
+        tour = Walkthrough(app, window, "Load a stock, choose a rule, test with practice money.")
+        tour.enter(window.symbol, "ICICIBANK", "1. Enter ICICIBANK; NSE and the dates are visible.")
+        tour.enter(window.capital, "10000", "2. Use INR 10,000 of hypothetical starting capital.")
+        tour.click(window.fetch, "3. Load actual completed history; no substitute prices.")
+        tour.wait(lambda: window.fetch_thread is None)
+        data = window.data
+        if data is None:
+            raise RuntimeError(window.provenance.text())
+        tour.choose(window.pattern, 1, "4. Choose the EMA idea; this is not a winning-rule search.")
+        tour.click(window.run_button, "5. Test the chosen idea on the actual loaded history.")
+        assert window.result is not None
+        tour.choose(window.price_style, 1, "6. Switch the stock-price view to candlesticks.")
+        tour.drag(window.replay, len(data.candles) - 60, "7. Drag back to inspect an earlier day.")
+        captures.append(tour.finish(output, "explore.gif"))
+
+        tour = Walkthrough(app, window, "Compare practice money with buying once and holding.")
+        tour.tab(window.chart_tabs, "Your money", "1. Open Your money: rule versus holding.")
+        tour.drag(
+            window.replay,
+            len(data.candles),
+            "2. Reveal later observations and actual simulated P&L.",
         )
-        frames = []
-        for key in ("stock", "drawdown", "slippage"):
-            window.open_glossary(key)
-            frames.append(frame())
-        capture(
-            "dictionary.gif",
-            frames,
-            [2600] * 3,
-            "Dictionary opens three real authored definitions and everyday examples.",
+        tour.tab(
+            window.chart_tabs,
+            "Falls from a high",
+            "3. Inspect drawdown, not just the final profit.",
         )
+        tour.tab(
+            window.chart_tabs,
+            "Your money",
+            "4. Same starting point and costs; losses stay visible.",
+        )
+        captures.append(tour.finish(output, "money.gif"))
+
+        tour = Walkthrough(app, window, "See the measurements behind the selected trading rule.")
+        tour.tab(
+            window.chart_tabs,
+            "See the rule",
+            "1. Open See the rule for actual indicator measurements.",
+        )
+        tour.drag(
+            window.replay,
+            len(data.candles) - 55,
+            "2. Inspect only the measurements revealed by this day.",
+        )
+        tour.drag(
+            window.replay,
+            len(data.candles),
+            "3. Scrub forward; rule decisions are not earlier fills.",
+        )
+        captures.append(tour.finish(output, "rule.gif"))
+
+        tour = Walkthrough(app, window, "Learn the idea before looking at a simulated return.")
+        tour.click(window.pattern_help, "1. Explain pattern opens the selected native lesson.")
+        tour.row(
+            window.lesson_list, 0, "2. Choose SMA: meaning, household example and failure modes."
+        )
+        tour.tab(
+            window.lesson_tabs,
+            "Exact rules and source",
+            "3. Read the actual formula and its source.",
+        )
+        tour.row(window.lesson_list, 3, "4. Choose Donchian; each idea has its own exact rule.")
+        tour.tab(window.lesson_tabs, "Explain it simply", "5. Return to the beginner explanation.")
+        captures.append(tour.finish(output, "learn.gif"))
+
+        tour = Walkthrough(app, window, "Apply a lesson to real history without changing Explore.")
+        tour.click(window.lesson_demo, "1. Click See a real-market demo.")
+        picker = dialog(MarketDemoWindow)
+        tour.bind(picker, full=False)
+        tour.record()
+        tour.hold()
+        tour.click(picker.use_loaded, "2. Use the explicitly dated captured Explore dataset.")
+        demo = dialog(SimulationWindow)
+        tour.bind(demo)
+        tour.record()
+        tour.hold()
+        assert demo.learning and demo.experiment is not None
+        tour.click(demo.next_signal, "3. Next signal reveals the next recorded target change.")
+        tour.click(
+            demo.next_trade, "4. Next trade shows a later simulated fill, not a live opportunity."
+        )
+        charts = demo.equity_chart.parentWidget()
+        while not isinstance(charts, QTabWidget):
+            if charts is None:
+                raise RuntimeError("Missing native demo chart tabs.")
+            charts = charts.parentWidget()
+        tour.tab(
+            charts,
+            "Your money",
+            "5. Compare this lesson with holding; no profitable interval was picked.",
+        )
+        tour.click(demo.finish, "6. Show the complete marked result, including unsold stock.")
+        captures.append(tour.finish(output, "real-market-demo.gif"))
+        demo.close()
+        picker.close()
+        tour.process()
+
+        tour = Walkthrough(
+            app, window, "Run the selected Explore strategy between your chosen dates."
+        )
+        tour.tab(window.tabs, "Explore", "1. Return to Explore; Simulate is beside Test idea.")
+        tour.click(window.simulate_button, "2. Open the independent Simulate window.")
+        simulation = dialog(SimulationWindow)
+        tour.bind(simulation)
+        tour.record()
+        tour.hold()
+        tour.click(simulation.start, "3. Start/end dates are bounded by the actual loaded history.")
+        QTest.keyClick(simulation.start, Qt.Key.Key_Up)
+        tour.record(250)
+        tour.click(
+            simulation.run_button, "4. Start simulation; warmup stays inside the chosen range."
+        )
+        assert simulation.experiment is not None
+        tour.drag(
+            simulation.replay,
+            simulation.replay.maximum() - 70,
+            "5. Reveal the date range: buy/sell markers and trade rows appear causally.",
+        )
+        tour.click(simulation.step, "6. Next day advances one actual observed session.")
+        charts = simulation.equity_chart.parentWidget()
+        while not isinstance(charts, QTabWidget):
+            if charts is None:
+                raise RuntimeError("Missing native simulation chart tabs.")
+            charts = charts.parentWidget()
+        tour.tab(charts, "Your money", "7. View the money graph for the same simulation.")
+        tour.click(
+            simulation.finish,
+            "8. Final profit/loss is shown in INR and percent, after modelled costs.",
+        )
+        captures.append(tour.finish(output, "simulate.gif"))
+        simulation.close()
+        tour.process()
+
+        tour = Walkthrough(
+            app, window, "Read The Intelligent Investor with original practical notes."
+        )
+        tour.tab(window.tabs, "Learn the patterns", "1. Open Learn the patterns.")
+        tour.tab(
+            window.learning_sections,
+            "The Intelligent Investor",
+            "2. Switch from technical strategies to the book.",
+        )
+        tour.row(
+            window.book.chapters,
+            4,
+            "3. Chapter 5 explains defensive investing and equal-money purchases.",
+        )
+        tour.click(window.book.demo_button, "4. Open this chapter's real-history practical.")
+        picker = dialog(MarketDemoWindow)
+        tour.bind(picker, full=False)
+        tour.record()
+        tour.click(picker.use_loaded, "5. Explicitly reuse the actual captured stock history.")
+        practical = dialog(BookHistoryDemo)
+        tour.bind(practical)
+        tour.record()
+        tour.click(
+            practical.finish, "6. Inspect scheduled monthly purchases; not a buy recommendation."
+        )
+        tour.hold(2000)
+        assert practical.purchases.count() > 0
+        practical.close()
+        picker.close()
+        tour.process()
+        tour.bind(window)
+        tour.tab(
+            window.book,
+            "Fundamental workbook",
+            "7. Research current facts separately from historical simulations.",
+        )
+        tour.click(
+            window.book.copy_stock,
+            "8. Use Explore stock copies the identity, not invented company facts.",
+        )
+        tour.click(
+            window.book.calculate,
+            "9. An empty workbook refuses calculation; research evidence must come first.",
+        )
+        assert not window.book.report_html
+        assert "Cannot calculate" in window.book.results.toPlainText()
+        captures.append(tour.finish(output, "intelligent-investor.gif"))
+
+        tour = Walkthrough(app, window, "Dictionary: simple meanings and everyday examples.")
+        tour.tab(
+            window.tabs,
+            "Dictionary",
+            "1. Open Dictionary; new terminal concepts are searchable too.",
+        )
+        tour.enter(
+            window.glossary_search, "drawdown", "2. Search drawdown: a fall from an earlier high."
+        )
+        assert window.glossary_list.count() > 0
+        tour.hold()
+        tour.enter(
+            window.glossary_search,
+            "slippage",
+            "3. Search slippage: the difference from an expected price.",
+        )
+        assert window.glossary_list.count() > 0
+        tour.hold()
+        tour.enter(
+            window.glossary_search, "watchlist", "4. Search the new Market tools vocabulary."
+        )
+        assert window.glossary_list.count() > 0
+        tour.hold()
+        captures.append(tour.finish(output, "dictionary.gif"))
+
+        tools = window.market_tools
+        tour = Walkthrough(app, window, "Learn useful terminal tools without a brokerage account.")
+        tour.tab(window.tabs, "Market tools", "1. Open Market tools: real history, pretend money.")
+        tour.click(
+            tools.capture_button,
+            "2. Capture Explore history; this does not make a hidden network request.",
+        )
+        assert tools.data is data and tools.replay_index == 0
+        tour.row(
+            tools.navigation, 1, "3. Watchlist shows only the revealed session, not a live quote."
+        )
+        tour.enter(
+            tools.jump_to,
+            "230",
+            "4. Choose an observation to reveal, preserving every intervening paper day.",
+        )
+        tour.click(
+            button(tools, "Advance to"),
+            "5. Advance to observation 230; the local paper clock cannot rewind.",
+        )
+        tour.row(tools.navigation, 2, "6. Open Charts for the currently revealed prefix.")
+        tour.choose(tools.chart_mode, 1, "7. Choose Candles from the real chart controls.")
+        tour.choose(
+            tools.study, 1, "8. Add the shared SMA study; annotations are not trading signals."
+        )
+        captures.append(tour.finish(output, "market-tools.gif"))
+
+        tour = Walkthrough(
+            app, window, "Queue a paper instruction, then observe its later opening fill."
+        )
+        tour.row(tools.navigation, 4, "1. Open Paper orders & holdings; no broker is connected.")
+        tour.click(tools.submit_order, "2. Queue a one-unit Buy; queued is NOT filled.")
+        assert tools.account.orders[-1].status == "Pending"
+        tour.click(
+            tools.next_day, "3. Advance to the next observed opening; costs and holdings update."
+        )
+        assert tools.account.orders[-1].status == "Filled" and tools.account.units > 0
+        tour.choose(tools.side, 1, "4. Choose Sell to close the owned paper unit.")
+        tour.click(tools.submit_order, "5. Queue the Sell after the revealed close.")
+        tour.click(
+            tools.next_day, "6. Advance again: inspect realised P&L, including both-side costs."
+        )
+        assert tools.account.orders[-1].status == "Filled" and tools.account.units == 0
+        captures.append(tour.finish(output, "paper-orders.gif"))
+
+        tour = Walkthrough(
+            app, window, "Manual learning labs are assumptions, not downloaded prices."
+        )
+        tour.row(
+            tools.navigation,
+            5,
+            "1. Open Risk & allocation: plan with explicitly hypothetical inputs.",
+        )
+        tour.enter(
+            tools.risk_percent,
+            "2",
+            "2. Set an illustrative 2% risk budget; not a guaranteed loss cap.",
+        )
+        tour.click(
+            button(tools, "Calculate risk and quantity"),
+            "3. Calculate cost-aware whole-unit sizing.",
+        )
+        tour.row(
+            tools.navigation, 6, "4. Open Depth & options labs; neither panel is a live data feed."
+        )
+        tour.choose(tools.option_kind, 1, "5. Compare a bought put's manual expiry arithmetic.")
+        tour.click(
+            button(tools, "Calculate expiry scenarios"),
+            "6. Read expiry outcomes and premium risk, not a trade signal.",
+        )
+        captures.append(tour.finish(output, "manual-labs.gif"))
+
         receipt = {
             "captured_at": datetime.now(INDIA).isoformat(),
+            "application_version": __version__,
+            "source_commit": subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+            ).strip(),
+            "source_dirty": bool(
+                subprocess.check_output(
+                    ["git", "status", "--porcelain"], cwd=ROOT, text=True
+                ).strip()
+            ),
+            "capture_script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             "source": data.source,
             "symbol": data.symbol,
             "exchange": data.exchange,
@@ -471,19 +1021,29 @@ def build_gallery(app: QApplication, end: date | None) -> None:
             "provider_warnings": list(data.warnings),
             "price_basis": data.price_basis,
             "platform": app.platformName(),
-            "width": 1366,
-            "height": 768,
-            "motion": "Deterministic native replay/navigation captures; transitions disabled.",
-            "branding": "Decorative illustration; never claimed as stock observations.",
+            "width": Walkthrough.width,
+            "height": Walkthrough.height + Walkthrough.footer,
+            "motion": (
+                "Scripted native Qt clicks/keys/drags; accelerated, captioned history scrubbing."
+            ),
+            "pointer": "Rendered overlay and click ripples; no operating-system pointer control.",
+            "composition": (
+                "Owned dialogs centered over the owned main window; caption footer added."
+            ),
+            "isolation": "Offscreen owned QApplication and temporary process-local Yahoo cache.",
+            "branding": "Existing decorative logo/meme unchanged; not product walkthroughs.",
             "captures": captures,
         }
-        (IMAGES / "gif-captures.json").write_text(
+        (output / "gif-captures.json").write_text(
             json.dumps(receipt, indent=2) + "\n", encoding="utf-8"
         )
-        print(f"Captured five native GIF demos from {len(data.candles)} actual observations.")
+        print(
+            f"Captured {len(captures)} walkthroughs from {len(data.candles)} actual observations."
+        )
     finally:
         window.close()
         window.deleteLater()
+        QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
         app.processEvents()
 
 
@@ -496,13 +1056,29 @@ def main() -> None:
         "--gallery", action="store_true", help="Fetch actual history and capture native GUI GIFs."
     )
     parser.add_argument(
+        "--gallery-dir",
+        type=Path,
+        default=IMAGES,
+        help="Output directory for reviewed walkthrough candidates; branding is unchanged.",
+    )
+    parser.add_argument(
         "--end",
         type=date.fromisoformat,
         help="Explicit final requested history date (YYYY-MM-DD), recorded in provenance.",
     )
+    parser.add_argument("--gallery-cache", type=Path, help=argparse.SUPPRESS)
     args = parser.parse_args()
     if not (args.brand or args.gallery):
         parser.error("Choose --brand and/or --gallery; only --gallery retrieves market history.")
+    if args.gallery and args.gallery_cache is None:
+        # Windows can retain worker-thread SQLite handles until process exit.
+        # Let the owning parent clean only its temporary cache after that exit.
+        with TemporaryDirectory(prefix="stonks-readme-cache-") as cache:
+            subprocess.run(
+                [sys.executable, str(Path(__file__)), *sys.argv[1:], "--gallery-cache", cache],
+                check=True,
+            )
+        return
     app = QApplication([])
     if sys.platform == "win32" and app.platformName() == "offscreen":
         for name in ("segoeui.ttf", "times.ttf") if args.brand else ("segoeui.ttf",):
@@ -512,7 +1088,10 @@ def main() -> None:
     if args.brand:
         build_brand()
     if args.gallery:
-        build_gallery(app, args.end)
+        import yfinance as yf
+
+        yf.set_tz_cache_location(str(args.gallery_cache))
+        build_gallery(app, args.end, args.gallery_dir.resolve())
 
 
 if __name__ == "__main__":

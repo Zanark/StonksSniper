@@ -1,0 +1,49 @@
+# SS-26 - Current README walkthroughs with visible pointer and click effects
+Workstream ID: SS-26
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/26
+Status: IN_PROGRESS
+Milestone: M2
+Dependencies: SS-21, SS-22, SS-24, SS-25
+
+## Purpose
+Replace outdated README product GIFs with current native UI walkthroughs,
+including the new learning/practice features and understandable visible clicks.
+Keep decorative branding/meme animations and immutable release assets unchanged.
+
+## Tasks
+- [x] Inspect old captures and current native controls.
+- [x] Add isolated pointer-led native capture with click highlights and captions.
+- [x] Refresh existing tours and show Simulate, demos, book and Market tools.
+- [x] Check actual interactions, data provenance, animation output and key frames.
+- [x] Update README, media receipts and reproducible capture instructions.
+- [ ] Publish verified media/tracking and update owned continuity.
+
+## Acceptance criteria
+- Product GIFs show current application controls, not stale prototype views.
+- A visible pointer and click effects make the demonstrated actions understandable.
+- Captured clicks/keys/drags actually operate the native widgets; overlays are labelled.
+- Market charts use actual completed provider history, not fabricated examples.
+- Manual scenario inputs remain unmistakably hypothetical.
+- Capture runs own offscreen windows/cache, never the user's OS mouse or open app.
+- Captions, sources, hashes, dates and limitations agree with the captured actions.
+- Logo/meme artwork and the frozen v1.0.0 release remain unchanged.
+
+## Completion evidence
+- Eleven current native tours; five refreshed and six added. Actual ICICIBANK
+  worker supplied 494 completed observations, 2024-11-25..2026-11-20.
+- All encoded GIF frames decoded at 1366x844, exact duration/hash agreement;
+  5,844,000 bytes total. Contact sheets and native-size feature/click details
+  inspected, with readable caption pauses. See docs/images/gif-captures.json.
+- 361 offline tests passed, 4 opt-in live cases skipped; Ruff lint/format and
+  strict source mypy passed. Actual provider/capture process completed normally.
+- README and docs/development.md explain native events versus pointer overlays,
+  isolated ownership, actual-history and manual-scenario boundaries.
+- Logo/meme and v1.0.0 tag/release assets remain unchanged.
+- Publication and final tracking read-back pending; no human approval claimed.
+
+## Completion log
+- 2026-11-23: User requests current README GIFs showing new functionality,
+  with a visible mouse pointer and click effects to explain how controls work.
+- 2026-11-23: Rendered and inspected all eleven current tours. Corrected capture
+  assumptions about native popup activation and the empty-workbook guard.
+  Bounded child-process cache isolation avoids Windows SQLite cleanup locks.

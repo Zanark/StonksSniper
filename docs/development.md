@@ -35,6 +35,64 @@ The attached Python wheel imported outside the source checkout and exposed all
 controls were not changed. These checks do not qualify local frozen execution
 on this Application-Control-restricted machine or promise reproducible binary bytes.
 
+## Pointer-led README walkthroughs - 2026-11-23
+
+The five November 12 product GIFs have been refreshed, with six additional tours:
+independent Simulate, lesson-linked real-market demos, The Intelligent Investor,
+Market tools, paper orders/holdings and manual risk/options labs. All eleven use
+the current native interface. Decorative logo/meme animations, application code
+and immutable v1.0.0 release assets are unchanged.
+
+The normal ICICIBANK/NSE fetch worker supplied **494 actual completed observations,
+2024-11-25 through 2026-11-20**. The requested end was November 23; its potentially
+incomplete current-day bar was excluded normally. No profitable rule/date search,
+fictional market prices or fallback ticker was used. The full-range EMA example
+and Donchian learning demo lose money; the shorter date-range example gains.
+Paper order results retain costs and their loss; manual scenarios stay labelled.
+
+The capture process owns an offscreen QApplication and separate Yahoo cache.
+Qt mouse/keyboard events actually operate visible buttons, tabs, lists, dropdowns,
+editors and sliders. The pointer and expanding click rings are rendered overlays,
+not an OS mouse recording. Owned dialogs are centered over the dimmed owned parent;
+captions add 76 pixels to the 1366x768 native canvas. Replay is accelerated and
+animations are disabled; no existing user window, pointer or application is driven.
+Caption holds scale with word count, with a longer pause for the book practical.
+
+Recreate **review candidates**, using the declared development dependencies:
+
+```powershell
+& .\.venv\Scripts\python.exe .\scripts\build_presentation.py --gallery --gallery-dir C:\devdesk\homedesk\StonksSniper\build\readme-walkthrough-candidate
+```
+
+This makes an actual network request. Review the candidates before replacing
+`docs\images` media. `--end YYYY-MM-DD` explicitly bounds the request; fresh
+provider history/adjustments and the default lookback can change future captures.
+This is a repeatable capture procedure, not a byte-reproducible market dataset.
+`--brand` is separate and is not required for a product-tour refresh.
+
+[`gif-captures.json`](images/gif-captures.json) records source/fetch/session dates,
+warnings, price basis, application version, source commit/dirty flag, capture-script
+SHA-256 and per-clip actions, dimensions, timings, bytes and SHA-256. `frames` counts
+composited inputs; `encoded_frames` accounts for identical frames merged by GIF
+encoding without losing duration. Each clip is bounded to 180 input frames and
+less than 10 MB. These eleven total **5,844,000 bytes**, with loops of 11-31 seconds.
+
+Every encoded frame decoded at 1366x844, with matching total timing and hashes.
+Inspected two contact sheets and native-size simulation, monthly-purchase,
+paper-pending and click-effect details; final output was compared with those
+inspected views. This is native-image inspection, not browser/DPI or human approval.
+Four focused native interaction/safety regressions join the full offline gate:
+**361 passed, 4 opt-in live cases skipped**, normal exit; Ruff lint/format and
+strict source mypy passed. The separate actual provider/capture run also completed.
+
+The first candidate caught two capture assumptions, not product defects: a native
+dropdown briefly ignores releases after opening, and an empty workbook correctly
+refuses calculation instead of producing a report. The harness now waits for popup
+activation and demonstrates that refusal. Windows also retained SQLite handles
+until worker-process exit; a parent now cleans only its own temporary cache after
+that exit. No dependency or security-policy change was needed.
+Visible-platform capture is rejected before any application window is constructed.
+
 ## Local commands
 
 From `C:\devdesk\homedesk\StonksSniper`, after the README setup:
