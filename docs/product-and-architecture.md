@@ -39,6 +39,18 @@ verifiable completeness promise. Catalogue coverage is enumerated and sourced.
 Indicator background is not proof of strategy efficacy. AI-generated strategies
 will be hypotheses, not established market patterns or validated recommendations.
 
+## Market tools workspace
+
+Latest-source **Market tools** is a separate educational workspace: original
+terminal-tool lessons, actual snapshot watchlists/chart studies/comparison,
+historical close alerts and an opening-only manual order exercise. Pure arithmetic
+and local instruction accounting live in `market_tools.py`; `tools_ui.py` owns
+the native desk; `tool_lessons.py` supplies original notes reused by Dictionary.
+No new dependency, worker/feed or broker connection is introduced.
+The existing strategy engine is unchanged. Manual risk/allocation/depth/options
+panels label assumptions and never supply market observations.
+[Exact contracts and official research receipts](market-tools.md).
+
 ## M1: working daily-data vertical slice
 
 - Explicit NSE/BSE symbol and inclusive date-range selection.

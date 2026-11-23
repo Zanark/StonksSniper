@@ -44,6 +44,7 @@ SS-20  20_DATE_RANGE_SIMULATION.todo         M1.2 separate simulation window and
 SS-21  21_INTELLIGENT_INVESTOR.todo          M2 book companion and closed-market study
 SS-22  22_REAL_MARKET_DEMOS.todo            M2 real-history algorithm learning demos
 SS-23  23_AGENT_SIMULATION_LAB.todo         M2 headless lab and reusable agent skill
+SS-24  24_MARKET_TOOLS.todo                 M2 Kite-inspired beginner practice desk
 
 Provider investigations each retain named option tasks plus the common
 qualification contract in docs/data-providers.md. This register is extensible,
@@ -76,6 +77,12 @@ embedded LLM, complete AI research platform or new executable is claimed.
 Their issues #22/#23 and existing Project 14 items were verified completed/Done.
 SS-10 is IN_PROGRESS: immutable history import/re-simulation is delivered by
 SS-23; the broader GUI study store, revisions, annotations and recovery remain.
+SS-24 is technically DONE in the latest source: 20 original Kite-inspired
+tool lessons, snapshot watchlists, chart studies/drawings/comparison, historical
+close alerts, opening-only paper orders/holdings and manual scenario calculators.
+357 offline tests passed; actual ICICIBANK/TCS native checks and inspected views
+retain daily-data and simulation-only boundaries. This does not complete Kite
+integration or shared-cash baskets; see docs/market-tools.md.
 SS-11 is IN_PROGRESS: v0.3.0 Windows executable is published with Simulate,
 the missing-price fix and actual Windows/Linux/frozen live checks passed.
 Release: https://github.com/Zanark/StonksSniper/releases/tag/v0.3.0

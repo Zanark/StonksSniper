@@ -22,6 +22,16 @@ can focus the explanation, press Tab to highlight a link and Return to open it.
 Search accepts names or abbreviations and reports missing explanations rather
 than inventing them.
 
+## Learn terminal tools in a practice desk
+
+For terminal tools rather than algorithms, open **Market tools** in the latest
+source. Start with its searchable **Tool guide**, then capture Explore history
+for watchlists, chart studies/drawings, comparison, historical alerts and
+opening-only paper orders/holdings. Manual risk, allocation, depth and bought-option
+expiry labs label their inputs as hypothetical.
+[Step-by-step route, exact arithmetic and research](market-tools.md).
+No live quote, broker account or real order is supplied; this is not in v0.3.0.
+
 ## Read alongside The Intelligent Investor
 
 In the **latest source**, **Learn the patterns** contains separate

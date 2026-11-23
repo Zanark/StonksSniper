@@ -28,6 +28,14 @@ The older v0.2.0 EXE does not include this feature.
 
 ## Understand before you test.
 
+**Latest source: a beginner market-tools practice desk.** **Market tools** adds
+20 original Kite-inspired lessons, captured watchlists, chart studies/drawings,
+common-session comparison, historical close alerts, opening-only paper orders
+with holdings/P&L, and manual risk/allocation/depth/options-expiry labs.
+Every tool distinguishes real observations from hypothetical inputs.
+[Practical route, exact behaviour and official research sources](docs/market-tools.md).
+**No broker login, live feed or real orders; not in the v0.3.0 EXE.**
+
 **Latest source: read alongside The Intelligent Investor.** In **Learn the patterns**,
 choose **Internet technical strategies** or **The Intelligent Investor**.
 The book companion adds original ELI15 notes mapped to 20 main chapters,

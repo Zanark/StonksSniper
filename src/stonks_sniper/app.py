@@ -92,6 +92,7 @@ from stonks_sniper.theme import (
     application_icon,
     configure_application,
 )
+from stonks_sniper.tools_ui import MarketTools
 
 LOGGER = logging.getLogger(__name__)
 
@@ -622,6 +623,8 @@ class MainWindow(QMainWindow):
         dictionary_split.setSizes([320, 1000])
         dictionary_layout.addWidget(dictionary_split, 1)
         self.tabs.addTab(self.dictionary, "Dictionary")
+        self.market_tools = MarketTools(lambda: self.data)
+        self.tabs.insertTab(2, self.market_tools, "Market tools")
         self.glossary_keys: list[str] = []
         self.filter_glossary("")
         for help_browser in self.findChildren(HelpBrowser):

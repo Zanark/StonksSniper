@@ -20,6 +20,23 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-23: Completed SS-24's bounded Kite-inspired native practice desk after
+  reading official marketwatch/orders/portfolio/charting/funds/widgets/utilities
+  and current GTT/settlement support. Older manual GTT/T+2 wording is not copied
+  as current broker truth. Added 20 original tool lessons shared with Dictionary;
+  actual-history watchlists, chart studies/drawings/comparison, historical close
+  crossings, opening-only manual orders with rejection/expiry/cancellation and
+  average-cost realised/unrealised P&L, plus manual risk/allocation/depth/options
+  expiry arithmetic. Existing algorithm engine and providers remain unchanged.
+  Actual ICICIBANK/TCS fetched 496 observations each through 2026-11-20; native
+  capture/comparison/order ledger/final marks passed. Inspected owned 1366x900
+  and 1366x768 views; fixed integer control styling, drawing clarity, complete
+  cell tooltips, stale status and mixed known/unknown numeric quote sorting.
+  357 passed, 4 opt-in live cases skipped, normal exit; lint/format/mypy/whitespace
+  passed. JSON identifier save/load and non-overwriting evidence exports retain
+  explicit provenance/future-bar limitations. SS-08/10/12 remain unfinished;
+  no broker/login/feed, real order, full Kite parity, new release or human
+  acceptance. Published v0.3.0 bytes remain unchanged.
 - 2026-11-21: Completed SS-22 real-market learning demos and SS-23 agent lab.
   All 27 technical lessons launch independent actual-history studies with
   prefix-only measurements, next signal/trade navigation and holding comparison.

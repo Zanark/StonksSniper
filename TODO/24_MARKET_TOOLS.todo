@@ -1,0 +1,51 @@
+# SS-24 - Kite-inspired beginner market tools and practice desk
+Workstream ID: SS-24
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/24
+Status: DONE
+Milestone: M2
+Dependencies: SS-03, SS-04, SS-05, SS-22, SS-23
+
+## Purpose
+Make useful trading-terminal tools understandable and usable as original,
+simulation-only learning exercises grounded in official Kite documentation.
+This is not broker integration, a terminal clone or a promise of feature parity.
+
+## Tasks
+- [x] Research official marketwatch, orders, portfolio, charting, widgets and utilities.
+- [x] Add original tool lessons with everyday examples and explicit capability boundaries.
+- [x] Implement snapshot watchlists, chart studies/annotations and common-session comparison.
+- [x] Implement revealed-close alerts and opening-only manual order/holdings exercises.
+- [x] Add manual risk sizing, allocation, depth and bought-option expiry calculators.
+- [x] Verify arithmetic, causality, error paths, file persistence and native workflows.
+- [x] Document source receipts, coverage, actual checks and remaining limitations.
+
+## Acceptance criteria
+- Real observations and manual scenarios are unmistakably distinguished.
+- Paper instructions never fill at/before submission; no intraday sequence is fabricated.
+- Invalid inputs, unavailable data, rejected orders and save failures remain explicit.
+- Costs, cash, realised/unrealised P&L and full provenance can be inspected/exported.
+- Beginner instructions explain unfamiliar tools, useful exercises and failure modes.
+- Existing strategies, native lessons, providers and simulations preserve behavior.
+- No live feed, credentials, actual order, derivative market data or paid service is added.
+
+## Completion evidence
+- Full suite: 357 passed, 4 opt-in live tests skipped, normal exit. Ruff lint/format,
+  strict mypy and whitespace passed.
+- Actual fresh ICICIBANK and TCS fetched 496 observations each, 2024-11-21..2026-11-20.
+  Owned native capture/comparison/annotations/alerts/order ledger/final marks passed.
+- Inspected actual-data charts, watchlist, order ledger, comparison and clearly manual
+  scenario/guide views at 1366x900/1366x768. Preserved snapshots reused for the final pass.
+- Twenty original ELI15 tool lessons, Dictionary integration, practical guide and source
+  receipts explain usable tools and unavailable broker/live-data features.
+- Save/load identifiers and immutable evidence exports tested, including malformed inputs
+  and overwrite refusal. Paper export includes full future captured bars, labelled clearly.
+- Official current GTT support differs from older manual wording; preserve that distinction.
+- SS-08 shared-cash baskets, SS-10 full study storage and SS-12 Kite integration stay open.
+- No complete Kite parity, live quotes/depth, real orders, new executable release,
+  normal Windows/DPI qualification or human learning acceptance is claimed.
+
+## Completion log
+- 2026-11-23: User requests useful Kite-style learning tools, deep research and no questions
+  while away. Selected transparent daily-history exercises plus manual scenario labs.
+- 2026-11-23: Implemented and locally qualified the bounded source-native practice desk.
+  Fixed UI defects found in actual captures and numeric sorting with unknown quotes.

@@ -64,13 +64,14 @@ def configure_application(app: QApplication) -> None:
         QLabel#section {{ color: {WARM}; font-size: 16px; font-weight: 600; }}
         QFrame#card {{ background: {PANEL}; border-radius: 0; }}
         QFrame#card QLineEdit, QFrame#card QComboBox, QFrame#card QDateEdit,
-        QFrame#card QDoubleSpinBox {{ background: {BASE}; }}
-        QLineEdit, QComboBox, QDateEdit, QDoubleSpinBox {{
+        QFrame#card QDoubleSpinBox, QFrame#card QSpinBox {{ background: {BASE}; }}
+        QLineEdit, QComboBox, QDateEdit, QDoubleSpinBox, QSpinBox {{
             background: {PANEL}; color: {WARM}; padding: 7px 9px;
             border: 1px solid rgba(88,110,117,90); border-radius: 0;
             selection-background-color: {ACCENT}; selection-color: {BASE};
         }}
-        QLineEdit:focus, QComboBox:focus, QDateEdit:focus, QDoubleSpinBox:focus {{
+        QLineEdit:focus, QComboBox:focus, QDateEdit:focus, QDoubleSpinBox:focus,
+        QSpinBox:focus {{
             border: 1px solid {ACCENT};
         }}
         QComboBox::drop-down, QDateEdit::drop-down {{ border: none; width: 22px; }}

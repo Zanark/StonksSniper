@@ -29,6 +29,38 @@ and records a screenshot locally; it does not publish market observations.
 The Windows offscreen plugin needs an explicitly loaded installed Segoe UI font.
 The normal Windows application uses the same style and font.
 
+## Kite-inspired market tools
+
+November 23 source-native qualification: **357 passed, 4 opt-in live cases
+skipped**, normal process exit. Ruff lint/format, strict mypy and Git whitespace
+passed. New focused cases cover average-cost/fee P&L, opening-only fills, gap
+stops, activated persistent stop limits, explicit expiry/rejection/cancellation,
+clock ordering, comparison alignment, weekly-year boundaries, close crossings,
+risk/payoff arithmetic, malformed watchlists, save refusal and native workflows.
+
+Actual new Yahoo requests returned **496 observations each for ICICIBANK.NS
+and TCS.NS, 2024-11-21 through 2026-11-20**. Both captured native watchlists,
+common-session comparison, charts/studies/annotations, alert inspection,
+paper buys/partial sales and final marked reporting passed. A hand-directed
+two-unit ICICIBANK example realised a small loss on its partial sale; its
+remaining 1.5 units were left marked, not forced sold. This is a workflow check,
+not an optimized strategy or efficacy test.
+
+Inspected owned native charts, order ledger, watchlist, relative comparison,
+manual scenarios and guide at 1366x900/1366x768. The second pass reused the
+preserved actual snapshots rather than fetching again. Fixed unstyled integer
+controls, clarified drawing inputs, exposed complete cell text via tooltips,
+removed stale queued-status wording and made numeric sorting explicit when
+quotes are missing. No existing app window/process or environment was altered.
+
+Watchlist identifiers and full paper evidence export explicitly; existing files
+are refused. Evidence exports contain future captured observations beyond the
+revealed cursor and cannot resume the paper account. Twenty original tool
+lessons are shared with Dictionary. [Coverage, formulas, sources and boundaries](market-tools.md).
+The unchanged v0.3.0 release does not contain these source-only additions.
+Normal Windows/DPI/human acceptance, live depth, broker fills and profitability
+are not established by these checks.
+
 ## Real-market demos and headless agent lab
 
 Latest-source verification on November 21: **322 offline tests passed,

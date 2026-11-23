@@ -320,6 +320,39 @@ automatic inference from the absence of a bank label. Value estimates, preferred
 liquidation claims, 10/20-year histories and inflation are not silently supplied.
 Do not treat the current reference as information available on an earlier date.
 
+## Terminal-tool learning and manual practice
+
+The latest source also has **Market tools**. Read `docs\market-tools.md` before
+teaching its order model. Its 20 original Kite-inspired lessons cover watchlists,
+chart studies/drawings, comparison, alerts, order lifecycle, holdings, costs/risk,
+baskets/SIP concepts, depth, derivatives and external-service boundaries.
+They also appear in Dictionary. No broker account or live feed is supplied.
+
+Capture an actual Explore dataset, then reveal observations with Next observed
+day or Session # -> Advance to. Watchlists show each instrument's actual dated
+snapshot; comparisons intersect exact revealed sessions and rebase to 100.
+Historical alerts inspect completed-close crossings; they do not run in the
+background or send orders. Manual depth/option/risk/allocation inputs are
+explicit assumptions, not quotes or a replacement for the strategy engine.
+
+`stonks_sniper.market_tools` is GUI-free. Agents may use `grouped_bars`,
+`comparison`, `crossings`, `position_size`, `allocation`, `depth_summary`,
+`option_payoff` and `PaperAccount`. For history, supply validated actual candles.
+`PaperAccount` is deliberately a separate, **opening-only manual instruction**
+exercise: call `advance(first_bar)`, submit after that revealed session, then
+advance strictly to later actual observations. Market/limit/stop-market/stop-limit
+instructions inspect openings only, never intraday highs/lows; local Next opening
+or Until cancelled is not DAY/GTT. Full opening fills, no reservation/partial
+fills, no short/leverage/settlement. Proportional fees and adverse, limit-bounded
+slippage are explicit. Do not equate this with `engine.simulate` or broker fills.
+
+Save watchlist identifiers explicitly; export a new paper-session JSON for
+observations, clock, orders/reasons, capital/costs, holdings, equity and drawings.
+Existing output files are refused. The evidence includes full captured FUTURE
+bars beyond the cursor, is not authenticated, and cannot be imported to resume
+the paper account. Closing loses unsaved in-memory exercises. The existing lab
+commands remain the supported reproducible algorithm interface.
+
 ## Deliver an honest, useful result
 
 Keep the handoff readable to a beginner:

@@ -291,6 +291,18 @@
         "state_reason": "completed",
         "project_status": "Done"
       }
+    },
+    "SS-24": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/24",
+      "issue_number": 24,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhLFhGI",
+      "baseline": {
+        "body_sha256": "f264c880ea2023200a3586d4b7c0f97d1f401ec3180654741e14de5f05c96d78",
+        "title": "SS-24 - Kite-inspired beginner market tools and practice desk",
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
+      }
     }
   }
 }

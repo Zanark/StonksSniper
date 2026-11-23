@@ -9,6 +9,7 @@ from PySide6.QtGui import QCursor, QDesktopServices
 from PySide6.QtWidgets import QTextBrowser, QToolTip
 
 from stonks_sniper.theme import ACCENT, WARM
+from stonks_sniper.tool_lessons import TOOL_LESSONS
 
 
 @dataclass(frozen=True)
@@ -794,6 +795,10 @@ TERMS = {
         ),
     ),
 }
+
+
+for _index, _lesson in enumerate(TOOL_LESSONS):
+    TERMS[f"market-tool-{_index + 1}"] = Term(_lesson.title, _lesson.meaning, _lesson.example)
 
 
 def search_terms(query: str) -> list[str]:
