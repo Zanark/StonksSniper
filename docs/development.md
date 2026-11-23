@@ -93,6 +93,14 @@ until worker-process exit; a parent now cleans only its own temporary cache afte
 that exit. No dependency or security-policy change was needed.
 Visible-platform capture is rejected before any application window is constructed.
 
+Published the refreshed README/media at
+[`fd438e2`](https://github.com/Zanark/StonksSniper/commit/fd438e2dfdd250c97f4884735c198803a919b430).
+Anonymous raw README, receipt and all eleven GIFs returned HTTP 200 and matched
+the committed blobs exactly. Binary files also match their local receipts.
+Text checkout differences and the script hash were checked against exact Git
+bytes or the exact LF-to-CRLF variant, not arbitrary normalization. No release
+asset was replaced or uploaded.
+
 ## Local commands
 
 From `C:\devdesk\homedesk\StonksSniper`, after the README setup:

@@ -1,7 +1,7 @@
 # SS-26 - Current README walkthroughs with visible pointer and click effects
 Workstream ID: SS-26
 GitHub issue: https://github.com/Zanark/StonksSniper/issues/26
-Status: IN_PROGRESS
+Status: DONE
 Milestone: M2
 Dependencies: SS-21, SS-22, SS-24, SS-25
 
@@ -16,7 +16,7 @@ Keep decorative branding/meme animations and immutable release assets unchanged.
 - [x] Refresh existing tours and show Simulate, demos, book and Market tools.
 - [x] Check actual interactions, data provenance, animation output and key frames.
 - [x] Update README, media receipts and reproducible capture instructions.
-- [ ] Publish verified media/tracking and update owned continuity.
+- [x] Publish verified media/tracking and update owned continuity.
 
 ## Acceptance criteria
 - Product GIFs show current application controls, not stale prototype views.
@@ -39,7 +39,13 @@ Keep decorative branding/meme animations and immutable release assets unchanged.
 - README and docs/development.md explain native events versus pointer overlays,
   isolated ownership, actual-history and manual-scenario boundaries.
 - Logo/meme and v1.0.0 tag/release assets remain unchanged.
-- Publication and final tracking read-back pending; no human approval claimed.
+- Published README/media at fd438e2dfdd250c97f4884735c198803a919b430.
+  Anonymous raw README, receipt and all eleven GIFs returned HTTP 200 and
+  matched committed blobs exactly; binary files also match local receipts.
+  Text checkout differences are proven exact LF/CRLF conversion only.
+- SS-26/#26 retains Project14 item PVTI_lAHOAe2wCs4BrLTxzhLG0Po.
+  Final completion sync verified closed-completed/Done before commit.
+- No human approval, browser/DPI qualification or new EXE release claimed.
 
 ## Completion log
 - 2026-11-23: User requests current README GIFs showing new functionality,
@@ -47,3 +53,6 @@ Keep decorative branding/meme animations and immutable release assets unchanged.
 - 2026-11-23: Rendered and inspected all eleven current tours. Corrected capture
   assumptions about native popup activation and the empty-workbook guard.
   Bounded child-process cache isolation avoids Windows SQLite cleanup locks.
+- 2026-11-23: Published fd438e2 with verified Zanark identity/trailers, exact
+  remote main and public-byte read-back. The existing stable release still has
+  its six v1.0.0 assets. Final evidence/tracking update changes no capture output.

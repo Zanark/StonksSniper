@@ -32,7 +32,10 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   harness; parent-owned cache cleanup now follows worker-process exit.
   Visible-platform capture fails before constructing any application window.
   Logo/meme, product runtime and immutable v1.0.0 assets unchanged.
-  Publication/tracking completion is recorded separately after remote read-back.
+  Published fd438e2 with verified Zanark identity/trailers and remote equality.
+  Anonymous raw README, receipt and all eleven GIFs returned 200 and matched
+  committed blobs; local text differs only by proven exact checkout LF/CRLF.
+  Stable release still has its six original v1.0.0 assets; no release upload.
 - 2026-11-23: Published v1.0.0 as latest stable at exact source 883c941, after live
   CI 45155983942 passed Windows/Linux, actual NSE/BSE and frozen Windows checks.
   Frozen HDFCBANK fetched 494 bars and exercised 27 normal/27 date-range routes.

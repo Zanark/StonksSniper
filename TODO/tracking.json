@@ -321,11 +321,11 @@
       "issue_number": 26,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhLG0Po",
       "baseline": {
-        "body_sha256": "20cd141bec5be495b7c66af9646320263f07641a2caba775573927009fb74b4b",
+        "body_sha256": "1c68a406e37cb385cb58ffc0dbf48bccc69779392141ed22c92ea5f35a5b6967",
         "title": "SS-26 - Current README walkthroughs with visible pointer and click effects",
-        "issue_state": "open",
-        "state_reason": null,
-        "project_status": "In Progress"
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
       }
     }
   }
