@@ -54,10 +54,11 @@ read-only market data; account opening, purchases and real trading are excluded.
 
 ## Completion
 
-SS-25 is IN_PROGRESS: prepare and qualify v1.0.0 as the first public release,
-including all current learning features and refreshed README/downloads.
-Publication and social celebration follow exact-source checks; earlier v0.x
-prereleases remain immutable. See 25_FIRST_PUBLIC_RELEASE.todo.
+SS-25 is DONE: v1.0.0 is the latest stable first public release, including all
+current learning features and refreshed README/downloads. Exact-source live
+Windows/Linux and frozen-runtime checks passed; all six published assets were
+downloaded and verified. User-requested MeshBoard celebration published.
+Earlier v0.x prereleases remain immutable. See 25_FIRST_PUBLIC_RELEASE.todo.
 
 M1 (SS-01 through SS-05): technically complete with representative real-data
 checks and offscreen native inspection. Human acceptance is not recorded.
@@ -92,6 +93,7 @@ integration or shared-cash baskets; see docs/market-tools.md.
 SS-11 is IN_PROGRESS: v0.3.0 Windows executable is published with Simulate,
 the missing-price fix and actual Windows/Linux/frozen live checks passed.
 Release: https://github.com/Zanark/StonksSniper/releases/tag/v0.3.0
+The latest public release is now v1.0.0; its bounded qualification is SS-25.
 Broader clean-machine, signing and human acceptance remain open.
 SS-07 through SS-18 otherwise remain planned; no basket, AI or qualified-feed
 completion is implied. The user authorized first-prototype commit, push and

@@ -1,7 +1,7 @@
 # SS-25 - First public release v1.0.0
 Workstream ID: SS-25
 GitHub issue: https://github.com/Zanark/StonksSniper/issues/25
-Status: IN_PROGRESS
+Status: DONE
 Milestone: M4
 Dependencies: SS-20, SS-21, SS-22, SS-23, SS-24
 
@@ -13,10 +13,10 @@ Keep earlier prerelease tags and assets immutable.
 ## Tasks
 - [x] Set v1.0.0, refresh release-facing README/guides and packaging metadata.
 - [x] Make hosted Windows artifact paths follow the application version.
-- [ ] Run local checks and exact-source hosted tests, live checks and frozen runtime.
-- [ ] Verify asset receipts/checksums and publish v1.0.0 as the latest stable release.
-- [ ] Download published assets again and verify exact identity/source/tag.
-- [ ] Celebrate the verified milestone and persist release continuity.
+- [x] Run local checks and exact-source hosted tests, live checks and frozen runtime.
+- [x] Verify asset receipts/checksums and publish v1.0.0 as the latest stable release.
+- [x] Download published assets again and verify exact identity/source/tag.
+- [x] Celebrate the verified milestone and persist release continuity.
 
 ## Acceptance criteria
 - README download and setup instructions point to the first public release.
@@ -31,7 +31,20 @@ Keep earlier prerelease tags and assets immutable.
 - Local candidate: 357 passed, 4 skipped, normal exit; Ruff lint/format, strict
   mypy and whitespace passed. After fixing the stale README download artwork,
   54 affected learning/tracking cases passed and 60 local guide links resolved.
-- Candidate preparation in progress; hosted checks and publication are pending.
+- Published https://github.com/Zanark/StonksSniper/releases/tag/v1.0.0 as latest,
+  non-draft/non-prerelease at 883c941a4b721b190368da60906677ca745c48e5.
+- Exact-source live CI 45155983942 passed Windows/Python 3.13.14 and Linux/Python
+  3.11, actual provider checks and the real frozen Windows runtime. The EXE
+  fetched 494 HDFCBANK observations and exercised 27 normal/27 date-range routes.
+- Six public assets downloaded again, all byte-identical to qualified originals.
+  Five payload checksums, 33 build-input hashes (exact checkout newline variants),
+  330 notices entries, clean source receipt and public PE version verified.
+- Python wheel/source distribution built; extracted wheel imported outside the
+  checkout and returned all 27 headless strategies. Anonymous EXE/source URLs
+  returned HTTP 200. No signing/local policy bypass or earlier release replacement.
+- User-requested MeshBoard celebration published and read back with a fitting
+  original GIF; owned release continuity updated. No external social account
+  publication, fabricated peer response or roadmap completion is implied.
 - Earlier source d0981dc passed 357 local tests and exact-source Windows/Linux CI;
   that evidence alone does not qualify the new versioned release.
 
@@ -39,3 +52,5 @@ Keep earlier prerelease tags and assets immutable.
 - 2026-11-23: User explicitly designates this as the first public release and
   authorizes release publication, README update and a social celebration.
   Selected v1.0.0 as the first stable educational milestone, not full roadmap completion.
+- 2026-11-23: Published and verified the qualified release and all downloaded
+  assets; updated README/guides, celebrated on MeshBoard and retained evidence.

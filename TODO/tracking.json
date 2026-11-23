@@ -309,11 +309,11 @@
       "issue_number": 25,
       "item_id": "PVTI_lAHOAe2wCs4BrLTxzhLGAd0",
       "baseline": {
-        "body_sha256": "d20c2511304432622f88d4b7189aab909fdf29656d8e60e4c62eea9b844cbb80",
+        "body_sha256": "1f780054d90ba16004548498d1b821ce5e9e6895fe4d7a3050007bc9698a94f0",
         "title": "SS-25 - First public release v1.0.0",
-        "issue_state": "open",
-        "state_reason": null,
-        "project_status": "In Progress"
+        "issue_state": "closed",
+        "state_reason": "completed",
+        "project_status": "Done"
       }
     }
   }

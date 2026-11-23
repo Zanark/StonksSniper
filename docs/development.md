@@ -16,6 +16,25 @@ Control restrictions, clean-machine/DPI and human acceptance are not overridden
 by successful hosted checks. Earlier development evidence below is historical;
 v1.0.0 includes the features previously described as source-only.
 
+Published [v1.0.0](https://github.com/Zanark/StonksSniper/releases/tag/v1.0.0)
+as the latest stable release at `883c941a4b721b190368da60906677ca745c48e5`.
+The [exact-source live run 45155983942](https://github.com/Zanark/StonksSniper/actions/runs/45155983942)
+passed Linux/Python 3.11 and Windows/Python 3.13.14, including actual NSE/BSE
+provider cases and the Windows frozen runtime. That EXE fetched 494 HDFCBANK
+observations through November 20, exercised all 27 strategies and all 27
+date-range simulation routes, and exported its exact experiment.
+
+All six published assets were downloaded again and matched the qualified
+originals byte for byte; the five manifest payloads matched SHA-256 checksums.
+Verified all 33 first-party build-input hashes against the tagged Git source,
+allowing only exact LF-to-CRLF checkout conversion for text files. The notices
+archive contains 330 metadata/license entries. The public EXE's PE metadata
+reports 1.0.0, and anonymous executable/source-archive URLs returned HTTP 200.
+The attached Python wheel imported outside the source checkout and exposed all
+27 headless strategies. Existing v0.x tags/assets and this host's security
+controls were not changed. These checks do not qualify local frozen execution
+on this Application-Control-restricted machine or promise reproducible binary bytes.
+
 ## Local commands
 
 From `C:\devdesk\homedesk\StonksSniper`, after the README setup:

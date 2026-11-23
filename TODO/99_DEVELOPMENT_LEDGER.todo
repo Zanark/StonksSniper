@@ -20,6 +20,15 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-23: Published v1.0.0 as latest stable at exact source 883c941, after live
+  CI 45155983942 passed Windows/Linux, actual NSE/BSE and frozen Windows checks.
+  Frozen HDFCBANK fetched 494 bars and exercised 27 normal/27 date-range routes.
+  Six public assets downloaded and matched originals; five manifest payloads,
+  33 first-party input hashes, 330 notices and clean source/PE version verified.
+  Python wheel imported outside source and listed 27 strategies. Anonymous EXE/
+  source URLs returned 200. Updated release-facing README/guides and published
+  the requested first-release MeshBoard celebration with an inspected original
+  toast GIF. Earlier releases/security policies unchanged; SS-25 complete.
 - 2026-11-23: User authorizes v1.0.0 as the first public release, refreshed README
   and a milestone celebration. Prepared version/package metadata and release-facing
   guides; hosted output paths now follow the application version. Kept earlier
