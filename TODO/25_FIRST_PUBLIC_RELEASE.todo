@@ -1,0 +1,41 @@
+# SS-25 - First public release v1.0.0
+Workstream ID: SS-25
+GitHub issue: https://github.com/Zanark/StonksSniper/issues/25
+Status: IN_PROGRESS
+Milestone: M4
+Dependencies: SS-20, SS-21, SS-22, SS-23, SS-24
+
+## Purpose
+Publish the current educational application as its first non-prerelease,
+with a complete Windows download, corresponding source and clear limitations.
+Keep earlier prerelease tags and assets immutable.
+
+## Tasks
+- [x] Set v1.0.0, refresh release-facing README/guides and packaging metadata.
+- [x] Make hosted Windows artifact paths follow the application version.
+- [ ] Run local checks and exact-source hosted tests, live checks and frozen runtime.
+- [ ] Verify asset receipts/checksums and publish v1.0.0 as the latest stable release.
+- [ ] Download published assets again and verify exact identity/source/tag.
+- [ ] Celebrate the verified milestone and persist release continuity.
+
+## Acceptance criteria
+- README download and setup instructions point to the first public release.
+- Windows EXE includes the current companion, learning demos and Market tools desk.
+- Public Python wheel/source support the headless lab; GUI-only EXE is not called a CLI.
+- Exact tagged source matches the qualified build receipt and hosted run.
+- Downloaded assets match the checksums; corresponding source/notices remain available.
+- Unsigned status, provider dependence, simulation scope and unfinished roadmap stay clear.
+- Existing user windows/environments, security controls and earlier releases stay unchanged.
+
+## Completion evidence
+- Local candidate: 357 passed, 4 skipped, normal exit; Ruff lint/format, strict
+  mypy and whitespace passed. After fixing the stale README download artwork,
+  54 affected learning/tracking cases passed and 60 local guide links resolved.
+- Candidate preparation in progress; hosted checks and publication are pending.
+- Earlier source d0981dc passed 357 local tests and exact-source Windows/Linux CI;
+  that evidence alone does not qualify the new versioned release.
+
+## Completion log
+- 2026-11-23: User explicitly designates this as the first public release and
+  authorizes release publication, README update and a social celebration.
+  Selected v1.0.0 as the first stable educational milestone, not full roadmap completion.

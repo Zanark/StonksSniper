@@ -1,4 +1,4 @@
-name: Tests and Windows prototype
+name: Tests and Windows release
 
 on:
   push:
@@ -49,6 +49,9 @@ jobs:
         run: python -m pip install -e ".[packaging]" -r packaging/windows-requirements.txt
       - name: Install test dependencies
         run: python -m pip install -e ".[dev]"
+      - name: Read application version
+        shell: bash
+        run: echo "STONKS_VERSION=$(python -c 'from stonks_sniper import __version__; print(__version__)')" >> "$GITHUB_ENV"
       - name: Lint, format and type checks
         shell: bash
         run: |
@@ -76,7 +79,7 @@ jobs:
           $env:PATH = "$env:SystemRoot\System32;$env:SystemRoot"
           if (Test-Path Env:\PYTHONPATH) { Remove-Item Env:\PYTHONPATH }
           if (Test-Path Env:\PYTHONHOME) { Remove-Item Env:\PYTHONHOME }
-          $exe = Resolve-Path 'dist\windows-v0.3.0\StonksSniper-0.3.0-windows-x64.exe'
+          $exe = Resolve-Path "dist\windows-v${env:STONKS_VERSION}\StonksSniper-${env:STONKS_VERSION}-windows-x64.exe"
           $report = Join-Path $env:RUNNER_TEMP 'stonks-frozen-smoke.json'
           $arguments = @('--smoke-test', "`"$report`"")
           if ($env:LIVE_PROVIDER -eq 'true') { $arguments += '--live' }
@@ -105,7 +108,7 @@ jobs:
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: windows-prototype-${{ github.sha }}
-          path: dist/windows-v0.3.0/*
+          name: windows-release-${{ github.sha }}
+          path: dist/windows-v${{ env.STONKS_VERSION }}/*
           if-no-files-found: error
           retention-days: 14

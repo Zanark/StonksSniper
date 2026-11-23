@@ -17,7 +17,7 @@ version_info = VSVersionInfo(
     kids=[
         StringFileInfo([StringTable("040904B0", [
             StringStruct("CompanyName", "Zanark"),
-            StringStruct("FileDescription", "Stonks Sniper educational prototype"),
+            StringStruct("FileDescription", "Stonks Sniper stock-market learning lab"),
             StringStruct("FileVersion", __version__),
             StringStruct("InternalName", "StonksSniper"),
             StringStruct("OriginalFilename", f"StonksSniper-{__version__}-windows-x64.exe"),

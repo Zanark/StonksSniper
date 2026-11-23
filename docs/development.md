@@ -1,5 +1,21 @@
 # Development and verification
 
+## First public release: v1.0.0
+
+The November 23 public-release milestone includes the complete current learning
+desk: 27 strategies/demos, date-range simulations, the book companion, Market
+tools and Python headless lab. Versioned Windows metadata, source/notices and
+README downloads use v1.0.0; older v0.x releases remain historical prereleases.
+The workflow derives output paths from `stonks_sniper.__version__`, not an old
+hardcoded prototype directory. The pinned Windows dependency baseline is unchanged.
+
+Release qualification requires the exact source SHA, a clean build receipt,
+hosted Windows/Linux checks, actual provider/frozen runtime checks and published
+asset read-back. The Windows application remains unsigned. Local Application
+Control restrictions, clean-machine/DPI and human acceptance are not overridden
+by successful hosted checks. Earlier development evidence below is historical;
+v1.0.0 includes the features previously described as source-only.
+
 ## Local commands
 
 From `C:\devdesk\homedesk\StonksSniper`, after the README setup:
@@ -57,7 +73,7 @@ Watchlist identifiers and full paper evidence export explicitly; existing files
 are refused. Evidence exports contain future captured observations beyond the
 revealed cursor and cannot resume the paper account. Twenty original tool
 lessons are shared with Dictionary. [Coverage, formulas, sources and boundaries](market-tools.md).
-The unchanged v0.3.0 release does not contain these source-only additions.
+These additions are included in v1.0.0, not the historical v0.3.0 release.
 Normal Windows/DPI/human acceptance, live depth, broker fills and profitability
 are not established by these checks.
 
@@ -91,7 +107,8 @@ Other hosts still require their own discovery or explicit Markdown loading.
 The documented actual custom-rule command
 also returned a saved JSON receipt. These are source-native checks, not a new
 frozen EXE qualification, normal-DPI/human acceptance or profitability proof.
-The existing v0.3.0 EXE remains unchanged. [Interface and contracts](agent-lab.md).
+The historical v0.3.0 EXE remains unchanged; v1.0.0 includes the desktop features
+and Python lab. [Interface and contracts](agent-lab.md).
 
 ## Intelligent Investor companion and closed-market study
 
@@ -263,12 +280,12 @@ and windows untouched. The published dependency baseline is pinned in
 `packaging\windows-requirements.txt`; use a new build environment:
 
 ```powershell
-& .\.venv\Scripts\python.exe -m venv build\windows-0.3.0\venv
-& .\build\windows-0.3.0\venv\Scripts\python.exe -m pip install -e '.[packaging]' -r packaging\windows-requirements.txt
-& .\build\windows-0.3.0\venv\Scripts\python.exe scripts\build_windows.py
+& .\.venv\Scripts\python.exe -m venv build\windows-1.0.0\venv
+& .\build\windows-1.0.0\venv\Scripts\python.exe -m pip install -e '.[packaging]' -r packaging\windows-requirements.txt
+& .\build\windows-1.0.0\venv\Scripts\python.exe scripts\build_windows.py
 ```
 
-Output: `C:\devdesk\homedesk\StonksSniper\dist\windows-v0.3.0`.
+Output: `C:\devdesk\homedesk\StonksSniper\dist\windows-v1.0.0`.
 The builder refuses an existing output directory; use `--output` with a fresh
 candidate path for another build. It creates a single-file, windowed EXE with
 the glass ICO, package assets, Qt plugins/chart libraries, timezone/TLS data,
@@ -285,7 +302,7 @@ LGPL**. See [notices](../packaging/THIRD_PARTY_NOTICES.md) and
 From an owned test shell, use a fresh report filename:
 
 ```powershell
-$exe = 'C:\devdesk\homedesk\StonksSniper\dist\windows-v0.3.0\StonksSniper-0.3.0-windows-x64.exe'
+$exe = 'C:\devdesk\homedesk\StonksSniper\dist\windows-v1.0.0\StonksSniper-1.0.0-windows-x64.exe'
 $report = Join-Path $env:TEMP 'stonks-frozen-smoke.json'
 $env:QT_QPA_PLATFORM = 'windows'
 $process = Start-Process -FilePath $exe -ArgumentList @('--smoke-test', "`"$report`"", '--live') -PassThru

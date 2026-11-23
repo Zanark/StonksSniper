@@ -45,6 +45,7 @@ SS-21  21_INTELLIGENT_INVESTOR.todo          M2 book companion and closed-market
 SS-22  22_REAL_MARKET_DEMOS.todo            M2 real-history algorithm learning demos
 SS-23  23_AGENT_SIMULATION_LAB.todo         M2 headless lab and reusable agent skill
 SS-24  24_MARKET_TOOLS.todo                 M2 Kite-inspired beginner practice desk
+SS-25  25_FIRST_PUBLIC_RELEASE.todo         M4 first public release v1.0.0
 
 Provider investigations each retain named option tasks plus the common
 qualification contract in docs/data-providers.md. This register is extensible,
@@ -52,6 +53,11 @@ not a promise to enumerate every service in existence. Integration remains
 read-only market data; account opening, purchases and real trading are excluded.
 
 ## Completion
+
+SS-25 is IN_PROGRESS: prepare and qualify v1.0.0 as the first public release,
+including all current learning features and refreshed README/downloads.
+Publication and social celebration follow exact-source checks; earlier v0.x
+prereleases remain immutable. See 25_FIRST_PUBLIC_RELEASE.todo.
 
 M1 (SS-01 through SS-05): technically complete with representative real-data
 checks and offscreen native inspection. Human acceptance is not recorded.

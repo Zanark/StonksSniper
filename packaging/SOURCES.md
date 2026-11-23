@@ -1,11 +1,11 @@
-# Corresponding source for the v0.3.0 Windows prototype
+# Corresponding source for the v1.0.0 public release
 
 The Windows application is distributed under GPL-3.0-only because Qt Charts
 is GPLv3/commercial. See `LICENSE` and `THIRD_PARTY_NOTICES.md`. Third-party
 components retain their own licenses.
 
 Application, assets, build scripts and pinned requirements:
-https://github.com/Zanark/StonksSniper/archive/refs/tags/v0.3.0.zip
+https://github.com/Zanark/StonksSniper/archive/refs/tags/v1.0.0.zip
 
 Unmodified upstream source archives for the bundled interpreter and Qt:
 
@@ -19,7 +19,7 @@ Unmodified upstream source archives for the bundled interpreter and Qt:
   https://github.com/pyinstaller/pyinstaller/tree/v6.22.3/bootloader
 
 These three upstream archives returned HTTP 200 during v0.2.0 qualification;
-v0.3.0 retains the same upstream dependency pins.
+v1.0.0 retains the same upstream dependency pins.
 No upstream source modifications were made. Exact Python dependency versions and
 the public first-party input hashes are in `build-info.json`; the remaining
 packages' corresponding source distributions are available at

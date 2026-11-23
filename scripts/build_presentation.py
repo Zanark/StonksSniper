@@ -20,6 +20,8 @@ from PySide6.QtGui import QFontDatabase, QImage, QPainter, QPainterPath  # noqa:
 from PySide6.QtSvg import QSvgRenderer  # noqa: E402
 from PySide6.QtWidgets import QApplication  # noqa: E402
 
+from stonks_sniper import __version__  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "src" / "stonks_sniper" / "assets"
 IMAGES = ROOT / "docs" / "images"
@@ -367,7 +369,7 @@ def build_brand() -> None:
     for name, title, subtitle in (
         ("start", "Run the latest source", "Windows / Python / setup"),
         ("guide", "Understand the tool", "Simple lessons / rules / real data"),
-        ("download", "Download prototype", "v0.1.0 / Python package"),
+        ("download", "Download for Windows", f"v{__version__} / First public release"),
     ):
         button = (
             '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="86" '

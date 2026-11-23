@@ -22,8 +22,9 @@ testable rule, run the lab and critique the evidence. Humans can use the native
 lessons/replay and read the same receipts. No broker, account credential, real
 order, autonomous investment mandate, paid feed or deployment is authorised.
 
-The latest source contains the lab and learning demos. The older v0.3.0 EXE does
-not; do not claim these features are present in that download.
+v1.0.0 includes the desktop learning demos and the Python-package headless lab.
+The standalone Windows EXE is GUI-only: use Python/source for lab commands.
+The older v0.3.0 EXE has neither; do not claim otherwise.
 
 ## Find the actual checkout and Python
 

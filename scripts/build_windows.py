@@ -75,7 +75,7 @@ def release_data():
 
 def build(output: Path) -> None:
     if sys.platform != "win32" or platform.machine().lower() not in {"amd64", "x86_64"}:
-        raise RuntimeError("Build this Windows x64 prototype on 64-bit Windows.")
+        raise RuntimeError("Build this Windows x64 release on 64-bit Windows.")
     output.mkdir(parents=True, exist_ok=False)
     subprocess.run(
         [

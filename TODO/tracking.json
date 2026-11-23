@@ -303,6 +303,18 @@
         "state_reason": "completed",
         "project_status": "Done"
       }
+    },
+    "SS-25": {
+      "issue_url": "https://github.com/Zanark/StonksSniper/issues/25",
+      "issue_number": 25,
+      "item_id": "PVTI_lAHOAe2wCs4BrLTxzhLGAd0",
+      "baseline": {
+        "body_sha256": "d20c2511304432622f88d4b7189aab909fdf29656d8e60e4c62eea9b844cbb80",
+        "title": "SS-25 - First public release v1.0.0",
+        "issue_state": "open",
+        "state_reason": null,
+        "project_status": "In Progress"
+      }
     }
   }
 }

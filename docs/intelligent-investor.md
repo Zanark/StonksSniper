@@ -2,7 +2,7 @@
 
 [Guide](guide.md) | [27 technical strategies](strategies.md) | [Run source](getting-started.md)
 
-**Latest source only: this companion is not in the published v0.3.0 EXE.**
+**Included in v1.0.0; this companion is not in the earlier v0.3.0 EXE.**
 
 Open **Learn the patterns**. Its two sections are **Internet technical strategies**
 and **The Intelligent Investor**. The first retains the 27 price-based experiments.

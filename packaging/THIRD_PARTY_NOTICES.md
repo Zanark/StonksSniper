@@ -1,6 +1,6 @@
-# Stonks Sniper Windows prototype: third-party notices
+# Stonks Sniper Windows release: third-party notices
 
-This GPLv3, unsigned educational prototype bundles CPython, PySide6/Qt and Python
+This GPLv3, unsigned educational application bundles CPython, PySide6/Qt and Python
 dependencies. Market observations are downloaded on request, not bundled.
 Yahoo Finance is unofficial, requires internet access and may be unavailable.
 No brokerage credentials, user data or API tokens are included.
@@ -32,5 +32,5 @@ Upstream source and licensing:
 - Other Python dependencies: project URLs in their bundled distribution metadata.
 - Application/build source: https://github.com/Zanark/StonksSniper
 
-These notices document the prototype contents; they are not a completed legal
+These notices document the release contents; they are not a completed legal
 or clean-machine qualification. Broader Windows-delivery acceptance remains open.

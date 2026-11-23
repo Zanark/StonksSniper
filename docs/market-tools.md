@@ -2,7 +2,7 @@
 
 [App guide](guide.md) | [Exact algorithms](strategies.md) | [Agent lab](agent-lab.md)
 
-**Latest source only. The unchanged v0.3.0 executable does not include this desk.**
+**Included in v1.0.0. The earlier v0.3.0 executable does not include this desk.**
 This is an independent educational adaptation, not Zerodha software, a Kite
 clone, an investment recommendation or a promise of complete feature parity.
 

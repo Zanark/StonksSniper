@@ -24,17 +24,17 @@ than inventing them.
 
 ## Learn terminal tools in a practice desk
 
-For terminal tools rather than algorithms, open **Market tools** in the latest
-source. Start with its searchable **Tool guide**, then capture Explore history
+For terminal tools rather than algorithms, open **Market tools** in v1.0.0.
+Start with its searchable **Tool guide**, then capture Explore history
 for watchlists, chart studies/drawings, comparison, historical alerts and
 opening-only paper orders/holdings. Manual risk, allocation, depth and bought-option
 expiry labs label their inputs as hypothetical.
 [Step-by-step route, exact arithmetic and research](market-tools.md).
-No live quote, broker account or real order is supplied; this is not in v0.3.0.
+No live quote, broker account or real order is supplied.
 
 ## Read alongside The Intelligent Investor
 
-In the **latest source**, **Learn the patterns** contains separate
+In **v1.0.0**, **Learn the patterns** contains separate
 **Internet technical strategies** and **The Intelligent Investor** sections.
 The book section has ELI15 notes mapped to all 20 main chapters, with original
 examples, Indian research tasks, source links and explicit limitations.
@@ -46,11 +46,11 @@ The third tab explains inflation, allocation and equal-money purchases.
 Unknown facts do not pass; bank/insurer/utility industrial screens are disabled.
 Current financial statements never enter historical **Simulate**.
 [Full chapter map, formulas, sources and walkthrough](intelligent-investor.md).
-The published **v0.3.0 EXE does not contain this new companion**.
+The earlier v0.3.0 EXE does not contain this companion.
 
 ## Watch a lesson on actual market history
 
-In the latest source, select any of the **27** technical lessons under
+In v1.0.0, select any of the **27** technical lessons under
 **Learn the patterns -> Internet technical strategies**, then click
 **See a real-market demo**. Choose a ticker/exchange and dates to fetch, or
 explicitly use the captured Explore dataset (whose own dates are shown).
@@ -82,7 +82,7 @@ the original workbook is untouched. Missing evidence and sector restrictions
 remain. Other chapters explain why qualitative research or unavailable data
 cannot honestly be turned into an automated demonstration.
 
-These features are source-only, not in the unchanged v0.3.0 EXE.
+These desktop features are included in v1.0.0, not the earlier v0.3.0 EXE.
 For headless use, custom algorithms and LLM-assisted explanations, see the
 [agent lab](agent-lab.md) and its detailed reusable skill.
 

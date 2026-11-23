@@ -11,41 +11,56 @@
 <p align="center">
   <a href="docs/getting-started.md"><img src="docs/images/button-start.svg" width="260" alt="Run the latest source: Windows and Python setup"></a>
   <a href="docs/guide.md"><img src="docs/images/button-guide.svg" width="260" alt="Understand the tool: lessons, rules and real data"></a>
-  <a href="https://github.com/Zanark/StonksSniper/releases/tag/v0.3.0"><img src="docs/images/button-download.svg" width="260" alt="Download Stonks Sniper v0.3.0: standalone Windows x64 executable"></a>
+  <a href="https://github.com/Zanark/StonksSniper/releases/tag/v1.0.0"><img src="docs/images/button-download.svg" width="260" alt="Download Stonks Sniper v1.0.0: first public release, standalone Windows x64 executable"></a>
 </p>
 
-<p align="center"><sub>Windows prototype: download the .exe; no Python or administrator install required. Unsigned; internet required for Yahoo history. <a href="docs/getting-started.md">Run instructions</a> · <a href="docs/guide.md">Written guide / no-motion alternative</a> · <a href="src/stonks_sniper/assets/logo.svg">Still logo</a> · <a href="src/stonks_sniper/assets/logo.ico">Windows / browser icon</a></sub></p>
+<p align="center"><sub>Windows x64: download the .exe; no Python or administrator install required. Unsigned; internet required for Yahoo history. <a href="docs/getting-started.md">Run instructions</a> · <a href="docs/guide.md">Written guide / no-motion alternative</a> · <a href="src/stonks_sniper/assets/logo.svg">Still logo</a> · <a href="src/stonks_sniper/assets/logo.ico">Windows / browser icon</a></sub></p>
+
+## v1.0.0 - Our first public release
+
+[**Download for Windows**](https://github.com/Zanark/StonksSniper/releases/download/v1.0.0/StonksSniper-1.0.0-windows-x64.exe)
+or [read the release notes and checksums](https://github.com/Zanark/StonksSniper/releases/tag/v1.0.0).
+All the learning features below are included: 27 strategies and real-history
+demos, date-range simulations, The Intelligent Investor companion and the
+Market tools practice desk. Python users and agents also get the headless JSON
+lab, custom-rule simulations and reusable teaching skill.
+
+Earlier v0.x downloads remain historical prereleases. This milestone is a
+public educational release, not a brokerage terminal or a claim that a strategy
+will make money. The EXE is unsigned; do not disable Windows security to run it.
 
 ## Pick a stock. Test an idea.
 
 ![Native app replaying actual RELIANCE stock history with practice trades](docs/images/explore.gif)
 *Actual history, revealed day by day. No made-up market data.*
 
-**New in v0.3.0:** **Simulate**, beside **Test idea**, opens a separate date-range
+**Simulate**, beside **Test idea**, opens a separate date-range
 window with playing buy/sell markers, a trade log, money chart and final
 profit/loss in INR and percent. [How it works](docs/guide.md#simulate-your-own-dates).
-The older v0.2.0 EXE does not include this feature.
 
 ## Understand before you test.
 
-**Latest source: a beginner market-tools practice desk.** **Market tools** adds
+**A beginner market-tools practice desk.** **Market tools** adds
 20 original Kite-inspired lessons, captured watchlists, chart studies/drawings,
 common-session comparison, historical close alerts, opening-only paper orders
 with holdings/P&L, and manual risk/allocation/depth/options-expiry labs.
 Every tool distinguishes real observations from hypothetical inputs.
 [Practical route, exact behaviour and official research sources](docs/market-tools.md).
-**No broker login, live feed or real orders; not in the v0.3.0 EXE.**
+**No broker login, live feed or real orders.**
 
-**Latest source: read alongside The Intelligent Investor.** In **Learn the patterns**,
+![Market tools showing actual ICICIBANK history with manually added study annotations](docs/images/market-tools.png)
+*The v1.0.0 practice desk: actual historical prices, clearly separate manual
+annotations and simulation-only tools.*
+
+**Read alongside The Intelligent Investor.** In **Learn the patterns**,
 choose **Internet technical strategies** or **The Intelligent Investor**.
 The book companion adds original ELI15 notes mapped to 20 main chapters,
 a sourced Indian-stock fundamental workbook, defensive/enterprising evidence
 checks, valuation/net-net/margin calculations and portfolio exercises.
 Missing fundamentals stay unknown; these are not 20 new daily trading signals.
 [Coverage, practicals and sources](docs/intelligent-investor.md).
-**This companion is not yet in the v0.3.0 download.**
 
-**Latest source: see the idea on actual market history.** Every technical lesson
+**See the idea on actual market history.** Every technical lesson
 has **See a real-market demo**: pick a stock/history, inspect the rule's actual
 measurements, jump to signals or trades, and compare simulated money with holding.
 Applicable book chapters offer bounded history exercises or a separate current-company
@@ -55,7 +70,8 @@ worksheet. No winning interval is silently selected; losses/no signals remain vi
 teaches the headless JSON lab: real history, hypothetical capital, all 27 built-ins,
 safe custom-rule hypotheses, reproducible receipts and evidence-based explanations.
 It is a teaching/research workflow, not an LLM built into the app or a profit promise.
-These demos and lab are **not in the unchanged v0.3.0 EXE**.
+The desktop demos are in the EXE; run headless commands from the Python package
+or source checkout, not from the GUI-only Windows executable.
 
 ![Explain pattern opening simple lessons with toy-shop and everyday examples](docs/images/learn.gif)
 *The existing technical lessons: what buys, what sells and what can fail.

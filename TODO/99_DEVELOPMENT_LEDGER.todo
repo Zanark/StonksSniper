@@ -20,6 +20,11 @@ Keep a concise causal engineering record; this ledger is not a feature issue.
   order execution or deployment was performed.
 
 ## Completion log
+- 2026-11-23: User authorizes v1.0.0 as the first public release, refreshed README
+  and a milestone celebration. Prepared version/package metadata and release-facing
+  guides; hosted output paths now follow the application version. Kept earlier
+  v0.x tags/assets immutable and all simulation/provider/security limits explicit.
+  Exact-source candidate qualification and publication remain pending under SS-25.
 - 2026-11-23: Completed SS-24's bounded Kite-inspired native practice desk after
   reading official marketwatch/orders/portfolio/charting/funds/widgets/utilities
   and current GTT/settlement support. Older manual GTT/T+2 wording is not copied
